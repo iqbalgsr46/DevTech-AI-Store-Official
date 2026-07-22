@@ -9,7 +9,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Adnan AI Store - Langganan Google AI Pro Lebih Murah",
+  title: "DevTech AI Store - Langganan Google AI Pro Lebih Murah",
   description:
     "Butuh Akses Google AI Pro? Kami Urus Semuanya. Pembayaran QRIS, Proses Cepat, Bergaransi.",
 };
