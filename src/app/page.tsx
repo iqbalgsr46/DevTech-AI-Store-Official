@@ -816,7 +816,8 @@ export default function Home() {
           backgroundColor: isMenuOpen ? "#f8fbfe" : "rgba(255, 255, 255, 0.3)",
         }}
         transition={{ duration: 0.3 }}
-        className="fixed top-0 left-0 w-full z-50 flex flex-col backdrop-blur-md overflow-hidden"
+        style={{ willChange: "background-color, height" }}
+        className="fixed top-0 left-0 w-full z-50 flex flex-col backdrop-blur-md overflow-hidden transform-gpu"
       >
         {/* Top Bar (Logo & Toggle) */}
         <div className="w-full flex items-center justify-between py-4 px-5">
@@ -866,14 +867,16 @@ export default function Home() {
               animate={{ height: "auto" }}
               exit={{ height: 0 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }} // Smooth Deceleration (Apple-like)
-              className="w-full overflow-hidden"
+              style={{ willChange: "height" }}
+              className="w-full overflow-hidden transform-gpu"
             >
               <motion.div 
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
-                className="w-full flex flex-col items-center gap-10 pt-8 pb-10"
+                style={{ willChange: "transform, opacity" }}
+                className="w-full flex flex-col items-center gap-10 pt-8 pb-10 transform-gpu"
               >
                 <a href="#beranda" onClick={(e) => handleNavClick(e, 'beranda')} className="text-[15px] font-medium text-[#181d28] hover:text-[#1b59d9] transition-colors">Beranda</a>
                 <a href="#paket-harga" onClick={(e) => handleNavClick(e, 'paket-harga')} className="text-[15px] font-medium text-[#181d28] hover:text-[#1b59d9] transition-colors">Paket Harga</a>
