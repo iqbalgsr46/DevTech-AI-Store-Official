@@ -1164,7 +1164,7 @@ export default function Home() {
           Infrastruktur komputasi di balik Google AI Pro dirancang oleh insinyur terbaik di planet ini. Mesin kecerdasan buatan kami menjadi tulang punggung revolusi digital dan dipercaya penuh oleh raksasa teknologi global.
         </p>
         
-        <button className="bg-white border border-[#e2e8f0] rounded-full py-2 pl-6 pr-2 flex items-center gap-4 hover:shadow-md transition-shadow mb-20 shadow-sm cursor-pointer">
+        <button className="bg-white border border-[#e2e8f0] rounded-full py-2 pl-6 pr-2 flex items-center justify-center gap-4 hover:shadow-md transition-shadow mb-20 shadow-sm cursor-pointer mx-auto w-fit">
           <span className="text-[#0f172a] font-medium text-[15px]">Jelajahi integrasi ekosistem</span>
           <div className="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center">
             <ArrowRight size={18} />
