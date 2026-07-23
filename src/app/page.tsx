@@ -935,12 +935,12 @@ export default function Home() {
                       transition={{ type: "spring", stiffness: 400, damping: 28 }}
                       className="overflow-hidden w-full flex justify-center"
                     >
-                      <span className="text-[12px] text-[#8492a6] font-bold pb-2 pt-1">Coba gratis!</span>
+                      <span className="text-[12px] text-[#8492a6] font-bold pb-2 pt-1">Resmi & Bergaransi!</span>
                     </motion.div>
                   )}
                 </AnimatePresence>
                 <button className="w-full bg-white border border-[#e5e9f2] text-[#20283e] font-semibold py-2.5 px-5 rounded-[14px] shadow-[0_2px_8px_rgb(0,0,0,0.02)] transition-colors text-[14px]">
-                  Belajar sekarang
+                  Langganan sekarang
                 </button>
               </div>
             </div>
