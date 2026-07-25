@@ -13,9 +13,9 @@ export const metadata: Metadata = {
   description:
     "Butuh Akses Google AI Pro? Kami Urus Semuanya. Pembayaran QRIS, Proses Cepat, Bergaransi.",
   icons: {
-    icon: "/logo.jpeg",
-    shortcut: "/logo.jpeg",
-    apple: "/logo.jpeg",
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
   },
   openGraph: {
     title: "DevTech AI Store - Langganan Google AI Pro",
