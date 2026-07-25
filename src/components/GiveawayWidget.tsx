@@ -13,21 +13,19 @@ export default function GiveawayWidget({
 
   useEffect(() => {
     const updateConstraints = () => {
-      const isMobile = window.innerWidth < 640;
-      if (isMobile) {
-        // Pada HP, posisi awal adalah di bawah (bottom-24). 
-        // Beri padding ekstra agar benar-benar aman di bawah navbar (sekitar 250px dari bawah).
-        setConstraints({
-          top: -(window.innerHeight - 280),
-          bottom: 20, 
-        });
-      } else {
-        // Pada Desktop, posisi awal di tengah layar (top-1/2).
-        setConstraints({
-          top: -(window.innerHeight / 2) + 140, // 140px jarak aman dari navbar
-          bottom: (window.innerHeight / 2) - 100,
-        });
-      }
+      // Posisi awal adalah top-[40%] pada semua perangkat
+      const initialY = window.innerHeight * 0.4;
+      
+      // Batas tarikan ke atas (agar tidak menabrak navbar 80px + padding aman)
+      const maxUp = initialY - 120;
+      
+      // Batas tarikan ke bawah (jangan sampai melewati batas bawah layar)
+      const maxDown = (window.innerHeight - initialY) - 100;
+
+      setConstraints({
+        top: -maxUp,
+        bottom: maxDown,
+      });
     };
     
     updateConstraints();
@@ -71,7 +69,7 @@ export default function GiveawayWidget({
         drag="y"
         dragConstraints={constraints}
         dragElastic={0.1}
-        className="fixed left-4 bottom-24 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 z-[45] cursor-grab active:cursor-grabbing"
+        className="fixed left-4 top-[40%] -translate-y-1/2 z-[45] cursor-grab active:cursor-grabbing"
       >
         <button
           onClick={() => setIsOpen(true)}
