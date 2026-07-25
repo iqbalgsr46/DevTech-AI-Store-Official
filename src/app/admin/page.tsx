@@ -1266,26 +1266,26 @@ function DashboardContent({ user }: { user: User }) {
                 )}
               </div>
             ) : (
-              <div className="overflow-x-auto rounded-xl border border-white/10">
+              <div className="overflow-x-auto rounded-2xl border border-white/5 bg-[#12141c] shadow-xl">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="bg-white/5 text-gray-400 text-xs uppercase">
-                      <th className="text-left px-4 py-3 font-semibold">
+                    <tr className="bg-white/[0.02] text-gray-400 text-[11px] uppercase tracking-wider font-medium border-b border-white/5">
+                      <th className="text-left px-5 py-4">
                         Subscriber
                       </th>
-                      <th className="text-left px-4 py-3 font-semibold hidden sm:table-cell">
+                      <th className="text-left px-5 py-4 hidden sm:table-cell">
                         Paket
                       </th>
-                      <th className="text-left px-4 py-3 font-semibold hidden md:table-cell">
+                      <th className="text-left px-5 py-4 hidden md:table-cell">
                         Mulai
                       </th>
-                      <th className="text-left px-4 py-3 font-semibold">
+                      <th className="text-left px-5 py-4">
                         Berakhir
                       </th>
-                      <th className="text-left px-4 py-3 font-semibold">
+                      <th className="text-left px-5 py-4">
                         Status
                       </th>
-                      <th className="text-right px-4 py-3 font-semibold">
+                      <th className="text-right px-5 py-4">
                         Aksi
                       </th>
                     </tr>
@@ -1297,54 +1297,58 @@ function DashboardContent({ user }: { user: User }) {
                       return (
                         <tr
                           key={sub.id}
-                          className="hover:bg-white/[0.02] transition-colors"
+                          className="hover:bg-white/[0.04] transition-colors group"
                         >
-                          <td className="px-4 py-3">
+                          <td className="px-5 py-4">
                             <div className="font-semibold text-white">
                               {sub.nama}
                             </div>
-                            <div className="text-gray-500 text-xs">
+                            <div className="text-gray-500 text-xs mt-0.5">
                               {sub.email}
                             </div>
-                            <div className="text-gray-600 text-xs sm:hidden mt-0.5">
+                            <div className="text-gray-600 text-xs sm:hidden mt-1">
                               {sub.paket === "super_power"
                                 ? "Super Power"
                                 : "Invitation"}{" "}
                               • {sub.durasi} bln
                             </div>
                           </td>
-                          <td className="px-4 py-3 hidden sm:table-cell">
+                          <td className="px-5 py-4 hidden sm:table-cell">
                             <span
-                              className={`text-xs font-semibold px-2 py-1 rounded-md ${sub.paket === "super_power" ? "bg-blue-500/10 text-blue-400" : "bg-indigo-500/10 text-indigo-400"}`}
+                              className={`text-xs font-semibold px-2.5 py-1 rounded-md ${sub.paket === "super_power" ? "bg-blue-500/10 text-blue-400 border border-blue-500/20" : "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"}`}
                             >
                               {sub.paket === "super_power"
                                 ? "Super Power"
                                 : "Invitation"}
                             </span>
-                            <span className="text-gray-500 text-xs block mt-0.5">
+                            <span className="text-gray-500 text-xs block mt-1.5 font-medium">
                               {sub.durasi} bulan
                             </span>
                           </td>
-                          <td className="px-4 py-3 text-gray-400 text-xs hidden md:table-cell">
+                          <td className="px-5 py-4 text-gray-400 text-xs hidden md:table-cell font-mono">
                             {sub.startDate}
                           </td>
-                          <td className="px-4 py-3">
-                            <div className="text-gray-300 text-xs">
+                          <td className="px-5 py-4">
+                            <div className="text-gray-300 text-xs font-mono">
                               {sub.endDate}
                             </div>
                             {sub.status === "active" && (
                               <RealtimeCountdown endDate={sub.endDate} daysLeft={daysLeft} />
                             )}
                           </td>
-                          <td className="px-4 py-3">
+                          <td className="px-5 py-4">
                             <span
-                              className={`text-xs font-semibold px-2 py-1 rounded-md ${badge.bgColor} ${badge.color}`}
+                              className={`text-xs font-semibold px-2.5 py-1 rounded-md border ${badge.bgColor} ${badge.color} ${
+                                badge.label === "Active" ? "border-emerald-500/20" : 
+                                badge.label === "Expiring" ? "border-amber-500/20" : 
+                                badge.label === "Cancelled" ? "border-gray-500/20" : "border-red-500/20"
+                              }`}
                             >
                               {badge.label}
                             </span>
                           </td>
-                          <td className="px-4 py-3">
-                            <div className="flex items-center justify-end gap-1">
+                          <td className="px-5 py-4">
+                            <div className="flex items-center justify-end gap-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                               <button
                                 onClick={() => {
                                   setSubEditData(sub);
