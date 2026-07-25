@@ -1149,12 +1149,7 @@ export default function Home() {
               {/* Card 2 */}
               <ScrollReveal y={40}>
                 <div className="border border-white/15 rounded-[32px] p-8 sm:p-10 flex flex-col justify-center w-full bg-[#050505] shadow-xl hover:border-white/30 transition-colors">
-                  <div className="flex justify-center mb-6">
-                    <div className="bg-[#f1f5f9] text-[#0f172a] text-[13px] font-medium px-4 py-1.5 rounded-full flex items-center gap-2 shadow-[0_0_15px_rgba(255,255,255,0.1)]">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse"></div>
-                      VIP Member Only
-                    </div>
-                  </div>
+
                   <h3 className="text-white text-[20px] sm:text-[22px] font-bold mb-4 text-center">Gemini Spark Agent<br/>& 5 TB Storage</h3>
                   <p className="text-[#a1a1aa] text-[14px] sm:text-[15px] text-center leading-relaxed">
                     Asisten AI yang bertindak atas nama Anda — kelola kalender, booking jadwal, dan kirim reminder otomatis. Ditambah 5 TB cloud storage untuk Google Drive, Gmail, dan Photos.
