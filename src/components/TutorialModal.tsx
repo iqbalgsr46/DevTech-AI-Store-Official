@@ -115,8 +115,8 @@ export default function TutorialModal({
 
       {/* Modal Content */}
       <div
-        className={`relative bg-white w-full shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200 ${
-          isUnlocked ? "max-w-4xl rounded-xl" : "max-w-md rounded-2xl"
+        className={`relative w-full shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden animate-in zoom-in-95 duration-200 border ${
+          isUnlocked ? "bg-black max-w-4xl rounded-xl border-slate-800" : "bg-slate-900 max-w-md rounded-[24px] border-slate-700/50"
         }`}
       >
         {/* Close Button */}
@@ -128,19 +128,23 @@ export default function TutorialModal({
         </button>
 
         {!isUnlocked ? (
-          /* Locked State */
-          <div className="p-8">
-            <div className="text-center mb-6">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Lock size={32} className="text-blue-600" />
+          /* Locked State (Premium Dark Theme) */
+          <div className="p-8 sm:p-10 relative overflow-hidden">
+            {/* Background Glow */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[200px] h-[200px] bg-blue-500/20 rounded-full blur-[60px] pointer-events-none"></div>
+            
+            <div className="text-center mb-8 relative z-10">
+              <div className="w-24 h-24 bg-gradient-to-br from-slate-800 to-slate-900 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner border border-slate-700/50">
+                <span className="text-6xl drop-shadow-[0_0_15px_rgba(59,130,246,0.6)] leading-none -translate-y-1">🔒</span>
               </div>
-              <h3 className="text-xl font-bold text-slate-800 mb-2">Video Terkunci</h3>
-              <p className="text-sm text-slate-500">
-                Masukkan kunci akses untuk menonton <strong>{title}</strong>
+              <h3 className="text-2xl font-bold text-white mb-2 tracking-tight">Video Terkunci</h3>
+              <p className="text-[15px] text-slate-400 leading-relaxed">
+                Masukkan kunci akses rahasia untuk menonton <br/>
+                <strong className="text-slate-200 font-semibold">{title}</strong>
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
               <div>
                 <input
                   type="text"
@@ -149,24 +153,24 @@ export default function TutorialModal({
                     setInputCode(e.target.value);
                     setError(false);
                   }}
-                  className={`w-full bg-slate-50 border rounded-xl px-4 py-3 text-center text-lg tracking-widest font-semibold focus:outline-none transition-colors ${
-                    error ? "border-red-500 text-red-600" : "border-slate-200 focus:border-blue-500 text-slate-800"
+                  className={`w-full bg-slate-950/50 border rounded-xl px-5 py-4 text-center text-xl tracking-[0.2em] font-bold focus:outline-none transition-all shadow-inner backdrop-blur-sm ${
+                    error ? "border-red-500/50 text-red-400 focus:ring-1 focus:ring-red-500/50" : "border-slate-700/50 focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 text-white placeholder-slate-600"
                   }`}
                   placeholder="KODE KUNCI"
                   autoFocus
                 />
                 {error && (
-                  <p className="text-red-500 text-xs mt-2 flex items-center justify-center gap-1">
-                    <AlertCircle size={14} /> Kunci tidak valid, silakan coba lagi.
+                  <p className="text-red-400 text-sm mt-3 flex items-center justify-center gap-1.5 font-medium">
+                    <AlertCircle size={16} /> Kunci tidak valid, coba lagi.
                   </p>
                 )}
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-colors flex items-center justify-center gap-2"
+                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 border border-blue-400/20 text-white font-semibold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(37,99,235,0.25)] hover:shadow-[0_0_25px_rgba(37,99,235,0.4)] hover:-translate-y-0.5 active:translate-y-0"
               >
-                <Play size={18} /> Buka Video
+                <Play size={18} className="fill-white" /> Buka Video Sekarang
               </button>
             </form>
           </div>
