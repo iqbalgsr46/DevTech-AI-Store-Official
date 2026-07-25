@@ -1529,7 +1529,7 @@ export default function Home() {
             <a href="https://wa.me/6285872066832" target="_blank" rel="noopener noreferrer" className="w-[34px] h-[34px] flex items-center justify-center hover:scale-110 transition-transform bg-[#25D366] rounded-[10px] shadow-sm">
               <MessageCircle size={20} className="text-white" />
             </a>
-            <a href="#" className="w-[34px] h-[34px] flex items-center justify-center hover:scale-110 transition-transform shadow-sm overflow-hidden rounded-[10px]">
+            <a href="https://www.tiktok.com/@devtech_official_store?_r=1&_t=ZS-98KjKmDZNMi" target="_blank" rel="noopener noreferrer" className="w-[34px] h-[34px] flex items-center justify-center hover:scale-110 transition-transform shadow-sm overflow-hidden rounded-[10px]">
               <img src="/download.png" alt="TikTok" className="w-full h-full object-contain" />
             </a>
           </div>
