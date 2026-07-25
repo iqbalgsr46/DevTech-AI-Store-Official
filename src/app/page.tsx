@@ -989,13 +989,13 @@ export default function Home() {
         <div className="grid grid-cols-2 gap-x-8 sm:gap-x-24 gap-y-12 sm:gap-y-14 w-full max-w-[600px] mb-28 mx-auto text-center">
           <div className="flex flex-col items-center">
             <span className={`text-[24px] sm:text-[28px] font-medium text-[#1c1d20] mb-2 leading-none tracking-tight ${quicksand.className}`}>
-              <CountUp to={250000} suffix="+" />
+              <CountUp to={89} suffix="+" />
             </span>
             <span className="text-[#6b7280] text-[14px] sm:text-[15px]">Pelanggan Aktif</span>
           </div>
           <div className="flex flex-col items-center">
             <span className={`text-[24px] sm:text-[28px] font-medium text-[#1c1d20] mb-2 leading-none tracking-tight ${quicksand.className}`}>
-              <CountUp to={1500000} suffix="+" />
+              <CountUp to={125} suffix="+" />
             </span>
             <span className="text-[#6b7280] text-[14px] sm:text-[15px]">Total Transaksi</span>
           </div>
