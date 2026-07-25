@@ -1452,10 +1452,35 @@ function DashboardContent({ user }: { user: User }) {
               </div>
             ) : (
               <div className="grid gap-3">
-                {vouchers.map((v) => (
+                {vouchers.map((v) => {
+                  const today = new Date().toISOString().split("T")[0];
+                  const isExpired = v.expiredAt && v.expiredAt < today;
+                  const isHabis = (v.currentUses || 0) >= v.maxUses;
+                  
+                  let statusText = "Nonaktif";
+                  let statusColor = "bg-slate-50 text-slate-500 border-slate-200";
+                  let borderClass = "border-slate-100 opacity-50";
+
+                  if (!v.isActive) {
+                    statusText = "Nonaktif";
+                  } else if (isExpired) {
+                    statusText = "Kedaluwarsa";
+                    statusColor = "bg-red-50 text-red-700 border-red-200";
+                    borderClass = "border-red-200";
+                  } else if (isHabis) {
+                    statusText = "Habis";
+                    statusColor = "bg-orange-50 text-orange-700 border-orange-200";
+                    borderClass = "border-orange-200";
+                  } else {
+                    statusText = "Aktif";
+                    statusColor = "bg-emerald-50 text-emerald-700 border-emerald-200";
+                    borderClass = "border-slate-200";
+                  }
+
+                  return (
                   <div
                     key={v.code}
-                    className={`bg-slate-50 border rounded-xl p-4 flex flex-col sm:flex-row sm:items-center gap-3 ${v.isActive ? "border-slate-200" : "border-slate-100 opacity-50"}`}
+                    className={`bg-slate-50 border rounded-xl p-4 flex flex-col sm:flex-row sm:items-center gap-3 ${borderClass}`}
                   >
                     <div className="flex-grow">
                       <div className="flex items-center gap-2 mb-1">
@@ -1463,9 +1488,9 @@ function DashboardContent({ user }: { user: User }) {
                           {v.code}
                         </code>
                         <span
-                          className={`text-[11px] font-bold px-2 py-0.5 rounded-full border ${v.isActive ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-slate-50 text-slate-500 border-slate-200"}`}
+                          className={`text-[11px] font-bold px-2 py-0.5 rounded-full border ${statusColor}`}
                         >
-                          {v.isActive ? "Aktif" : "Nonaktif"}
+                          {statusText}
                         </span>
                       </div>
                       <p className="text-slate-500 text-xs">
@@ -1500,7 +1525,7 @@ function DashboardContent({ user }: { user: User }) {
                       </button>
                     </div>
                   </div>
-                ))}
+                )})}
               </div>
             )}
           </div>
