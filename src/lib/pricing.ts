@@ -125,7 +125,7 @@ export const FITUR_AI_PRO = [
     icon: "⚡",
     judul: "Limit Token Hemat & Refresh Cepat",
     deskripsi:
-      "Limit token berlapis ganda untuk pemakaian intensif. Kuota refresh otomatis setiap 5 jam — ideal untuk programmer yang sering coding dengan Antigravity IDE, Cursor, dan tools AI coding lainnya.",
+      "Limit token berlapis ganda untuk pemakaian intensif. Kuota refresh otomatis setiap 5 jam — ideal untuk programmer yang sering coding dengan Antigravity IDE dan tools AI coding lainnya.",
   },
   {
     icon: "📦",

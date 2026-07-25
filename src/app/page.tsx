@@ -1073,7 +1073,7 @@ export default function Home() {
             <ScrollReveal y={20}>
               <h2 className="text-white text-2xl sm:text-[32px] font-bold mb-4 text-center z-10">Senjata Rahasia Programmer</h2>
               <p className="text-[#e5e7eb] text-[14px] sm:text-[15px] text-center max-w-lg leading-relaxed z-10 font-medium mx-auto">
-                Limit token berlapis ganda yang refresh setiap 5 jam. Ideal untuk coding intensif di Antigravity IDE, Cursor, dan tools AI coding lainnya. Tingkatkan produktivitas coding Anda 10x lipat.
+                Limit token berlapis ganda yang refresh setiap 5 jam. Ideal untuk coding intensif di Antigravity IDE dan tools AI coding lainnya. Tingkatkan produktivitas coding Anda 10x lipat.
               </p>
             </ScrollReveal>
             
