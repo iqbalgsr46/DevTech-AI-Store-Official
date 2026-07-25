@@ -929,8 +929,8 @@ export default function Home() {
       {/* Main Content */}
       <div id="beranda" className="relative z-10 flex-grow flex flex-col items-center px-4 text-center w-full pb-24">
         <ScrollReveal y={20} className="flex-grow flex flex-col w-full">
-          {/* Text Container vertically centered but nudged downwards */}
-          <div className="flex-grow flex flex-col justify-center w-full min-h-[40vh] pt-16 sm:pt-24 mt-32 sm:mt-48">
+          {/* Text Container vertically centered */}
+          <div className="flex-grow flex flex-col justify-center w-full min-h-[40vh] pt-16 sm:pt-20 mt-20 sm:mt-24 md:mt-16">
             <h1 className="text-[22px] sm:text-3xl md:text-4xl font-medium text-[#2d3748] leading-relaxed w-full max-w-3xl mx-auto">
               Akses Penuh Google AI Pro<br />
               Gemini 3.1 Pro<br />
