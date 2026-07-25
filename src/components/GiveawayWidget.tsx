@@ -19,8 +19,8 @@ export default function GiveawayWidget({
       // Batas tarikan ke atas (agar tidak menabrak navbar 80px + padding aman)
       const maxUp = initialY - 120;
       
-      // Batas tarikan ke bawah (jangan sampai melewati batas bawah layar)
-      const maxDown = (window.innerHeight - initialY) - 100;
+      // Batas tarikan ke bawah (jangan sampai menabrak tombol/elemen di bagian bawah layar)
+      const maxDown = (window.innerHeight - initialY) - 140;
 
       setConstraints({
         top: -maxUp,
