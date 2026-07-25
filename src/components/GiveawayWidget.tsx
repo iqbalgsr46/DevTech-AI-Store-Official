@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Gift, X, ExternalLink, CheckCircle2 } from "lucide-react";
 import { WebsiteSettings } from "@/lib/database";
+import { motion } from "framer-motion";
 
 export default function GiveawayWidget({
   settings,
@@ -40,14 +41,21 @@ export default function GiveawayWidget({
           box-shadow: 0 0 25px rgba(244, 63, 94, 0.6), inset 0 0 12px rgba(255, 255, 255, 0.4);
         }
       `}</style>
-      {/* Floating Gift Icon */}
-      <button
-        onClick={() => setIsOpen(true)}
-        className="fixed left-4 bottom-24 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 z-[45] hover:scale-110 active:scale-95 transition-all animate-gift-float"
-        aria-label="Giveaway"
+      {/* Draggable Floating Gift Icon */}
+      <motion.div
+        drag="y"
+        dragConstraints={{ top: -300, bottom: 300 }}
+        dragElastic={0.1}
+        className="fixed left-4 bottom-24 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 z-[45] cursor-grab active:cursor-grabbing"
       >
-        <span className="text-5xl sm:text-6xl gift-emoji leading-none">🎁</span>
-      </button>
+        <button
+          onClick={() => setIsOpen(true)}
+          className="hover:scale-110 active:scale-95 transition-all animate-gift-float"
+          aria-label="Giveaway"
+        >
+          <span className="text-5xl sm:text-6xl gift-emoji leading-none">🎁</span>
+        </button>
+      </motion.div>
 
       {/* Modal Popup */}
       {isOpen && (
