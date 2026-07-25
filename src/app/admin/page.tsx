@@ -975,16 +975,14 @@ function DashboardContent({ user }: { user: User }) {
       <header className="md:hidden sticky top-0 z-40 bg-white border-b border-slate-200">
         <div className="px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <Shield size={16} className="text-white" />
-            </div>
+            <img src="/logo.jpeg" alt="Logo" className="w-8 h-8 rounded-full object-cover shadow-sm border border-slate-200" />
             <h1 className="text-sm font-bold">Admin Panel</h1>
           </div>
           <button
             onClick={() => signOut(auth)}
-            className="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center"
+            className="text-xs font-bold text-red-600 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg transition-colors"
           >
-            <LogOut size={16} />
+            Keluar
           </button>
         </div>
         <div className="flex overflow-x-auto px-2 pb-2 scrollbar-hide gap-1">
@@ -1011,9 +1009,7 @@ function DashboardContent({ user }: { user: User }) {
       <aside className="hidden md:flex flex-col w-64 bg-white border-r border-slate-200 sticky top-0 h-screen shrink-0">
         <div className="p-6 border-b border-slate-100">
           <div className="flex items-center gap-3 mb-1">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-sm">
-              <Shield size={18} className="text-white" />
-            </div>
+            <img src="/logo.jpeg" alt="Logo" className="w-8 h-8 rounded-full object-cover shadow-sm border border-slate-200" />
             <h1 className="text-lg font-bold tracking-tight">Admin Panel</h1>
           </div>
           <p className="text-slate-400 text-xs truncate pl-11">{user.email}</p>
