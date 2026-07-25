@@ -251,10 +251,10 @@ function SubscriberFormModal({
     >
       <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" />
       <div
-        className="relative bg-[#1a1d27] rounded-2xl w-full max-w-[480px] max-h-[90vh] overflow-y-auto border border-slate-200 shadow-2xl"
+        className="relative bg-white rounded-2xl w-full max-w-[480px] max-h-[90vh] overflow-y-auto border border-slate-200 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="sticky top-0 bg-[#1a1d27] px-6 py-4 border-b border-slate-200 flex items-center justify-between z-10">
+        <div className="sticky top-0 bg-white px-6 py-4 border-b border-slate-200 flex items-center justify-between z-10">
           <h3 className="text-lg font-bold">
             {editData ? "Edit Subscriber" : "Tambah Subscriber"}
           </h3>
@@ -321,10 +321,10 @@ function SubscriberFormModal({
                   }
                   className="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 text-sm shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 appearance-none"
                 >
-                  <option value="super_power" className="bg-[#1a1d27]">
+                  <option value="super_power" className="bg-white">
                     Super Power
                   </option>
-                  <option value="invitation" className="bg-[#1a1d27]">
+                  <option value="invitation" className="bg-white">
                     Invitation
                   </option>
                 </select>
@@ -392,13 +392,13 @@ function SubscriberFormModal({
                     }
                     className="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 text-sm shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 appearance-none"
                   >
-                    <option value="active" className="bg-[#1a1d27]">
+                    <option value="active" className="bg-white">
                       Active
                     </option>
-                    <option value="expired" className="bg-[#1a1d27]">
+                    <option value="expired" className="bg-white">
                       Expired
                     </option>
-                    <option value="cancelled" className="bg-[#1a1d27]">
+                    <option value="cancelled" className="bg-white">
                       Cancelled
                     </option>
                   </select>
@@ -497,7 +497,7 @@ function VoucherFormModal({
     >
       <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" />
       <div
-        className="relative bg-[#1a1d27] rounded-2xl w-full max-w-[420px] border border-slate-200 shadow-2xl"
+        className="relative bg-white rounded-2xl w-full max-w-[420px] border border-slate-200 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
@@ -544,10 +544,10 @@ function VoucherFormModal({
                   }
                   className="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 text-sm shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 appearance-none"
                 >
-                  <option value="percentage" className="bg-[#1a1d27]">
+                  <option value="percentage" className="bg-white">
                     Persen (%)
                   </option>
-                  <option value="fixed" className="bg-[#1a1d27]">
+                  <option value="fixed" className="bg-white">
                     Nominal (Rp)
                   </option>
                 </select>
@@ -953,7 +953,7 @@ function DashboardContent({ user }: { user: User }) {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800">
+    <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col md:flex-row">
       {/* Toast */}
       {toast && (
         <Toast
@@ -963,61 +963,93 @@ function DashboardContent({ user }: { user: User }) {
         />
       )}
 
-      {/* Header */}
-      <header className="sticky top-0 z-40 bg-[#0f1117]/95 backdrop-blur-md border-b border-slate-100">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-blue-500/15 rounded-lg flex items-center justify-center">
-              <Shield size={16} className="text-blue-400" />
+      {/* Mobile Header & Tabs */}
+      <header className="md:hidden sticky top-0 z-40 bg-white border-b border-slate-200">
+        <div className="px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+              <Shield size={16} className="text-white" />
             </div>
-            <div>
-              <h1 className="text-base font-bold leading-tight">
-                Admin Dashboard
-              </h1>
-              <p className="text-slate-500 text-[11px]">{user.email}</p>
-            </div>
+            <h1 className="text-sm font-bold">Admin Panel</h1>
           </div>
-          <div className="flex items-center gap-3">
-            <a
-              href="/"
-              className="text-slate-500 hover:text-slate-600 text-xs font-medium transition-colors hidden sm:flex items-center gap-1"
-            >
-              <Home size={13} /> Website
-            </a>
-            <button
-              onClick={() => signOut(auth)}
-              className="flex items-center gap-1.5 text-slate-500 hover:text-red-400 text-xs font-medium transition-colors bg-slate-50 px-3 py-1.5 rounded-lg hover:bg-red-500/10"
-            >
-              <LogOut size={14} /> Keluar
-            </button>
-          </div>
+          <button
+            onClick={() => signOut(auth)}
+            className="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center"
+          >
+            <LogOut size={16} />
+          </button>
         </div>
-      </header>
-
-      {/* Tabs */}
-      <div className="border-b border-slate-100">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 flex gap-1">
+        <div className="flex overflow-x-auto px-2 pb-2 scrollbar-hide gap-1">
           {TABS.map((tab) => {
             const Icon = tab.icon;
             return (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+                className={`flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg whitespace-nowrap transition-colors ${
                   activeTab === tab.id
-                    ? "border-blue-500 text-blue-400"
-                    : "border-transparent text-slate-500 hover:text-slate-600"
+                    ? "bg-blue-50 text-blue-600"
+                    : "text-slate-500 hover:bg-slate-100"
                 }`}
               >
-                <Icon size={16} /> {tab.label}
+                <Icon size={14} /> {tab.label}
               </button>
             );
           })}
         </div>
-      </div>
+      </header>
 
-      {/* Content */}
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-6">
+      {/* Desktop Sidebar */}
+      <aside className="hidden md:flex flex-col w-64 bg-white border-r border-slate-200 sticky top-0 h-screen shrink-0">
+        <div className="p-6 border-b border-slate-100">
+          <div className="flex items-center gap-3 mb-1">
+            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-sm">
+              <Shield size={18} className="text-white" />
+            </div>
+            <h1 className="text-lg font-bold tracking-tight">Admin Panel</h1>
+          </div>
+          <p className="text-slate-400 text-xs truncate pl-11">{user.email}</p>
+        </div>
+        
+        <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+          {TABS.map((tab) => {
+            const Icon = tab.icon;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                  activeTab === tab.id
+                    ? "bg-blue-50 text-blue-600 shadow-sm"
+                    : "text-slate-500 hover:bg-slate-50 hover:text-slate-700"
+                }`}
+              >
+                <Icon size={18} className={activeTab === tab.id ? "text-blue-600" : "text-slate-400"} /> 
+                {tab.label}
+              </button>
+            );
+          })}
+        </nav>
+
+        <div className="p-4 border-t border-slate-100">
+          <a
+            href="/"
+            className="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-500 hover:text-slate-700 hover:bg-slate-50 rounded-xl transition-colors mb-1"
+          >
+            <Home size={18} className="text-slate-400" /> Kunjungi Website
+          </a>
+          <button
+            onClick={() => signOut(auth)}
+            className="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 rounded-xl transition-colors"
+          >
+            <LogOut size={18} className="text-red-500" /> Keluar
+          </button>
+        </div>
+      </aside>
+
+      {/* Main Content Area */}
+      <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
+        <div className="p-4 sm:p-6 lg:p-8 w-full max-w-[1200px] mx-auto">
         {/* ====================== OVERVIEW TAB ====================== */}
         {activeTab === "overview" && (
           <div>
@@ -1194,16 +1226,16 @@ function DashboardContent({ user }: { user: User }) {
                     onChange={(e) => setStatusFilter(e.target.value)}
                     className="px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 text-sm shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 appearance-none pr-8"
                   >
-                    <option value="all" className="bg-[#1a1d27]">
+                    <option value="all" className="bg-white">
                       Semua Status
                     </option>
-                    <option value="active" className="bg-[#1a1d27]">
+                    <option value="active" className="bg-white">
                       Active
                     </option>
-                    <option value="expired" className="bg-[#1a1d27]">
+                    <option value="expired" className="bg-white">
                       Expired
                     </option>
-                    <option value="cancelled" className="bg-[#1a1d27]">
+                    <option value="cancelled" className="bg-white">
                       Cancelled
                     </option>
                   </select>
@@ -1266,7 +1298,7 @@ function DashboardContent({ user }: { user: User }) {
                 )}
               </div>
             ) : (
-              <div className="overflow-x-auto rounded-2xl border border-slate-100 bg-[#12141c] shadow-xl">
+              <div className="overflow-x-auto rounded-2xl border border-slate-100 bg-white shadow-xl">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="bg-white/[0.02] text-slate-500 text-[11px] uppercase tracking-wider font-medium border-b border-slate-100">
@@ -1494,7 +1526,8 @@ function DashboardContent({ user }: { user: User }) {
             )}
           </div>
         )}
-      </div>
+        </div>
+      </main>
 
       {/* Modals */}
       <SubscriberFormModal
