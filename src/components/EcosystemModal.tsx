@@ -107,9 +107,9 @@ export default function EcosystemModal({ isOpen, onClose }: EcosystemModalProps)
                 initial={{ rotate: -15, scale: 0.8 }}
                 animate={{ rotate: 0, scale: 1 }}
                 transition={{ type: "spring", damping: 15, stiffness: 200, delay: 0.2 }}
-                className="w-12 h-12 bg-[#2563eb] rounded-[14px] flex items-center justify-center mb-5 shadow-[0_8px_20px_rgba(37,99,235,0.25)]"
+                className="w-12 h-12 flex items-center justify-center mb-5"
               >
-                <Sparkles size={24} className="text-white" />
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg" alt="Gemini Logo" className="w-10 h-10 object-contain drop-shadow-sm" />
               </motion.div>
               <h2 className="text-[24px] sm:text-[28px] font-bold text-[#0f172a] leading-tight mb-2 tracking-tight">
                 Integrasi Ekosistem Google
