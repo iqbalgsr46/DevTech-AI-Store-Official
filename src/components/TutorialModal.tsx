@@ -42,6 +42,69 @@ export default function TutorialModal({
     }
   };
 
+  const renderVideoPlayer = (url: string) => {
+    try {
+      const urlObj = new URL(url);
+      
+      // Deteksi YouTube
+      if (urlObj.hostname.includes("youtube.com") || urlObj.hostname.includes("youtu.be")) {
+        let videoId = "";
+        if (urlObj.hostname.includes("youtu.be")) {
+          videoId = urlObj.pathname.slice(1);
+        } else {
+          videoId = urlObj.searchParams.get("v") || "";
+        }
+        if (videoId) {
+          return (
+            <iframe
+              className="w-full h-full max-h-[80vh]"
+              src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            ></iframe>
+          );
+        }
+      }
+
+      // Deteksi Google Drive
+      if (urlObj.hostname.includes("drive.google.com")) {
+        const embedUrl = url.replace(/\/view.*$/, "/preview");
+        return (
+          <iframe
+            className="w-full h-full max-h-[80vh]"
+            src={embedUrl}
+            title="Google Drive video player"
+            frameBorder="0"
+            allow="autoplay"
+            allowFullScreen
+          ></iframe>
+        );
+      }
+
+      // Default (MP4 URL / File langsung)
+      return (
+        <video
+          src={url}
+          controls
+          autoPlay
+          controlsList="nodownload"
+          className="w-full h-full max-h-[80vh] object-contain"
+        >
+          Browser Anda tidak mendukung pemutar video HTML5.
+        </video>
+      );
+    } catch (e) {
+      return (
+        <div className="text-slate-500 flex flex-col items-center gap-2">
+          <AlertCircle size={32} />
+          <p>Format URL Video tidak valid.</p>
+        </div>
+      );
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
       {/* Backdrop */}
@@ -116,15 +179,7 @@ export default function TutorialModal({
             
             <div className="relative w-full aspect-video bg-black flex items-center justify-center">
               {videoUrl ? (
-                <video
-                  src={videoUrl}
-                  controls
-                  autoPlay
-                  controlsList="nodownload"
-                  className="w-full h-full max-h-[80vh] object-contain"
-                >
-                  Browser Anda tidak mendukung pemutar video HTML5.
-                </video>
+                renderVideoPlayer(videoUrl)
               ) : (
                 <div className="text-slate-500 flex flex-col items-center gap-2">
                   <AlertCircle size={32} />
