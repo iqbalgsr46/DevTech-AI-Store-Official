@@ -842,7 +842,7 @@ export default function Home() {
         animate={{ y: 0 }}
         transition={{ duration: 0.3 }}
         style={{ willChange: "background-color, height" }}
-        className="fixed top-0 left-0 w-full z-50 flex flex-col backdrop-blur-md overflow-hidden transform-gpu bg-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.03)]"
+        className={`fixed top-0 left-0 w-full z-50 flex flex-col backdrop-blur-md overflow-hidden transform-gpu transition-colors duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.03)] ${isMenuOpen ? "bg-white" : "bg-white/20"}`}
       >
         {/* Top Bar (Logo, Desktop Links & Mobile Toggle) */}
         <div className="w-full max-w-[1200px] mx-auto flex items-center justify-between py-4 px-5">
