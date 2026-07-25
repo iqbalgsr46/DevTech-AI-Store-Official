@@ -12,6 +12,16 @@ export const metadata: Metadata = {
   title: "DevTech AI Store - Langganan Google AI Pro Lebih Murah",
   description:
     "Butuh Akses Google AI Pro? Kami Urus Semuanya. Pembayaran QRIS, Proses Cepat, Bergaransi.",
+  icons: {
+    icon: "/logo.jpeg",
+    shortcut: "/logo.jpeg",
+    apple: "/logo.jpeg",
+  },
+  openGraph: {
+    title: "DevTech AI Store - Langganan Google AI Pro",
+    description: "Butuh Akses Google AI Pro? Kami Urus Semuanya. Pembayaran QRIS, Proses Cepat, Bergaransi.",
+    images: ["/logo.jpeg"],
+  },
 };
 
 export default function RootLayout({
