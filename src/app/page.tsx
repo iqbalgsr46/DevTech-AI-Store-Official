@@ -973,7 +973,7 @@ export default function Home() {
                   )}
                 </AnimatePresence>
                 <button onClick={() => document.getElementById('paket-harga')?.scrollIntoView({ behavior: 'smooth' })} className="w-full bg-white border border-[#e5e9f2] text-[#20283e] font-semibold py-2.5 px-5 rounded-[14px] shadow-[0_2px_8px_rgb(0,0,0,0.02)] transition-colors text-[14px] cursor-pointer">
-                  Langganan sekarang
+                  Order Sekarang
                 </button>
               </div>
             </div>
@@ -1280,7 +1280,7 @@ export default function Home() {
 </section>
 
       {/* Scholarship Section */}
-      <section id="paket-harga" className="w-full bg-gradient-to-b from-[#f4f6f9] via-[#EBF3FC] to-white py-24 flex flex-col items-center relative overflow-hidden -mt-1">
+      <section id="paket-harga" className="w-full bg-gradient-to-b from-[#f4f6f9] via-[#EBF3FC] to-white py-24 flex flex-col items-center relative overflow-hidden -mt-1 scroll-mt-20 sm:scroll-mt-24">
 <ScrollReveal>
         <style dangerouslySetInnerHTML={{__html: `
           .scrollbar-hide::-webkit-scrollbar {
@@ -1291,7 +1291,7 @@ export default function Home() {
           Akses Kekuatan Penuh <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">AI Pro</span><br/>Tanpa Menguras Kantong
         </h2>
         
-        <p className="text-[#475569] text-[14px] sm:text-[15px] text-center leading-relaxed mb-32 px-10 sm:px-4 max-w-[550px]">
+        <p className="text-[#475569] text-[14px] sm:text-[15px] text-center leading-relaxed mb-10 sm:mb-12 px-10 sm:px-4 max-w-[550px]">
           Ribuan profesional telah membuktikan kehebatannya. Kini giliran Anda! Pilih paket super hemat yang paling pas dengan kebutuhan produktivitas harian Anda.
         </p>
         
