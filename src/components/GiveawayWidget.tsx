@@ -18,13 +18,35 @@ export default function GiveawayWidget({
 
   return (
     <>
+      <style>{`
+        @keyframes float-gift {
+          0%, 100% { transform: translateY(0) scale(1); filter: drop-shadow(0 10px 15px rgba(244, 63, 94, 0.4)); }
+          50% { transform: translateY(-15px) scale(1.05); filter: drop-shadow(0 25px 20px rgba(244, 63, 94, 0.2)); }
+        }
+        @keyframes wiggle-gift {
+          0%, 100% { transform: rotate(0deg); }
+          25% { transform: rotate(-8deg); }
+          75% { transform: rotate(8deg); }
+        }
+        .animate-gift-float {
+          animation: float-gift 3.5s ease-in-out infinite;
+        }
+        .gift-emoji {
+          display: inline-block;
+          animation: wiggle-gift 4s ease-in-out infinite;
+          filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+        }
+        .gift-button-glow {
+          box-shadow: 0 0 25px rgba(244, 63, 94, 0.6), inset 0 0 12px rgba(255, 255, 255, 0.4);
+        }
+      `}</style>
       {/* Floating Gift Icon */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed left-4 bottom-24 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 z-[45] bg-gradient-to-r from-pink-500 to-rose-500 text-white p-3 sm:p-4 rounded-full shadow-lg hover:scale-110 active:scale-95 transition-all animate-bounce"
+        className="fixed left-4 bottom-24 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 z-[45] bg-gradient-to-br from-pink-400 via-rose-500 to-red-500 text-white p-3 sm:p-4 rounded-full hover:scale-110 active:scale-95 transition-all animate-gift-float gift-button-glow border-2 border-white/40 backdrop-blur-sm"
         aria-label="Giveaway"
       >
-        <Gift size={28} />
+        <span className="text-4xl sm:text-5xl gift-emoji leading-none">🎁</span>
       </button>
 
       {/* Modal Popup */}
@@ -43,8 +65,8 @@ export default function GiveawayWidget({
             </button>
 
             <div className="text-center mb-6">
-              <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Gift size={32} className="text-pink-600" />
+              <div className="w-20 h-20 bg-gradient-to-br from-pink-100 to-rose-100 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner border border-white">
+                <span className="text-5xl gift-emoji leading-none">🎁</span>
               </div>
 
               {!giveaway.isActive ? (
