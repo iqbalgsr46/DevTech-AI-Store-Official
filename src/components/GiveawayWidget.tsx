@@ -43,10 +43,10 @@ export default function GiveawayWidget({
       {/* Floating Gift Icon */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed left-4 bottom-24 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 z-[45] bg-gradient-to-br from-pink-400 via-rose-500 to-red-500 text-white p-3 sm:p-4 rounded-full hover:scale-110 active:scale-95 transition-all animate-gift-float gift-button-glow border-2 border-white/40 backdrop-blur-sm"
+        className="fixed left-4 bottom-24 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 z-[45] hover:scale-110 active:scale-95 transition-all animate-gift-float"
         aria-label="Giveaway"
       >
-        <span className="text-4xl sm:text-5xl gift-emoji leading-none">🎁</span>
+        <span className="text-5xl sm:text-6xl gift-emoji leading-none">🎁</span>
       </button>
 
       {/* Modal Popup */}
