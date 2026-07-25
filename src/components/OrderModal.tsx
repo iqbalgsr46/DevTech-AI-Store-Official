@@ -79,23 +79,40 @@ export default function OrderModal({ isOpen, onClose, paketType, basePrice }: Or
   };
 
   const handleSubmit = () => {
-    const link = generateWhatsAppLink({
-      paket: paketType,
-      nama,
-      email,
-      whatsapp,
-      durasi: paketType === "super_power" ? 18 : durasi,
-      harga,
-      voucherCode: voucherResult?.valid ? voucherInput.toUpperCase() : null,
-      diskon: diskonInfo?.potongan || 0,
-      totalBayar,
-    });
+    let orderData: any;
+    
+    if (paketType === "super_power") {
+      orderData = {
+        paket: "super_power",
+        nama,
+        harga,
+        voucherCode: voucherResult?.valid ? voucherInput.toUpperCase() : null,
+        diskon: diskonInfo?.potongan || 0,
+        totalBayar,
+      };
+    } else {
+      orderData = {
+        paket: "invitation",
+        nama,
+        email,
+        whatsapp,
+        durasi,
+        harga,
+        voucherCode: voucherResult?.valid ? voucherInput.toUpperCase() : null,
+        diskon: diskonInfo?.potongan || 0,
+        totalBayar,
+      };
+    }
+
+    const link = generateWhatsAppLink(orderData);
     window.open(link, "_blank");
     handleClose();
   };
 
   const canProceedStep1 = durasi >= 1 && durasi <= 12;
-  const canProceedStep2 = nama.trim() !== "" && email.trim() !== "" && whatsapp.trim() !== "";
+  const canProceedStep2 = paketType === "super_power"
+    ? nama.trim() !== ""
+    : nama.trim() !== "" && email.trim() !== "" && whatsapp.trim() !== "";
 
   if (!isOpen) return null;
 
@@ -253,32 +270,36 @@ export default function OrderModal({ isOpen, onClose, paketType, basePrice }: Or
                       </div>
 
                       {/* Email */}
-                      <div>
-                        <label className="block text-[12px] font-semibold text-gray-600 mb-1">
-                          Email Google <span className="text-gray-400 font-normal">(yang akan diundang)</span>
-                        </label>
-                        <input
-                          type="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder="contoh@gmail.com"
-                          className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-[14px] text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400 transition-all placeholder:text-gray-300"
-                        />
-                      </div>
+                      {paketType !== "super_power" && (
+                        <div>
+                          <label className="block text-[12px] font-semibold text-gray-600 mb-1">
+                            Email Google <span className="text-gray-400 font-normal">(yang akan diundang)</span>
+                          </label>
+                          <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="contoh@gmail.com"
+                            className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-[14px] text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400 transition-all placeholder:text-gray-300"
+                          />
+                        </div>
+                      )}
 
                       {/* WhatsApp */}
-                      <div>
-                        <label className="block text-[12px] font-semibold text-gray-600 mb-1">
-                          Nomor WhatsApp
-                        </label>
-                        <input
-                          type="tel"
-                          value={whatsapp}
-                          onChange={(e) => setWhatsapp(e.target.value)}
-                          placeholder="08xxxxxxxxxx"
-                          className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-[14px] text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400 transition-all placeholder:text-gray-300"
-                        />
-                      </div>
+                      {paketType !== "super_power" && (
+                        <div>
+                          <label className="block text-[12px] font-semibold text-gray-600 mb-1">
+                            Nomor WhatsApp
+                          </label>
+                          <input
+                            type="tel"
+                            value={whatsapp}
+                            onChange={(e) => setWhatsapp(e.target.value)}
+                            placeholder="08xxxxxxxxxx"
+                            className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-[14px] text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400 transition-all placeholder:text-gray-300"
+                          />
+                        </div>
+                      )}
 
                       {/* Voucher */}
                       <div>
@@ -375,14 +396,18 @@ export default function OrderModal({ isOpen, onClose, paketType, basePrice }: Or
                         <span className="text-gray-500">Nama</span>
                         <span className="text-gray-900 font-semibold">{nama}</span>
                       </div>
-                      <div className="flex justify-between text-[13px]">
-                        <span className="text-gray-500">Email</span>
-                        <span className="text-gray-900 font-semibold">{email}</span>
-                      </div>
-                      <div className="flex justify-between text-[13px]">
-                        <span className="text-gray-500">WhatsApp</span>
-                        <span className="text-gray-900 font-semibold">{whatsapp}</span>
-                      </div>
+                      {paketType !== "super_power" && (
+                        <>
+                          <div className="flex justify-between text-[13px]">
+                            <span className="text-gray-500">Email</span>
+                            <span className="text-gray-900 font-semibold">{email}</span>
+                          </div>
+                          <div className="flex justify-between text-[13px]">
+                            <span className="text-gray-500">WhatsApp</span>
+                            <span className="text-gray-900 font-semibold">{whatsapp}</span>
+                          </div>
+                        </>
+                      )}
                       <div className="h-[1px] bg-gray-200" />
                       <div className="flex justify-between text-[13px]">
                         <span className="text-gray-500">Paket</span>
