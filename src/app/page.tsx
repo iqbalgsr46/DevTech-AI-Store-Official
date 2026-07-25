@@ -1588,8 +1588,8 @@ export default function Home() {
               <a href="#beranda" onClick={(e) => handleNavClick(e, 'beranda')} className="hover:text-gray-900 transition-colors">Terms</a>
               <a href="#beranda" onClick={(e) => handleNavClick(e, 'beranda')} className="hover:text-gray-900 transition-colors">Privacy</a>
               <span className="text-gray-300">•</span>
-              <a href="/admin" className="text-gray-400 hover:text-blue-600 transition-colors flex items-center gap-1">
-                <Shield size={12} /> Admin
+              <a href="/admin" className="text-gray-400 hover:text-blue-600 transition-colors flex items-center" title="Admin Login">
+                <Shield size={12} />
               </a>
             </div>
           </div>
