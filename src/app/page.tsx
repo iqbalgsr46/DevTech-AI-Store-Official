@@ -2,13 +2,15 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { ArrowRight, X, CheckCircle2, Zap, Sparkles, Users, ChevronLeft, ChevronRight, Play, Instagram, Facebook, Linkedin, Youtube, MessageCircle, Shield } from "lucide-react";
-import { Quicksand } from "next/font/google";
+import { Quicksand, Inter } from "next/font/google";
 import { motion, AnimatePresence } from "framer-motion";
 import OrderModal from "@/components/OrderModal";
+import EcosystemModal from "@/components/EcosystemModal";
 import { generateWhatsAppLink } from "@/lib/whatsapp";
 import { useSettings } from "@/lib/database";
 
 const quicksand = Quicksand({ subsets: ["latin"], weight: ["700"] });
+const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
 
 // Komponen Reveal saat di-scroll
 const ScrollReveal = ({ children, delay = 0, y = 40, className = "" }: { children: React.ReactNode, delay?: number, y?: number, className?: string }) => (
@@ -690,6 +692,7 @@ export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isBtnHovered, setIsBtnHovered] = useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
+  const [isEcosystemModalOpen, setIsEcosystemModalOpen] = useState(false);
   
   const { settings, loading: settingsLoading } = useSettings();
   
@@ -1183,9 +1186,9 @@ export default function Home() {
           Infrastruktur komputasi di balik Google AI Pro dirancang oleh insinyur terbaik di planet ini. Mesin kecerdasan buatan kami menjadi tulang punggung revolusi digital dan dipercaya penuh oleh raksasa teknologi global.
         </p>
         
-        <button onClick={() => document.getElementById('keunggulan-fitur')?.scrollIntoView({ behavior: 'smooth' })} className="bg-white border border-[#e2e8f0] rounded-full py-2 pl-6 pr-2 flex items-center justify-center gap-4 hover:shadow-md transition-shadow mb-20 shadow-sm cursor-pointer mx-auto w-fit">
+        <button onClick={() => setIsEcosystemModalOpen(true)} className="bg-white border border-[#e2e8f0] rounded-full py-2 pl-6 pr-2 flex items-center justify-center gap-4 hover:shadow-md transition-shadow mb-20 shadow-sm cursor-pointer mx-auto w-fit">
           <span className="text-[#0f172a] font-medium text-[15px]">Jelajahi integrasi ekosistem</span>
-          <div className="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center">
+          <div className="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center group-hover:scale-105 transition-transform">
             <ArrowRight size={18} />
           </div>
         </button>
@@ -1605,7 +1608,16 @@ export default function Home() {
 </footer>
 
       {/* Order Modal */}
-      <OrderModal isOpen={isOrderModalOpen} onClose={() => setIsOrderModalOpen(false)} />
+      <OrderModal 
+        isOpen={isOrderModalOpen}
+        onClose={() => setIsOrderModalOpen(false)}
+      />
+
+      {/* Ecosystem Modal */}
+      <EcosystemModal
+        isOpen={isEcosystemModalOpen}
+        onClose={() => setIsEcosystemModalOpen(false)}
+      />
     </div>
   );
 }
