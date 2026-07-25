@@ -470,6 +470,7 @@ function VoucherFormModal({
     currentUses: 0,
     isActive: true,
     expiredAt: "" as string,
+    applicablePackage: "all" as "all" | "super_power" | "invitation",
   });
 
   useEffect(() => {
@@ -482,6 +483,7 @@ function VoucherFormModal({
         currentUses: editData.currentUses,
         isActive: editData.isActive,
         expiredAt: editData.expiredAt || "",
+        applicablePackage: editData.applicablePackage || "all",
       });
     } else {
       setForm({
@@ -492,6 +494,7 @@ function VoucherFormModal({
         currentUses: 0,
         isActive: true,
         expiredAt: "",
+        applicablePackage: "all",
       });
     }
   }, [editData, isOpen]);
@@ -607,6 +610,22 @@ function VoucherFormModal({
               />
             </div>
           </div>
+          
+          <div>
+            <label className="block text-xs font-semibold text-slate-500 mb-1">
+              Berlaku Untuk
+            </label>
+            <select
+              value={form.applicablePackage}
+              onChange={(e) => setForm({ ...form, applicablePackage: e.target.value as "all" | "super_power" | "invitation" })}
+              className="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 text-sm shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none"
+            >
+              <option value="all">Semua Paket</option>
+              <option value="super_power">Hanya Paket 1 (Super Power)</option>
+              <option value="invitation">Hanya Paket 2 (Family Sharing)</option>
+            </select>
+          </div>
+          
           <div className="flex items-center gap-3">
             <button
               type="button"
@@ -1643,7 +1662,7 @@ function DashboardContent({ user }: { user: User }) {
                     className={`bg-slate-50 border rounded-xl p-4 flex flex-col sm:flex-row sm:items-center gap-3 ${borderClass}`}
                   >
                     <div className="flex-grow">
-                      <div className="flex items-center gap-2 mb-1">
+                      <div className="flex items-center gap-2 mb-1 flex-wrap">
                         <code className="text-slate-800 font-bold text-sm bg-slate-50 px-2 py-0.5 rounded-md">
                           {v.code}
                         </code>
@@ -1652,6 +1671,11 @@ function DashboardContent({ user }: { user: User }) {
                         >
                           {statusText}
                         </span>
+                        {v.applicablePackage && v.applicablePackage !== "all" && (
+                          <span className="text-[10px] font-medium px-2 py-0.5 rounded-full border border-blue-200 bg-blue-50 text-blue-600">
+                            Khusus {v.applicablePackage === "super_power" ? "Paket 1" : "Paket 2"}
+                          </span>
+                        )}
                       </div>
                       <p className="text-slate-500 text-xs">
                         {v.type === "percentage"

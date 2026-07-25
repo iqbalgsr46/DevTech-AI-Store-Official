@@ -43,6 +43,7 @@ export interface Voucher {
   isActive: boolean;
   createdAt: number;
   expiredAt: string | null; // ISO date string or null
+  applicablePackage?: "all" | "super_power" | "invitation";
 }
 
 export interface WebsiteSettings {
@@ -176,7 +177,8 @@ export interface VoucherValidationResult {
 }
 
 export async function validateVoucher(
-  code: string
+  code: string,
+  paketType: "super_power" | "invitation"
 ): Promise<VoucherValidationResult> {
   if (!code || code.trim() === "") {
     return { valid: false, voucher: null, message: "" };
@@ -200,6 +202,15 @@ export async function validateVoucher(
       valid: false,
       voucher: null,
       message: "Voucher sudah tidak aktif",
+    };
+  }
+
+  // Check if voucher applies to the selected package
+  if (voucher.applicablePackage && voucher.applicablePackage !== "all" && voucher.applicablePackage !== paketType) {
+    return {
+      valid: false,
+      voucher: null,
+      message: "Voucher ini tidak berlaku untuk paket yang dipilih",
     };
   }
 

@@ -67,7 +67,7 @@ export default function OrderModal({ isOpen, onClose, paketType, basePrice }: Or
     if (!voucherInput.trim()) return;
     setVoucherLoading(true);
     try {
-      const result = await validateVoucher(voucherInput.trim());
+      const result = await validateVoucher(voucherInput.trim(), paketType);
       setVoucherResult(result);
     } catch {
       setVoucherResult({
