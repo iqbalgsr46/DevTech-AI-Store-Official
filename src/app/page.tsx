@@ -1,9 +1,11 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { ArrowRight, X, CheckCircle2, Zap, Sparkles, Users, ChevronLeft, ChevronRight, Play, Instagram, Facebook, Linkedin, Youtube, MessageCircle } from "lucide-react";
+import { ArrowRight, X, CheckCircle2, Zap, Sparkles, Users, ChevronLeft, ChevronRight, Play, Instagram, Facebook, Linkedin, Youtube, MessageCircle, Shield } from "lucide-react";
 import { Quicksand } from "next/font/google";
 import { motion, AnimatePresence } from "framer-motion";
+import OrderModal from "@/components/OrderModal";
+import { generateWhatsAppLink } from "@/lib/whatsapp";
 
 const quicksand = Quicksand({ subsets: ["latin"], weight: ["700"] });
 
@@ -686,6 +688,7 @@ export default function Home() {
   const [typedText, setTypedText] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isBtnHovered, setIsBtnHovered] = useState(false);
+  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   
   // Carousel State
   const [activeSlide, setActiveSlide] = useState(0);
@@ -695,6 +698,11 @@ export default function Home() {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [startScrollLeft, setStartScrollLeft] = useState(0);
+
+  const handleOrderPaket1 = () => {
+    const link = generateWhatsAppLink({ paket: "super_power" });
+    window.open(link, "_blank");
+  };
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
@@ -899,14 +907,14 @@ export default function Home() {
           {/* Text Container vertically centered but nudged downwards */}
           <div className="flex-grow flex flex-col justify-center w-full min-h-[40vh] pt-16 sm:pt-24 mt-32 sm:mt-48">
             <h1 className="text-[22px] sm:text-3xl md:text-4xl font-medium text-[#2d3748] leading-relaxed w-full max-w-3xl mx-auto">
-              Akses Penuh Google AI Pro Premium<br />
-              Jauh Lebih Murah<br />
-              dari Harga Resmi
+              Akses Penuh Google AI Pro<br />
+              Gemini 3.1 Pro<br />
+              Harga Paling Hemat
             </h1>
             
             <p className="mt-8 text-[14px] sm:text-base md:text-lg text-[#4a5568] w-full max-w-2xl mx-auto leading-relaxed">
-              Tingkatkan produktivitas tanpa batas dengan kecerdasan buatan tercanggih saat ini.<br />
-              Dapatkan akun resmi, aman, dan bergaransi dengan penawaran harga terbaik.
+              Dapatkan akses resmi Gemini 3.1 Pro dengan Deep Research, Workspace Intelligence,<br />
+              dan limit token hemat yang refresh setiap 5 jam — ideal untuk programmer & profesional.
             </p>
           </div>
 
@@ -998,9 +1006,9 @@ export default function Home() {
         {/* Black Card */}
         <div className="bg-black w-full max-w-[700px] rounded-[40px] pt-16 pb-24 px-4 sm:px-8 flex flex-col items-center relative min-h-screen overflow-hidden">
           <ScrollReveal y={20}>
-            <h2 className="text-white text-2xl sm:text-[28px] font-bold mb-4 text-center z-10">Kuasai Kekuatan Google AI Pro</h2>
+            <h2 className="text-white text-2xl sm:text-[28px] font-bold mb-4 text-center z-10">Kuasai Kekuatan Gemini 3.1 Pro</h2>
             <p className="text-[#e5e7eb] text-[14px] sm:text-[15px] text-center max-w-lg leading-relaxed z-10 font-medium mx-auto">
-              Berlangganan sekarang dan rasakan performa Gemini Advanced (Ultra 1.0). AI paling revolusioner dari Google yang siap mengubah cara Anda bekerja, menulis kode, dan menganalisis data kompleks secara instan. Semua keistimewaan premium dengan harga langganan paling masuk akal.
+              Rasakan performa Gemini 3.1 Pro — model AI terkuat dari Google untuk reasoning mendalam, coding intensif, dan analisis data kompleks. Dilengkapi Deep Research, Workspace Intelligence, dan context window 1 juta token. Semua premium, harga super hemat.
             </p>
           </ScrollReveal>
           
@@ -1016,9 +1024,9 @@ export default function Home() {
             {/* Card 1 */}
             <ScrollReveal y={40}>
               <div className="border border-white/15 rounded-[32px] p-8 sm:p-10 flex flex-col items-center justify-center w-full bg-[#050505] shadow-xl hover:border-white/30 transition-colors">
-                <h3 className="text-white text-[20px] sm:text-[22px] font-bold mb-4 text-center">Performa Ultra 1.0 Eksklusif</h3>
+                <h3 className="text-white text-[20px] sm:text-[22px] font-bold mb-4 text-center">Gemini Deep Research</h3>
                 <p className="text-[#a1a1aa] text-[14px] sm:text-[15px] text-center leading-relaxed">
-                  Taklukkan tugas logika dan pemrograman paling rumit dengan model AI berdaya nalar tertinggi yang pernah diciptakan oleh insinyur top Google.
+                  Agen riset otonom yang menjelajahi web & data Google Workspace Anda, melakukan investigasi multi-langkah, lalu menyusun laporan komprehensif lengkap dengan sumber dan kutipan.
                 </p>
               </div>
             </ScrollReveal>
@@ -1026,9 +1034,9 @@ export default function Home() {
             {/* Card 2 */}
             <ScrollReveal y={40}>
               <div className="border border-white/15 rounded-[32px] p-8 sm:p-10 flex flex-col items-center justify-center w-full bg-[#050505] shadow-xl hover:border-white/30 transition-colors">
-                <h3 className="text-white text-[20px] sm:text-[22px] font-bold mb-4 text-center">Memori Raksasa 1 Juta Token</h3>
+                <h3 className="text-white text-[20px] sm:text-[22px] font-bold mb-4 text-center">Context Window 1 Juta Token</h3>
                 <p className="text-[#a1a1aa] text-[14px] sm:text-[15px] text-center leading-relaxed">
-                  Unggah dan analisis ratusan halaman dokumen tebal, ribuan baris kode, hingga video panjang sekaligus. AI pro kami tidak akan melupakan detail sekecil apapun.
+                  Unggah dan analisis ratusan halaman dokumen, ribuan baris kode, hingga video panjang dalam satu sesi. Gemini 3.1 Pro memproses semua tanpa kehilangan detail sekecil apapun.
                 </p>
               </div>
             </ScrollReveal>
@@ -1036,9 +1044,9 @@ export default function Home() {
             {/* Card 3 */}
             <ScrollReveal y={40}>
               <div className="border border-white/15 rounded-[32px] p-8 sm:p-10 flex flex-col items-center justify-center w-full bg-[#050505] shadow-xl hover:border-white/30 transition-colors">
-                <h3 className="text-white text-[20px] sm:text-[22px] font-bold mb-4 text-center">Integrasi Seamless Workspace</h3>
+                <h3 className="text-white text-[20px] sm:text-[22px] font-bold mb-4 text-center">Workspace Intelligence</h3>
                 <p className="text-[#a1a1aa] text-[14px] sm:text-[15px] text-center leading-relaxed">
-                  Menyatu sempurna dengan ekosistem akun Google Anda. Otomatisasi draf surel di Gmail, rangkum isi Docs, dan ekstrak wawasan dari Google Drive secara ajaib.
+                  AI terintegrasi penuh ke Gmail, Docs, Sheets, Slides, Drive, dan Calendar. Otomatisasi draf email, rangkum dokumen, dan ekstrak insight secara real-time di seluruh ekosistem Google.
                 </p>
               </div>
             </ScrollReveal>
@@ -1047,9 +1055,9 @@ export default function Home() {
           {/* New Section: Kolaborasi AI 1-on-1 */}
           <div className="mt-32 flex flex-col items-center w-full">
             <ScrollReveal y={20}>
-              <h2 className="text-white text-2xl sm:text-[32px] font-bold mb-4 text-center z-10">Asisten Pribadi Tingkat Lanjut</h2>
+              <h2 className="text-white text-2xl sm:text-[32px] font-bold mb-4 text-center z-10">Senjata Rahasia Programmer</h2>
               <p className="text-[#e5e7eb] text-[14px] sm:text-[15px] text-center max-w-lg leading-relaxed z-10 font-medium mx-auto">
-                Rasakan pengalaman memiliki engineer dan analis data kelas dunia di sebelah Anda. Akses instan tanpa batas 24/7 untuk membantu Anda memecahkan masalah paling menantang.
+                Limit token berlapis ganda yang refresh setiap 5 jam. Ideal untuk coding intensif di Antigravity IDE, Cursor, dan tools AI coding lainnya. Tingkatkan produktivitas coding Anda 10x lipat.
               </p>
             </ScrollReveal>
             
@@ -1065,9 +1073,9 @@ export default function Home() {
               {/* Card 1 */}
               <ScrollReveal y={40}>
                 <div className="border border-white/15 rounded-[32px] p-8 sm:p-10 flex flex-col justify-center w-full bg-[#050505] shadow-xl hover:border-white/30 transition-colors">
-                  <h3 className="text-white text-[20px] sm:text-[22px] font-bold mb-4 text-center">Analisis Mendalam & Bebas Error</h3>
+                  <h3 className="text-white text-[20px] sm:text-[22px] font-bold mb-4 text-center">Limit Token Hemat & Refresh 5 Jam</h3>
                   <p className="text-[#a1a1aa] text-[14px] sm:text-[15px] text-center leading-relaxed">
-                    Ucapkan selamat tinggal pada error misterius. Gemini Pro akan membedah kode dan struktur data Anda secara real-time untuk menemukan bug rahasia serta potensi optimasi maksimal.
+                    Model compute-based yang menggantikan batasan prompt sederhana. Kuota refresh otomatis setiap 5 jam — sehingga Anda bisa terus coding tanpa henti sepanjang hari.
                   </p>
                 </div>
               </ScrollReveal>
@@ -1075,9 +1083,9 @@ export default function Home() {
               {/* Card 2 */}
               <ScrollReveal y={40}>
                 <div className="border border-white/15 rounded-[32px] p-8 sm:p-10 flex flex-col justify-center w-full bg-[#050505] shadow-xl hover:border-white/30 transition-colors">
-                  <h3 className="text-white text-[20px] sm:text-[22px] font-bold mb-4 text-center">Otomatisasi Tugas Repetitif</h3>
+                  <h3 className="text-white text-[20px] sm:text-[22px] font-bold mb-4 text-center">Custom Gems & Canvas Mode</h3>
                   <p className="text-[#a1a1aa] text-[14px] sm:text-[15px] text-center leading-relaxed">
-                    Jangan buang waktu emas Anda. Biarkan mesin AI pintar kami merapikan dan menulis ulang struktur dokumen maupun basis kode Anda agar selaras dengan standar tertinggi industri.
+                    Buat asisten AI khusus (Gems) untuk tugas coding berulang. Gunakan Canvas Mode untuk mengedit Docs & Slides langsung dalam Gemini tanpa berpindah tab.
                   </p>
                 </div>
               </ScrollReveal>
@@ -1085,9 +1093,9 @@ export default function Home() {
               {/* Card 3 */}
               <ScrollReveal y={40}>
                 <div className="border border-white/15 rounded-[32px] p-8 sm:p-10 flex flex-col justify-center w-full bg-[#050505] shadow-xl hover:border-white/30 transition-colors">
-                  <h3 className="text-white text-[20px] sm:text-[22px] font-bold mb-4 text-center">Kreasi Instan Berkualitas Super</h3>
+                  <h3 className="text-white text-[20px] sm:text-[22px] font-bold mb-4 text-center">Image & Video Generation</h3>
                   <p className="text-[#a1a1aa] text-[14px] sm:text-[15px] text-center leading-relaxed">
-                    Ubah imajinasi menjadi kenyataan. Konversikan bahasa natural Anda menjadi arsitektur fitur kompleks, naskah komersial, atau kerangka aplikasi dalam satu tarikan napas.
+                    Buat gambar dan video berkualitas tinggi langsung dari teks. Didukung Veo 3.1 untuk konten visual profesional dan sinematik dari prompt sederhana.
                   </p>
                 </div>
               </ScrollReveal>
@@ -1097,9 +1105,9 @@ export default function Home() {
           {/* New Section: Integrasi Pembelajaran dengan AI */}
           <div className="mt-32 flex flex-col items-center w-full">
             <ScrollReveal y={20}>
-              <h2 className="text-white text-2xl sm:text-[32px] font-bold mb-4 text-center z-10">Tingkatkan Level Karir Anda</h2>
+              <h2 className="text-white text-2xl sm:text-[32px] font-bold mb-4 text-center z-10">Ekosistem AI Terlengkap</h2>
               <p className="text-[#e5e7eb] text-[14px] sm:text-[15px] text-center max-w-lg leading-relaxed z-10 font-medium mx-auto">
-                Berhenti tertinggal oleh kemajuan zaman. Bergabunglah dengan ratusan ribu profesional lainnya yang telah melipatgandakan valuasi pekerjaan dan omset bisnis mereka berkat sokongan Google AI Pro.
+                Gemini Notebook (NotebookLM), Gemini Spark Agent, 5 TB Cloud Storage, dan akses dini fitur masa depan Google — semuanya dalam satu paket AI Pro.
               </p>
             </ScrollReveal>
             
@@ -1115,9 +1123,9 @@ export default function Home() {
               {/* Card 1 */}
               <ScrollReveal y={40}>
                 <div className="border border-white/15 rounded-[32px] p-8 sm:p-10 flex flex-col justify-center w-full bg-[#050505] shadow-xl hover:border-white/30 transition-colors">
-                  <h3 className="text-white text-[20px] sm:text-[22px] font-bold mb-4 text-center">Garansi Prioritas & Kuota Eksklusif</h3>
+                  <h3 className="text-white text-[20px] sm:text-[22px] font-bold mb-4 text-center">Gemini Notebook & Audio Overview</h3>
                   <p className="text-[#a1a1aa] text-[14px] sm:text-[15px] text-center leading-relaxed">
-                    Jangan biarkan produktivitas terhenti. Sebagai pelanggan Pro, Anda menikmati limit *prompt* berlapis ganda dan jalur komputasi khusus yang menjamin kecepatan respons super kilat di jam sibuk.
+                    Unggah dokumen untuk mendapatkan insight instan, mind map interaktif, dan Audio Overview seperti podcast. Ruang riset pribadi yang memahami konteks dokumen Anda.
                   </p>
                 </div>
               </ScrollReveal>
@@ -1131,9 +1139,9 @@ export default function Home() {
                       VIP Member Only
                     </div>
                   </div>
-                  <h3 className="text-white text-[20px] sm:text-[22px] font-bold mb-4 text-center">Akses Dini Fitur<br/>Masa Depan Google</h3>
+                  <h3 className="text-white text-[20px] sm:text-[22px] font-bold mb-4 text-center">Gemini Spark Agent<br/>& 5 TB Storage</h3>
                   <p className="text-[#a1a1aa] text-[14px] sm:text-[15px] text-center leading-relaxed">
-                    Jadilah selangkah di depan kompetitor Anda. Dapatkan akses privat ke uji coba (Beta) fitur-fitur kecerdasan buatan paling radikal dari Google sebelum dirilis secara massal ke publik.
+                    Asisten AI yang bertindak atas nama Anda — kelola kalender, booking jadwal, dan kirim reminder otomatis. Ditambah 5 TB cloud storage untuk Google Drive, Gmail, dan Photos.
                   </p>
                 </div>
               </ScrollReveal>
@@ -1143,7 +1151,7 @@ export default function Home() {
                 <div className="border border-white/15 rounded-[32px] p-8 sm:p-10 flex flex-col justify-center w-full bg-[#050505] shadow-xl hover:border-white/30 transition-colors">
                   <h3 className="text-white text-[20px] sm:text-[22px] font-bold mb-4 text-center">Dukungan Teknis Premium 24/7</h3>
                   <p className="text-[#a1a1aa] text-[14px] sm:text-[15px] text-center leading-relaxed">
-                    Anda tidak akan pernah berjuang sendirian. Nikmati *channel* dukungan khusus VIP yang menjamin masalah teknis atau pertanyaan Anda diselesaikan dengan prioritas absolut.
+                    Nikmati channel dukungan khusus VIP yang menjamin masalah teknis atau pertanyaan Anda diselesaikan dengan prioritas absolut. Anda tidak pernah berjuang sendirian.
                   </p>
                 </div>
               </ScrollReveal>
@@ -1310,7 +1318,7 @@ export default function Home() {
                 Paket 1: Super Power
               </h3>
               
-              <p className="text-[12px] text-red-500 font-bold text-center mb-3">Promo Free 18 Bulan</p>
+              <p className="text-[12px] text-red-500 font-bold text-center mb-3">Aktivasi Mandiri — 18 Bulan</p>
               
               <div className="flex justify-center items-center gap-2 mb-4">
                  <span className="text-[12px] text-gray-400 line-through">Rp75.000</span>
@@ -1318,17 +1326,18 @@ export default function Home() {
               </div>
 
               <ul className="text-[11px] text-gray-600 space-y-2 mb-4 px-2">
-                 <li className="flex gap-2 items-start"><CheckCircle2 size={14} className="text-green-500 shrink-0 mt-0.5" /> <span>Masa aktif 18 bulan</span></li>
-                 <li className="flex gap-2 items-start"><CheckCircle2 size={14} className="text-green-500 shrink-0 mt-0.5" /> <span>No login & No password</span></li>
-                 <li className="flex gap-2 items-start"><CheckCircle2 size={14} className="text-green-500 shrink-0 mt-0.5" /> <span>Subscription langsung pada akun</span></li>
-                 <li className="flex gap-2 items-start"><CheckCircle2 size={14} className="text-green-500 shrink-0 mt-0.5" /> <span>No payment method required</span></li>
+                 <li className="flex gap-2 items-start"><CheckCircle2 size={14} className="text-green-500 shrink-0 mt-0.5" /> <span>Masa aktif 18 bulan penuh</span></li>
+                 <li className="flex gap-2 items-start"><CheckCircle2 size={14} className="text-green-500 shrink-0 mt-0.5" /> <span>Anda kelola sendiri (No login & No password)</span></li>
+                 <li className="flex gap-2 items-start"><CheckCircle2 size={14} className="text-green-500 shrink-0 mt-0.5" /> <span>Klik link → aktifkan langsung di akun Google Anda</span></li>
+                 <li className="flex gap-2 items-start"><CheckCircle2 size={14} className="text-green-500 shrink-0 mt-0.5" /> <span>Tidak perlu kartu kredit / metode pembayaran</span></li>
+                 <li className="flex gap-2 items-start"><CheckCircle2 size={14} className="text-green-500 shrink-0 mt-0.5" /> <span>Bisa invite hingga 5 anggota keluarga (Family Sharing)</span></li>
               </ul>
               
               <p className="text-[11px] text-gray-500 text-center leading-relaxed mb-5 font-medium px-2 italic mt-auto">
-                "Ini yang paling banyak dipilih karena praktis dan akun tetap aman."
+                "Paling banyak dipilih — praktis, akun tetap aman, bisa invite keluarga."
               </p>
               
-              <button className="border border-gray-200 rounded-xl py-2 px-6 flex items-center justify-center gap-2 mx-auto text-[14px] font-medium text-gray-800 hover:bg-gray-50 transition-colors w-fit shadow-sm">
+              <button onClick={handleOrderPaket1} className="border border-gray-200 rounded-xl py-2 px-6 flex items-center justify-center gap-2 mx-auto text-[14px] font-medium text-gray-800 hover:bg-gray-50 transition-colors w-fit shadow-sm cursor-pointer">
                 Pilih Paket <ArrowRight size={16} className="-rotate-45" />
               </button>
             </div>
@@ -1353,7 +1362,7 @@ export default function Home() {
               <h3 className="text-[17px] sm:text-[19px] font-semibold text-gray-900 text-center mb-1">
                 Paket 2: Invitation
               </h3>
-              <p className="text-[12px] text-indigo-500 font-bold text-center mb-3">Durasi Fleksibel</p>
+              <p className="text-[12px] text-indigo-500 font-bold text-center mb-3">Via Google Family — Durasi Fleksibel</p>
               <div className="bg-slate-50/80 rounded-[16px] p-2.5 mb-3 border border-slate-100 shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]">
                 <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[10.5px] text-gray-500 font-medium">
                   {/* Row 1 */}
@@ -1402,11 +1411,12 @@ export default function Home() {
               </div>
 
               <ul className="text-[10.5px] text-gray-600 space-y-1.5 mb-4 px-2 mt-auto">
-                 <li className="flex gap-2 items-start"><CheckCircle2 size={13} className="text-indigo-500 shrink-0 mt-0.5" /> <span>No login & No password</span></li>
-                 <li className="flex gap-2 items-start"><CheckCircle2 size={13} className="text-indigo-500 shrink-0 mt-0.5" /> <span>Tinggal terima invitation lewat email</span></li>
+                 <li className="flex gap-2 items-start"><CheckCircle2 size={13} className="text-indigo-500 shrink-0 mt-0.5" /> <span>Kirim email Anda → kami invite ke Google Family</span></li>
+                 <li className="flex gap-2 items-start"><CheckCircle2 size={13} className="text-indigo-500 shrink-0 mt-0.5" /> <span>Terima undangan di email → AI Pro langsung aktif</span></li>
+                 <li className="flex gap-2 items-start"><CheckCircle2 size={13} className="text-indigo-500 shrink-0 mt-0.5" /> <span>Tidak perlu login, password, atau kartu kredit</span></li>
               </ul>
               
-              <button className="border border-gray-200 rounded-xl py-2 px-6 flex items-center justify-center gap-2 mx-auto text-[14px] font-medium text-gray-800 hover:bg-gray-50 transition-colors w-fit shadow-sm">
+              <button onClick={() => setIsOrderModalOpen(true)} className="border border-gray-200 rounded-xl py-2 px-6 flex items-center justify-center gap-2 mx-auto text-[14px] font-medium text-gray-800 hover:bg-gray-50 transition-colors w-fit shadow-sm cursor-pointer">
                 Pilih Paket <ArrowRight size={16} className="-rotate-45" />
               </button>
             </div>
@@ -1448,7 +1458,8 @@ export default function Home() {
             Panduan <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Aktivasi & Akses Grup</span>
           </h2>
           <p className="text-[#475569] text-[15px] sm:text-[17px] leading-relaxed px-4 sm:px-12 mb-14">
-            Setelah memilih paket dan menyelesaikan pembayaran, kami akan mengirimkan email berisi tautan undangan (*Invitation Link*) resmi. Cukup klik tautan tersebut menggunakan akun Google Anda, lisensi AI Pro akan otomatis aktif seketika dan Anda akan langsung terhubung ke dalam grup eksklusif komunitas kami.
+            <strong>Paket 1 (Super Power):</strong> Anda akan menerima link aktivasi resmi — cukup buka dan klik Aktifkan di akun Google Anda. Setelah aktif, Anda bisa mengundang hingga 5 anggota keluarga via Family Sharing.<br/><br/>
+            <strong>Paket 2 (Invitation):</strong> Kirimkan email Google Anda, kami akan mengirim undangan Google Family. Terima undangan di inbox email → lisensi AI Pro langsung aktif sesuai durasi yang dipilih.
           </p>
 
           {/* Video Tutorial Cards Container */}
@@ -1462,7 +1473,7 @@ export default function Home() {
               />
               <div className="flex flex-col gap-4 px-1 pb-2 mt-1 flex-1">
                 <h3 className="text-white text-[19px] sm:text-[21px] font-bold leading-snug">
-                  Panduan Mudah Aktivasi Lisensi AI Pro
+                  Panduan Aktivasi Paket 1 (Super Power)
                 </h3>
                 <button className="bg-white text-[#0f172a] rounded-[14px] py-3 px-5 flex items-center justify-center gap-2 font-semibold text-[15px] hover:bg-gray-100 transition-colors w-fit mt-auto shadow-sm">
                   <Play size={18} strokeWidth={2.5} /> Putar video
@@ -1479,7 +1490,7 @@ export default function Home() {
               />
               <div className="flex flex-col gap-4 px-1 pb-2 mt-1 flex-1">
                 <h3 className="text-white text-[19px] sm:text-[21px] font-bold leading-snug">
-                  Cara Invite Keluarga via Akun Head Google AI Pro
+                  Cara Invite Keluarga (Family Sharing) via Akun Head
                 </h3>
                 <button className="bg-white text-[#0f172a] rounded-[14px] py-3 px-5 flex items-center justify-center gap-2 font-semibold text-[15px] hover:bg-gray-100 transition-colors w-fit mt-auto shadow-sm">
                   <Play size={18} strokeWidth={2.5} /> Putar video
@@ -1556,6 +1567,10 @@ export default function Home() {
             <div className="flex items-center gap-3 pt-2 text-[13px]">
               <a href="#" className="hover:text-gray-900 transition-colors">Terms</a>
               <a href="#" className="hover:text-gray-900 transition-colors">Privacy</a>
+              <span className="text-gray-300">•</span>
+              <a href="/admin" className="text-gray-400 hover:text-blue-600 transition-colors flex items-center gap-1">
+                <Shield size={12} /> Admin
+              </a>
             </div>
           </div>
         </div>
@@ -1565,12 +1580,17 @@ export default function Home() {
           <span className="text-[60px] sm:text-[100px] lg:text-[140px] leading-none font-extrabold text-white tracking-tighter mix-blend-overlay opacity-80 whitespace-nowrap">DevTech AI Store</span>
         </div>
 
-        {/* Floating Chat Button */}
-        <button className="fixed bottom-6 right-6 w-14 h-14 bg-[#2b333e] rounded-full flex items-center justify-center shadow-[0_10px_25px_rgba(0,0,0,0.2)] z-50 hover:scale-105 hover:bg-[#1a212a] transition-all cursor-pointer">
-          <MessageCircle className="text-white" size={26} strokeWidth={2.5} />
-        </button>
+        {/* Floating Chat Button - WhatsApp */}
+        <a href="https://wa.me/6285872066832" target="_blank" rel="noopener noreferrer" className="fixed bottom-6 right-6 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-[0_10px_25px_rgba(0,0,0,0.2)] z-50 hover:scale-105 hover:bg-[#1fb855] transition-all cursor-pointer">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+        </a>
       </ScrollReveal>
 </footer>
+
+      {/* Order Modal */}
+      <OrderModal isOpen={isOrderModalOpen} onClose={() => setIsOrderModalOpen(false)} />
     </div>
   );
 }
