@@ -714,7 +714,24 @@ export default function Home() {
   };
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
     setIsMenuOpen(false);
+    
+    // Add a slight delay for mobile menu closing animation before scrolling
+    setTimeout(() => {
+      const element = document.getElementById(targetId);
+      if (element) {
+        // We use offsetTop with a custom offset to ensure it lands perfectly
+        const headerOffset = 90; // Approx navbar height + breathing room
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.scrollY - headerOffset;
+    
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
+      }
+    }, 50);
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
