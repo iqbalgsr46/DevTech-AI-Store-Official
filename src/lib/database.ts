@@ -66,6 +66,11 @@ export interface WebsiteSettings {
       bulan12: string;
     };
   };
+  giveaway?: {
+    isActive: boolean;
+    tiktokUrl: string;
+    googleFormUrl: string;
+  };
 }
 
 // ============================================

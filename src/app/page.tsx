@@ -8,6 +8,7 @@ import OrderModal from "@/components/OrderModal";
 import EcosystemModal from "@/components/EcosystemModal";
 import { generateWhatsAppLink } from "@/lib/whatsapp";
 import { useSettings } from "@/lib/database";
+import GiveawayWidget from "@/components/GiveawayWidget";
 
 const quicksand = Quicksand({ subsets: ["latin"], weight: ["700"] });
 const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
@@ -810,6 +811,7 @@ export default function Home() {
 
   return (
     <div className="bg-[#f8f9fa] font-sans overflow-x-hidden selection:bg-[#20283e] selection:text-white">
+      <GiveawayWidget settings={settings} />
       <main className="relative min-h-screen w-full flex flex-col bg-gradient-to-b from-[#7ec5f2] via-[#b6dff6] to-[#f8f9fa]">
       
       {/* Animated Clouds & Stars Background */}

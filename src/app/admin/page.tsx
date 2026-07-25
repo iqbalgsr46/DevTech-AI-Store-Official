@@ -713,11 +713,23 @@ function SettingsTabContent({
         bulan12: "50000",
       },
     },
+    giveaway: {
+      isActive: false,
+      tiktokUrl: "",
+      googleFormUrl: "",
+    },
   });
 
   useEffect(() => {
     if (initialSettings) {
-      setForm(initialSettings);
+      setForm({
+        ...initialSettings,
+        giveaway: initialSettings.giveaway || {
+          isActive: false,
+          tiktokUrl: "",
+          googleFormUrl: "",
+        }
+      });
     }
   }, [initialSettings]);
 
@@ -737,6 +749,16 @@ function SettingsTabContent({
       pricing: {
         ...prev.pricing,
         paket2: { ...prev.pricing.paket2, [bulan]: value },
+      },
+    }));
+  };
+
+  const handleGiveawayChange = (field: keyof NonNullable<WebsiteSettings["giveaway"]>, value: string | boolean) => {
+    setForm((prev) => ({
+      ...prev,
+      giveaway: {
+        ...prev.giveaway!,
+        [field]: value,
       },
     }));
   };
@@ -787,6 +809,55 @@ function SettingsTabContent({
               </div>
             );
           })}
+        </div>
+      </div>
+
+      <div className="bg-slate-50 border border-slate-200 rounded-xl p-5">
+        <div className="flex items-center justify-between mb-4">
+          <h4 className="text-slate-800 font-semibold">Pengaturan Event Giveaway</h4>
+          <label className="flex items-center gap-2 cursor-pointer">
+            <span className="text-sm font-medium text-slate-600">Status Giveaway</span>
+            <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+              <input
+                type="checkbox"
+                checked={form.giveaway?.isActive}
+                onChange={(e) => handleGiveawayChange("isActive", e.target.checked)}
+                className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer transition-transform duration-200 ease-in-out"
+                style={{
+                  transform: form.giveaway?.isActive ? "translateX(100%)" : "translateX(0)",
+                  borderColor: form.giveaway?.isActive ? "#10B981" : "#CBD5E1",
+                }}
+              />
+              <label
+                className={`toggle-label block overflow-hidden h-5 rounded-full cursor-pointer transition-colors duration-200 ease-in-out ${
+                  form.giveaway?.isActive ? "bg-emerald-500" : "bg-slate-300"
+                }`}
+              ></label>
+            </div>
+          </label>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-xs font-medium text-slate-500 mb-1.5">Link Video TikTok</label>
+            <input
+              type="text"
+              value={form.giveaway?.tiktokUrl}
+              onChange={(e) => handleGiveawayChange("tiktokUrl", e.target.value)}
+              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-sm focus:outline-none focus:border-blue-500"
+              placeholder="https://tiktok.com/..."
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-slate-500 mb-1.5">Link Pendaftaran (Google Form)</label>
+            <input
+              type="text"
+              value={form.giveaway?.googleFormUrl}
+              onChange={(e) => handleGiveawayChange("googleFormUrl", e.target.value)}
+              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-sm focus:outline-none focus:border-blue-500"
+              placeholder="https://forms.gle/..."
+            />
+          </div>
         </div>
       </div>
 
