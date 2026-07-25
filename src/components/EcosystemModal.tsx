@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Sparkles } from "lucide-react";
+import { X } from "lucide-react";
 
 interface EcosystemModalProps {
   isOpen: boolean;
@@ -13,158 +13,257 @@ const INTEGRATIONS = [
   {
     iconUrl: "https://www.gstatic.com/images/branding/product/2x/gmail_2020q4_48dp.png",
     title: "Gmail",
-    desc: "Tulis, balas, dan rangkum email panjang dalam hitungan detik. Biarkan AI menyusun draf profesional untuk Anda.",
-    bg: "bg-red-500/10"
+    desc: "Tulis & balas email profesional dalam hitungan detik dengan bantuan AI.",
+    bg: "#fef2f2",
   },
   {
     iconUrl: "https://www.gstatic.com/images/branding/product/2x/docs_2020q4_48dp.png",
     title: "Google Docs",
-    desc: "Dapatkan bantuan menulis dari awal, perbaiki tata bahasa, dan buat ringkasan dokumen dengan satu klik.",
-    bg: "bg-blue-500/10"
+    desc: "Buat, edit, dan rangkum dokumen panjang dengan AI yang cerdas.",
+    bg: "#eff6ff",
   },
   {
     iconUrl: "https://www.gstatic.com/images/branding/product/2x/sheets_2020q4_48dp.png",
     title: "Google Sheets",
-    desc: "Otomatisasi pembuatan tabel, analisis data kompleks, dan dapatkan formula instan tanpa perlu mengingat rumus.",
-    bg: "bg-emerald-500/10"
+    desc: "Analisis data dan buat formula kompleks secara instan.",
+    bg: "#f0fdf4",
   },
   {
     iconUrl: "https://www.gstatic.com/images/branding/product/2x/meet_2020q4_48dp.png",
     title: "Google Meet",
-    desc: "Gemini dapat membantu merangkum rapat, membuat notulen otomatis, dan menerjemahkan obrolan secara real-time.",
-    bg: "bg-green-600/10"
+    desc: "Rangkum rapat & notulen otomatis secara real-time.",
+    bg: "#f0fdf4",
   },
   {
     iconUrl: "https://www.gstatic.com/images/branding/product/2x/drive_2020q4_48dp.png",
     title: "Google Drive",
-    desc: "Cari informasi tersembunyi di dalam jutaan dokumen Anda dengan bertanya langsung kepada Gemini.",
-    bg: "bg-amber-500/10"
-  }
+    desc: "Cari informasi dari jutaan file Anda cukup dengan bertanya.",
+    bg: "#fffbeb",
+  },
 ];
 
 export default function EcosystemModal({ isOpen, onClose }: EcosystemModalProps) {
   useEffect(() => {
-    if (isOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "unset";
-    return () => { document.body.style.overflow = "unset"; };
-  }, [isOpen]);
-
-  const overlayVariants = {
-    hidden: { opacity: 0, transition: { duration: 0.3, ease: "easeInOut" } },
-    visible: { opacity: 1, transition: { duration: 0.3, ease: "easeOut" } }
-  };
-
-  const modalVariants = {
-    hidden: { opacity: 0, scale: 0.85, y: 40, rotateX: 10 },
-    visible: { 
-      opacity: 1, 
-      scale: 1, 
-      y: 0, 
-      rotateX: 0,
-      transition: { type: "spring", damping: 22, stiffness: 350, staggerChildren: 0.1, delayChildren: 0.1 } 
-    },
-    exit: { 
-      opacity: 0, 
-      scale: 0.9, 
-      y: 30, 
-      rotateX: -10, 
-      transition: { type: "spring", damping: 25, stiffness: 400 } 
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
     }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: { opacity: 1, x: 0, transition: { type: "spring", damping: 20, stiffness: 300 } }
-  };
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 sm:px-6 perspective-1000">
-          {/* Backdrop */}
+        <>
+          {/* Overlay */}
           <motion.div
-            variants={overlayVariants}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
+            key="overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
             onClick={onClose}
-            className="absolute inset-0 bg-[#0f172a]/60 backdrop-blur-md"
+            style={{
+              position: "fixed",
+              inset: 0,
+              zIndex: 9998,
+              backgroundColor: "rgba(15, 23, 42, 0.55)",
+              backdropFilter: "blur(8px)",
+            }}
           />
 
-          {/* Modal Container */}
+          {/* Modal */}
           <motion.div
-            variants={modalVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="relative w-full max-w-[550px] md:max-w-[750px] bg-white rounded-[32px] shadow-[0_30px_80px_rgba(0,0,0,0.2)] overflow-hidden flex flex-col"
-            style={{ maxHeight: "calc(100vh - 40px)", transformOrigin: "center center" }}
+            key="modal"
+            initial={{ opacity: 0, scale: 0.88, y: 40 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 24 }}
+            transition={{ type: "spring", damping: 24, stiffness: 360 }}
+            style={{
+              position: "fixed",
+              inset: 0,
+              zIndex: 9999,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "16px",
+              pointerEvents: "none",
+            }}
           >
-            {/* Header Area */}
-            <div className="relative px-6 sm:px-10 pt-10 pb-6 bg-gradient-to-b from-[#f8fafc] to-white shrink-0 border-b border-gray-100 flex flex-col md:flex-row md:items-center md:gap-8">
-              <button
-                onClick={onClose}
-                className="absolute top-6 right-6 w-9 h-9 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-900 hover:bg-gray-50 hover:scale-105 transition-all shadow-sm z-10"
+            <div
+              style={{
+                pointerEvents: "auto",
+                background: "#ffffff",
+                borderRadius: "28px",
+                boxShadow: "0 24px 64px rgba(0,0,0,0.18)",
+                width: "100%",
+                maxWidth: "640px",
+                maxHeight: "calc(100vh - 32px)",
+                display: "flex",
+                flexDirection: "column",
+                overflow: "hidden",
+              }}
+            >
+              {/* ─── HEADER ─── */}
+              <div
+                style={{
+                  padding: "32px 32px 24px 32px",
+                  borderBottom: "1px solid #f1f5f9",
+                  background: "linear-gradient(to bottom, #f8fafc, #ffffff)",
+                  flexShrink: 0,
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: "16px",
+                  position: "relative",
+                }}
               >
-                <X size={18} />
-              </button>
-              
-              <motion.div 
-                initial={{ rotate: -15, scale: 0.8 }}
-                animate={{ rotate: 0, scale: 1 }}
-                transition={{ type: "spring", damping: 15, stiffness: 200, delay: 0.2 }}
-                className="w-14 h-14 flex items-center justify-center mb-5 md:mb-0 shrink-0"
-              >
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-md">
-                  <path d="M12 24C12 17.3726 6.62742 12 0 12C6.62742 12 12 6.62742 12 0C12 6.62742 17.3726 12 24 12C17.3726 12 12 17.3726 12 24Z" fill="url(#gemini-grad-real)"/>
-                  <defs>
-                    <linearGradient id="gemini-grad-real" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stopColor="#4285F4"/>
-                      <stop offset="33%" stopColor="#9B72CB"/>
-                      <stop offset="67%" stopColor="#D96570"/>
-                      <stop offset="100%" stopColor="#F4B400"/>
-                    </linearGradient>
-                  </defs>
-                </svg>
-              </motion.div>
-              
-              <div>
-                <h2 className="text-[24px] sm:text-[28px] font-bold text-[#0f172a] leading-tight mb-2 tracking-tight pr-6">
-                  Integrasi Ekosistem Google
-                </h2>
-                <p className="text-[#64748b] text-[15px] leading-relaxed max-w-[500px]">
-                  Kekuatan AI otomatis terintegrasi ke dalam aplikasi Google Workspace Anda.
-                </p>
-              </div>
-            </div>
+                {/* Gemini Icon */}
+                <motion.div
+                  initial={{ rotate: -12, scale: 0.8 }}
+                  animate={{ rotate: 0, scale: 1 }}
+                  transition={{ type: "spring", damping: 14, stiffness: 180, delay: 0.15 }}
+                  style={{ flexShrink: 0, marginTop: "2px" }}
+                >
+                  <svg width="44" height="44" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ filter: "drop-shadow(0 2px 6px rgba(66,133,244,0.3))" }}>
+                    <path d="M12 24C12 17.3726 6.62742 12 0 12C6.62742 12 12 6.62742 12 0C12 6.62742 17.3726 12 24 12C17.3726 12 12 17.3726 12 24Z" fill="url(#g1)" />
+                    <defs>
+                      <linearGradient id="g1" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stopColor="#4285F4" />
+                        <stop offset="35%" stopColor="#9B72CB" />
+                        <stop offset="70%" stopColor="#D96570" />
+                        <stop offset="100%" stopColor="#F4B400" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </motion.div>
 
-            {/* Content Area - Scrollable */}
-            <div className="relative flex flex-col bg-white flex-1 overflow-y-auto">
-              <div className="px-4 sm:px-6 md:px-8 py-4 md:py-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 pb-6">
+                {/* Heading */}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#0f172a", lineHeight: 1.3, margin: "0 0 6px 0", paddingRight: "48px" }}>
+                    Integrasi Ekosistem Google
+                  </h2>
+                  <p style={{ fontSize: "14px", color: "#64748b", margin: 0, lineHeight: 1.6 }}>
+                    Kekuatan AI terintegrasi langsung ke Google Workspace Anda.
+                  </p>
+                </div>
+
+                {/* Close Button */}
+                <button
+                  onClick={onClose}
+                  style={{
+                    position: "absolute",
+                    top: "20px",
+                    right: "20px",
+                    width: "36px",
+                    height: "36px",
+                    borderRadius: "50%",
+                    border: "1px solid #e2e8f0",
+                    background: "#ffffff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                    color: "#94a3b8",
+                    flexShrink: 0,
+                    transition: "all 0.15s ease",
+                    boxShadow: "0 1px 4px rgba(0,0,0,0.06)",
+                  }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLButtonElement).style.background = "#f8fafc";
+                    (e.currentTarget as HTMLButtonElement).style.color = "#0f172a";
+                    (e.currentTarget as HTMLButtonElement).style.transform = "scale(1.08)";
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLButtonElement).style.background = "#ffffff";
+                    (e.currentTarget as HTMLButtonElement).style.color = "#94a3b8";
+                    (e.currentTarget as HTMLButtonElement).style.transform = "scale(1)";
+                  }}
+                >
+                  <X size={17} />
+                </button>
+              </div>
+
+              {/* ─── CONTENT (Scrollable) ─── */}
+              <div
+                style={{
+                  flex: 1,
+                  overflowY: "auto",
+                  padding: "20px 24px 28px 24px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(1, 1fr)",
+                    gap: "8px",
+                  }}
+                >
                   {INTEGRATIONS.map((item, idx) => (
-                    <motion.div 
-                      key={idx}
-                      variants={itemVariants}
-                      className="group flex items-start gap-4 sm:gap-5 p-4 sm:p-5 rounded-2xl hover:bg-[#f8fafc] transition-colors border border-transparent hover:border-gray-200 cursor-default"
+                    <motion.div
+                      key={item.title}
+                      initial={{ opacity: 0, x: -16 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.08 + idx * 0.07, type: "spring", damping: 22, stiffness: 300 }}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "16px",
+                        padding: "14px 16px",
+                        borderRadius: "16px",
+                        border: "1px solid transparent",
+                        cursor: "default",
+                        transition: "all 0.18s ease",
+                      }}
+                      onMouseEnter={e => {
+                        (e.currentTarget as HTMLDivElement).style.background = "#f8fafc";
+                        (e.currentTarget as HTMLDivElement).style.borderColor = "#e2e8f0";
+                      }}
+                      onMouseLeave={e => {
+                        (e.currentTarget as HTMLDivElement).style.background = "transparent";
+                        (e.currentTarget as HTMLDivElement).style.borderColor = "transparent";
+                      }}
                     >
-                      <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${item.bg} group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300`}>
-                        <img src={item.iconUrl} alt={item.title} className="w-7 h-7 object-contain" />
+                      {/* Icon Box */}
+                      <div
+                        style={{
+                          width: "48px",
+                          height: "48px",
+                          borderRadius: "14px",
+                          background: item.bg,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          flexShrink: 0,
+                          transition: "transform 0.25s ease",
+                        }}
+                      >
+                        <img
+                          src={item.iconUrl}
+                          alt={item.title}
+                          style={{ width: "28px", height: "28px", objectFit: "contain" }}
+                          onError={e => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                        />
                       </div>
-                      <div>
-                        <h3 className="text-[#0f172a] font-semibold text-[16px] mb-1 group-hover:text-blue-600 transition-colors">{item.title}</h3>
-                        <p className="text-[#64748b] text-[13px] leading-relaxed">{item.desc}</p>
+
+                      {/* Text */}
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <p style={{ fontSize: "15px", fontWeight: 600, color: "#0f172a", margin: "0 0 3px 0" }}>
+                          {item.title}
+                        </p>
+                        <p style={{ fontSize: "13px", color: "#64748b", margin: 0, lineHeight: 1.55 }}>
+                          {item.desc}
+                        </p>
                       </div>
                     </motion.div>
                   ))}
                 </div>
               </div>
-              
-              {/* Fade Out Effect for Scroll */}
-              <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-white to-transparent pointer-events-none rounded-b-[32px]"></div>
             </div>
           </motion.div>
-        </div>
+        </>
       )}
     </AnimatePresence>
   );
