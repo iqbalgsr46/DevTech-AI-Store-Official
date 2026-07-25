@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Gift, X, ExternalLink, CheckCircle2 } from "lucide-react";
 import { WebsiteSettings } from "@/lib/database";
 import { motion } from "framer-motion";
@@ -9,6 +9,20 @@ export default function GiveawayWidget({
   settings: WebsiteSettings | null;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [constraints, setConstraints] = useState({ top: -300, bottom: 300 });
+
+  useEffect(() => {
+    const updateConstraints = () => {
+      setConstraints({
+        top: -window.innerHeight + 120,
+        bottom: window.innerHeight - 120,
+      });
+    };
+    
+    updateConstraints();
+    window.addEventListener("resize", updateConstraints);
+    return () => window.removeEventListener("resize", updateConstraints);
+  }, []);
 
   const giveaway = settings?.giveaway || {
     isActive: false,
@@ -44,7 +58,7 @@ export default function GiveawayWidget({
       {/* Draggable Floating Gift Icon */}
       <motion.div
         drag="y"
-        dragConstraints={{ top: -300, bottom: 300 }}
+        dragConstraints={constraints}
         dragElastic={0.1}
         className="fixed left-4 bottom-24 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 z-[45] cursor-grab active:cursor-grabbing"
       >
