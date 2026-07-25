@@ -23,6 +23,9 @@ import {
   getStatusBadge,
   Subscriber,
   Voucher,
+  useSettings,
+  updateSettings,
+  WebsiteSettings,
 } from "@/lib/database";
 import {
   Users,
@@ -41,6 +44,8 @@ import {
   AlertTriangle,
   Clock,
   Home,
+  Settings,
+  Save,
 } from "lucide-react";
 
 // ============================================
@@ -630,6 +635,126 @@ function VoucherFormModal({
 }
 
 // ============================================
+// SETTINGS TAB COMPONENT
+// ============================================
+
+function SettingsTabContent({
+  initialSettings,
+  onSave,
+  saving,
+}: {
+  initialSettings: WebsiteSettings | null;
+  onSave: (data: WebsiteSettings) => void;
+  saving: boolean;
+}) {
+  const [form, setForm] = useState<WebsiteSettings>({
+    pricing: {
+      paket1: { hargaNormal: "75000", hargaPromo: "55000" },
+      paket2: {
+        bulan1: "15000",
+        bulan2: "20000",
+        bulan3: "25000",
+        bulan4: "30000",
+        bulan5: "35000",
+        bulan6: "35000",
+        bulan7: "40000",
+        bulan8: "40000",
+        bulan9: "45000",
+        bulan10: "45000",
+        bulan11: "50000",
+        bulan12: "50000",
+      },
+    },
+  });
+
+  useEffect(() => {
+    if (initialSettings) {
+      setForm(initialSettings);
+    }
+  }, [initialSettings]);
+
+  const handlePaket1Change = (field: "hargaNormal" | "hargaPromo", value: string) => {
+    setForm((prev) => ({
+      ...prev,
+      pricing: {
+        ...prev.pricing,
+        paket1: { ...prev.pricing.paket1, [field]: value },
+      },
+    }));
+  };
+
+  const handlePaket2Change = (bulan: keyof WebsiteSettings["pricing"]["paket2"], value: string) => {
+    setForm((prev) => ({
+      ...prev,
+      pricing: {
+        ...prev.pricing,
+        paket2: { ...prev.pricing.paket2, [bulan]: value },
+      },
+    }));
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="bg-white/5 border border-white/10 rounded-xl p-5">
+        <h4 className="text-white font-semibold mb-4">Paket 1 (Super Power)</h4>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-xs font-medium text-gray-400 mb-1.5">Harga Normal (Dicoret)</label>
+            <input
+              type="text"
+              value={form.pricing.paket1.hargaNormal}
+              onChange={(e) => handlePaket1Change("hargaNormal", e.target.value)}
+              className="w-full bg-black/20 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500"
+              placeholder="Contoh: 75000"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-gray-400 mb-1.5">Harga Promo (Aktif)</label>
+            <input
+              type="text"
+              value={form.pricing.paket1.hargaPromo}
+              onChange={(e) => handlePaket1Change("hargaPromo", e.target.value)}
+              className="w-full bg-black/20 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500"
+              placeholder="Contoh: 55000"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-white/5 border border-white/10 rounded-xl p-5">
+        <h4 className="text-white font-semibold mb-4">Paket 2 (Invitation / Family)</h4>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => {
+            const key = `bulan${m}` as keyof WebsiteSettings["pricing"]["paket2"];
+            return (
+              <div key={key}>
+                <label className="block text-xs font-medium text-gray-400 mb-1.5">{m} Bulan</label>
+                <input
+                  type="text"
+                  value={form.pricing.paket2[key]}
+                  onChange={(e) => handlePaket2Change(key, e.target.value)}
+                  className="w-full bg-black/20 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500"
+                  placeholder={`Harga ${m} bulan`}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <button
+        onClick={() => onSave(form)}
+        disabled={saving}
+        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-colors disabled:opacity-50 text-sm flex items-center justify-center gap-2"
+      >
+        {saving && <Loader2 size={16} className="animate-spin" />}
+        <Save size={16} /> Simpan Pengaturan
+      </button>
+    </div>
+  );
+}
+
+// ============================================
 // MAIN DASHBOARD (hanya render setelah login)
 // ============================================
 
@@ -637,6 +762,7 @@ const TABS = [
   { id: "overview", label: "Overview", icon: BarChart3 },
   { id: "subscribers", label: "Subscribers", icon: Users },
   { id: "vouchers", label: "Vouchers", icon: Tag },
+  { id: "settings", label: "Pengaturan", icon: Settings },
 ] as const;
 
 type TabId = (typeof TABS)[number]["id"];
@@ -647,6 +773,7 @@ function DashboardContent({ user }: { user: User }) {
   // Data — real-time listeners (hanya aktif setelah login)
   const { subscribers, loading: subsLoading } = useSubscribers();
   const { vouchers, loading: vouchLoading } = useVouchers();
+  const { settings, loading: settingsLoading } = useSettings();
 
   // Modals
   const [subModalOpen, setSubModalOpen] = useState(false);
@@ -772,6 +899,17 @@ function DashboardContent({ user }: { user: User }) {
     } catch {
       showToast("Gagal memperbarui status", "error");
     }
+  };
+
+  const handleSaveSettings = async (data: WebsiteSettings) => {
+    setSaving(true);
+    try {
+      await updateSettings(data);
+      showToast("Pengaturan website berhasil disimpan!", "success");
+    } catch (err: any) {
+      showToast(err.message || "Gagal menyimpan pengaturan.", "error");
+    }
+    setSaving(false);
   };
 
   return (
@@ -1290,6 +1428,31 @@ function DashboardContent({ user }: { user: User }) {
                   </div>
                 ))}
               </div>
+            )}
+          </div>
+        )}
+
+        {/* ====================== SETTINGS TAB ====================== */}
+        {activeTab === "settings" && (
+          <div>
+            <div className="mb-4">
+              <h3 className="text-sm font-semibold text-gray-300">
+                Pengaturan Website
+              </h3>
+              <p className="text-xs text-gray-500 mt-1">Ubah konten dinamis pada halaman utama (landing page).</p>
+            </div>
+            
+            {settingsLoading ? (
+              <div className="flex flex-col items-center justify-center py-16 gap-3">
+                <Loader2 size={28} className="animate-spin text-blue-400" />
+                <p className="text-gray-500 text-sm">Memuat pengaturan...</p>
+              </div>
+            ) : (
+              <SettingsTabContent
+                initialSettings={settings}
+                onSave={handleSaveSettings}
+                saving={saving}
+              />
             )}
           </div>
         )}

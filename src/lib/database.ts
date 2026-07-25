@@ -44,6 +44,29 @@ export interface Voucher {
   expiredAt: string | null; // ISO date string or null
 }
 
+export interface WebsiteSettings {
+  pricing: {
+    paket1: {
+      hargaNormal: string;
+      hargaPromo: string;
+    };
+    paket2: {
+      bulan1: string;
+      bulan2: string;
+      bulan3: string;
+      bulan4: string;
+      bulan5: string;
+      bulan6: string;
+      bulan7: string;
+      bulan8: string;
+      bulan9: string;
+      bulan10: string;
+      bulan11: string;
+      bulan12: string;
+    };
+  };
+}
+
 // ============================================
 // SUBSCRIBERS
 // ============================================
@@ -257,6 +280,39 @@ export function useVouchers(): {
   }, []);
 
   return { vouchers, loading };
+}
+
+// ============================================
+// SETTINGS
+// ============================================
+
+export function useSettings(): {
+  settings: WebsiteSettings | null;
+  loading: boolean;
+} {
+  const [settings, setSettings] = useState<WebsiteSettings | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const settingsRef = ref(db, "settings");
+    const unsubscribe = onValue(settingsRef, (snapshot) => {
+      if (snapshot.exists()) {
+        setSettings(snapshot.val());
+      } else {
+        setSettings(null);
+      }
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  return { settings, loading };
+}
+
+export async function updateSettings(data: WebsiteSettings): Promise<void> {
+  const settingsRef = ref(db, "settings");
+  await set(settingsRef, data);
 }
 
 // ============================================

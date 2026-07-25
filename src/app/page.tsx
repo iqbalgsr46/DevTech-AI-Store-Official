@@ -6,6 +6,7 @@ import { Quicksand } from "next/font/google";
 import { motion, AnimatePresence } from "framer-motion";
 import OrderModal from "@/components/OrderModal";
 import { generateWhatsAppLink } from "@/lib/whatsapp";
+import { useSettings } from "@/lib/database";
 
 const quicksand = Quicksand({ subsets: ["latin"], weight: ["700"] });
 
@@ -690,6 +691,22 @@ export default function Home() {
   const [isBtnHovered, setIsBtnHovered] = useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   
+  const { settings, loading: settingsLoading } = useSettings();
+  
+  const formatPrice = (priceStr?: string, defaultPrice?: string) => {
+    const num = parseInt(priceStr || defaultPrice || "0", 10);
+    return isNaN(num) ? (defaultPrice || "0") : num.toLocaleString('id-ID');
+  };
+
+  const formatShortPrice = (priceStr?: string, defaultPrice?: string) => {
+    const num = parseInt(priceStr || defaultPrice || "0", 10);
+    if (isNaN(num)) return (defaultPrice || "0").replace(/000$/, 'k');
+    if (num >= 1000 && num % 1000 === 0) {
+      return (num / 1000) + 'k';
+    }
+    return formatPrice(priceStr, defaultPrice);
+  };
+  
   // Carousel State
   const [activeSlide, setActiveSlide] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -1315,8 +1332,8 @@ export default function Home() {
               <p className="text-[12px] text-red-500 font-bold text-center mb-3">Aktivasi Mandiri — 18 Bulan</p>
               
               <div className="flex justify-center items-center gap-2 mb-4">
-                 <span className="text-[12px] text-gray-400 line-through">Rp75.000</span>
-                 <span className="text-[20px] font-bold text-[#1E3A8A]">Rp55.000</span>
+                 <span className="text-[12px] text-gray-400 line-through">Rp{formatPrice(settings?.pricing?.paket1?.hargaNormal, "75000")}</span>
+                 <span className="text-[20px] font-bold text-[#1E3A8A]">Rp{formatPrice(settings?.pricing?.paket1?.hargaPromo, "55000")}</span>
               </div>
 
               <ul className="text-[11px] text-gray-600 space-y-2 mb-4 px-2">
@@ -1361,45 +1378,45 @@ export default function Home() {
                 <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[10.5px] text-gray-500 font-medium">
                   {/* Row 1 */}
                   <div className="flex justify-between items-center">
-                    <span>1 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">15k</span>
+                    <span>1 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">{formatShortPrice(settings?.pricing?.paket2?.bulan1, "15000")}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span>7 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">38k</span>
+                    <span>7 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">{formatShortPrice(settings?.pricing?.paket2?.bulan7, "40000")}</span>
                   </div>
                   {/* Row 2 */}
                   <div className="flex justify-between items-center">
-                    <span>2 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">20k</span>
+                    <span>2 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">{formatShortPrice(settings?.pricing?.paket2?.bulan2, "20000")}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span>8 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">40k</span>
+                    <span>8 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">{formatShortPrice(settings?.pricing?.paket2?.bulan8, "40000")}</span>
                   </div>
                   {/* Row 3 */}
                   <div className="flex justify-between items-center">
-                    <span>3 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">25k</span>
+                    <span>3 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">{formatShortPrice(settings?.pricing?.paket2?.bulan3, "25000")}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span>9 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">43k</span>
+                    <span>9 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">{formatShortPrice(settings?.pricing?.paket2?.bulan9, "45000")}</span>
                   </div>
                   {/* Row 4 */}
                   <div className="flex justify-between items-center">
-                    <span>4 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">30k</span>
+                    <span>4 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">{formatShortPrice(settings?.pricing?.paket2?.bulan4, "30000")}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span>10 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">45k</span>
+                    <span>10 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">{formatShortPrice(settings?.pricing?.paket2?.bulan10, "45000")}</span>
                   </div>
                   {/* Row 5 */}
                   <div className="flex justify-between items-center">
-                    <span>5 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">33k</span>
+                    <span>5 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">{formatShortPrice(settings?.pricing?.paket2?.bulan5, "35000")}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span>11 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">48k</span>
+                    <span>11 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">{formatShortPrice(settings?.pricing?.paket2?.bulan11, "50000")}</span>
                   </div>
                   {/* Row 6 */}
                   <div className="flex justify-between items-center">
-                    <span>6 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">35k</span>
+                    <span>6 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">{formatShortPrice(settings?.pricing?.paket2?.bulan6, "35000")}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span>12 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">50k</span>
+                    <span>12 Bln</span><span className="font-bold text-indigo-900 bg-white px-2 py-0.5 rounded-md shadow-sm border border-slate-100">{formatShortPrice(settings?.pricing?.paket2?.bulan12, "50000")}</span>
                   </div>
                 </div>
               </div>
