@@ -16,15 +16,15 @@ export default function GiveawayWidget({
       const isMobile = window.innerWidth < 640;
       if (isMobile) {
         // Pada HP, posisi awal adalah di bawah (bottom-24). 
-        // Agar tidak menabrak navbar di atas (sekitar 80px), batas atas dikurangi ~200px.
+        // Beri padding ekstra agar benar-benar aman di bawah navbar (sekitar 250px dari bawah).
         setConstraints({
-          top: -(window.innerHeight - 200),
+          top: -(window.innerHeight - 280),
           bottom: 20, 
         });
       } else {
         // Pada Desktop, posisi awal di tengah layar (top-1/2).
         setConstraints({
-          top: -(window.innerHeight / 2) + 100, // 100px jarak aman dari navbar
+          top: -(window.innerHeight / 2) + 140, // 140px jarak aman dari navbar
           bottom: (window.innerHeight / 2) - 100,
         });
       }
