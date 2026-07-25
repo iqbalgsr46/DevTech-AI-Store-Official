@@ -694,14 +694,19 @@ export default function Home() {
   const { settings, loading: settingsLoading } = useSettings();
   
   const formatPrice = (priceStr?: string, defaultPrice?: string) => {
-    const num = parseInt(priceStr || defaultPrice || "0", 10);
+    const cleanStr = (priceStr || defaultPrice || "0").replace(/\D/g, "");
+    const num = parseInt(cleanStr, 10);
     return isNaN(num) ? (defaultPrice || "0") : num.toLocaleString('id-ID');
   };
 
   const formatShortPrice = (priceStr?: string, defaultPrice?: string) => {
-    const num = parseInt(priceStr || defaultPrice || "0", 10);
+    const cleanStr = (priceStr || defaultPrice || "0").replace(/\D/g, "");
+    const num = parseInt(cleanStr, 10);
     if (isNaN(num)) return (defaultPrice || "0").replace(/000$/, 'k');
+    
     if (num >= 1000 && num % 1000 === 0) {
+      return (num / 1000) + 'k';
+    } else if (num >= 1000 && num % 100 === 0) {
       return (num / 1000) + 'k';
     }
     return formatPrice(priceStr, defaultPrice);
