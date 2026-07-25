@@ -12,6 +12,7 @@ import {
   get,
   query,
   orderByChild,
+  increment,
 } from "firebase/database";
 import { useState, useEffect } from "react";
 
@@ -138,6 +139,13 @@ export async function updateVoucher(
 ): Promise<void> {
   const voucherRef = ref(db, `vouchers/${code}`);
   await update(voucherRef, data);
+}
+
+export async function incrementVoucherUsage(code: string): Promise<void> {
+  const voucherRef = ref(db, `vouchers/${code.toUpperCase()}`);
+  await update(voucherRef, {
+    currentUses: increment(1),
+  });
 }
 
 export async function deleteVoucher(code: string): Promise<void> {
