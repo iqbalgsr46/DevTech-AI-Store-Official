@@ -719,6 +719,10 @@ function SettingsTabContent({
       googleFormUrl: "",
       announcementDate: "",
     },
+    tutorials: {
+      paket1: { videoUrl: "", passcode: "" },
+      family: { videoUrl: "", passcode: "" },
+    },
   });
 
   useEffect(() => {
@@ -730,6 +734,10 @@ function SettingsTabContent({
           tiktokUrl: "",
           googleFormUrl: "",
           announcementDate: "",
+        },
+        tutorials: initialSettings.tutorials || {
+          paket1: { videoUrl: "", passcode: "" },
+          family: { videoUrl: "", passcode: "" },
         }
       });
     }
@@ -761,6 +769,19 @@ function SettingsTabContent({
       giveaway: {
         ...prev.giveaway!,
         [field]: value,
+      },
+    }));
+  };
+
+  const handleTutorialsChange = (category: "paket1" | "family", field: "videoUrl" | "passcode", value: string) => {
+    setForm((prev) => ({
+      ...prev,
+      tutorials: {
+        ...prev.tutorials!,
+        [category]: {
+          ...prev.tutorials![category],
+          [field]: value,
+        }
       },
     }));
   };
@@ -869,6 +890,62 @@ function SettingsTabContent({
               className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-sm focus:outline-none focus:border-blue-500"
               placeholder="Contoh: 15 Agustus 2026 (kosongkan jika belum ada)"
             />
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-slate-50 border border-slate-200 rounded-xl p-5">
+        <h4 className="text-slate-800 font-semibold mb-4">Pengaturan Video Tutorial</h4>
+        
+        <div className="mb-6">
+          <h5 className="text-sm font-medium text-slate-700 mb-3 border-b pb-2">Panduan Aktivasi Paket 1 (Super Power)</h5>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-medium text-slate-500 mb-1.5">Link Video (MP4)</label>
+              <input
+                type="text"
+                value={form.tutorials?.paket1.videoUrl || ""}
+                onChange={(e) => handleTutorialsChange("paket1", "videoUrl", e.target.value)}
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-sm focus:outline-none focus:border-blue-500"
+                placeholder="https://example.com/video1.mp4"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-slate-500 mb-1.5">Kunci Rahasia (Passcode)</label>
+              <input
+                type="text"
+                value={form.tutorials?.paket1.passcode || ""}
+                onChange={(e) => handleTutorialsChange("paket1", "passcode", e.target.value)}
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-sm focus:outline-none focus:border-blue-500"
+                placeholder="Contoh: DEVTECH2026"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h5 className="text-sm font-medium text-slate-700 mb-3 border-b pb-2">Cara Invite Keluarga (Family Sharing)</h5>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-medium text-slate-500 mb-1.5">Link Video (MP4)</label>
+              <input
+                type="text"
+                value={form.tutorials?.family.videoUrl || ""}
+                onChange={(e) => handleTutorialsChange("family", "videoUrl", e.target.value)}
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-sm focus:outline-none focus:border-blue-500"
+                placeholder="https://example.com/video2.mp4"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-slate-500 mb-1.5">Kunci Rahasia (Passcode)</label>
+              <input
+                type="text"
+                value={form.tutorials?.family.passcode || ""}
+                onChange={(e) => handleTutorialsChange("family", "passcode", e.target.value)}
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-sm focus:outline-none focus:border-blue-500"
+                placeholder="Contoh: FAMILY2026"
+              />
+            </div>
           </div>
         </div>
       </div>

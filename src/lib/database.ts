@@ -72,6 +72,16 @@ export interface WebsiteSettings {
     googleFormUrl: string;
     announcementDate: string;
   };
+  tutorials?: {
+    paket1: {
+      videoUrl: string;
+      passcode: string;
+    };
+    family: {
+      videoUrl: string;
+      passcode: string;
+    };
+  };
 }
 
 // ============================================

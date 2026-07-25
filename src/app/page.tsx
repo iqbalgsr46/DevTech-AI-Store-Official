@@ -9,6 +9,7 @@ import EcosystemModal from "@/components/EcosystemModal";
 import { generateWhatsAppLink } from "@/lib/whatsapp";
 import { useSettings } from "@/lib/database";
 import GiveawayWidget from "@/components/GiveawayWidget";
+import TutorialModal from "@/components/TutorialModal";
 
 const quicksand = Quicksand({ subsets: ["latin"], weight: ["700"] });
 const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
@@ -678,8 +679,26 @@ export default function Home() {
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [selectedPaket, setSelectedPaket] = useState<"super_power" | "invitation">("invitation");
   const [isEcosystemModalOpen, setIsEcosystemModalOpen] = useState(false);
+  const [isTutorialOpen, setIsTutorialOpen] = useState(false);
+  const [tutorialData, setTutorialData] = useState({ title: "", videoUrl: "", passcode: "" });
   
   const { settings, loading: settingsLoading } = useSettings();
+
+  const handleOpenTutorial = (type: "paket1" | "family") => {
+    if (!settings?.tutorials) return;
+    
+    const data = settings.tutorials[type];
+    const title = type === "paket1" 
+      ? "Panduan Aktivasi Paket 1 (Super Power)" 
+      : "Cara Invite Keluarga (Family Sharing)";
+      
+    setTutorialData({
+      title,
+      videoUrl: data.videoUrl,
+      passcode: data.passcode,
+    });
+    setIsTutorialOpen(true);
+  };
   
   const formatPrice = (priceStr?: string, defaultPrice?: string) => {
     const cleanStr = (priceStr || defaultPrice || "0").replace(/\D/g, "");
@@ -1497,9 +1516,9 @@ export default function Home() {
                 <h3 className="text-white text-[19px] sm:text-[21px] font-bold leading-snug">
                   Panduan Aktivasi Paket 1 (Super Power)
                 </h3>
-                <a href="https://wa.me/6285872066832?text=Halo%20DevTech%2C%20saya%20mau%20minta%20panduan%20aktivasi%20Paket%201%20Super%20Power" target="_blank" rel="noopener noreferrer" className="bg-white text-[#0f172a] rounded-[14px] py-3 px-5 flex items-center justify-center gap-2 font-semibold text-[15px] hover:bg-gray-100 transition-colors w-fit mt-auto shadow-sm">
+                <button onClick={() => handleOpenTutorial("paket1")} className="bg-white text-[#0f172a] rounded-[14px] py-3 px-5 flex items-center justify-center gap-2 font-semibold text-[15px] hover:bg-gray-100 transition-colors w-fit mt-auto shadow-sm">
                   <Play size={18} strokeWidth={2.5} /> Minta Panduan
-                </a>
+                </button>
               </div>
             </div>
 
@@ -1514,9 +1533,9 @@ export default function Home() {
                 <h3 className="text-white text-[19px] sm:text-[21px] font-bold leading-snug">
                   Cara Invite Keluarga (Family Sharing) via Akun Head
                 </h3>
-                <a href="https://wa.me/6285872066832?text=Halo%20DevTech%2C%20saya%20mau%20minta%20panduan%20cara%20Invite%20Keluarga%20Family%20Sharing" target="_blank" rel="noopener noreferrer" className="bg-white text-[#0f172a] rounded-[14px] py-3 px-5 flex items-center justify-center gap-2 font-semibold text-[15px] hover:bg-gray-100 transition-colors w-fit mt-auto shadow-sm">
+                <button onClick={() => handleOpenTutorial("family")} className="bg-white text-[#0f172a] rounded-[14px] py-3 px-5 flex items-center justify-center gap-2 font-semibold text-[15px] hover:bg-gray-100 transition-colors w-fit mt-auto shadow-sm">
                   <Play size={18} strokeWidth={2.5} /> Minta Panduan
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -1628,6 +1647,15 @@ export default function Home() {
       <EcosystemModal
         isOpen={isEcosystemModalOpen}
         onClose={() => setIsEcosystemModalOpen(false)}
+      />
+
+      {/* Tutorial Video Modal */}
+      <TutorialModal
+        isOpen={isTutorialOpen}
+        onClose={() => setIsTutorialOpen(false)}
+        title={tutorialData.title}
+        videoUrl={tutorialData.videoUrl}
+        passcode={tutorialData.passcode}
       />
     </div>
   );
