@@ -1500,7 +1500,7 @@ export default function Home() {
               {/* The inner white card */}
               <div className="bg-white rounded-[44px] flex flex-col items-center pt-16 pb-0 px-8 overflow-hidden shadow-[inset_0_0_15px_rgba(0,0,0,0.01)] border border-gray-50">
                 <h2 className="text-[#0f172a] text-[28px] sm:text-[32px] font-medium text-center leading-[1.25] mb-8 tracking-tight">
-                  Buka Akses<br/>Tanpa Batas ke<br/>Google AI Pro
+                  Gabung Komunitas<br/>Eksklusif DevTech<br/>di WhatsApp
                 </h2>
                 <a href="https://chat.whatsapp.com/JpPApmNxF713hdKKJhc6lG" target="_blank" rel="noopener noreferrer" className="bg-[#18181b] text-white font-medium rounded-full py-3.5 px-8 text-[15px] sm:text-[16px] mb-12 hover:bg-[#27272a] transition-colors w-fit shadow-md cursor-pointer block text-center">
                   Gabung sekarang
