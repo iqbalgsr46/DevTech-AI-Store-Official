@@ -713,11 +713,7 @@ export default function Home() {
   };
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
-    e.preventDefault();
     setIsMenuOpen(false);
-    setTimeout(() => {
-      document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
-    }, 150);
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -964,9 +960,9 @@ export default function Home() {
                     </motion.div>
                   )}
                 </AnimatePresence>
-                <button onClick={() => document.getElementById('paket-harga')?.scrollIntoView({ behavior: 'smooth' })} className="w-full bg-white border border-[#e5e9f2] text-[#20283e] font-semibold py-2.5 px-5 rounded-[14px] shadow-[0_2px_8px_rgb(0,0,0,0.02)] transition-colors text-[14px] cursor-pointer">
+                <a href="#paket-harga" className="w-full bg-white border border-[#e5e9f2] text-[#20283e] font-semibold py-2.5 px-5 rounded-[14px] shadow-[0_2px_8px_rgb(0,0,0,0.02)] transition-colors text-[14px] cursor-pointer text-center block">
                   Order Sekarang
-                </button>
+                </a>
               </div>
             </div>
           </div>
