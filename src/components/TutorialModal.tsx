@@ -115,32 +115,36 @@ export default function TutorialModal({
 
       {/* Modal Content */}
       <div
-        className={`relative w-full shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden animate-in zoom-in-95 duration-200 border ${
-          isUnlocked ? "bg-black max-w-4xl rounded-xl border-slate-800" : "bg-slate-900 max-w-md rounded-[24px] border-slate-700/50"
+        className={`relative w-full overflow-hidden animate-in zoom-in-95 duration-200 border ${
+          isUnlocked 
+            ? "bg-black max-w-4xl rounded-xl border-slate-800 shadow-[0_0_50px_rgba(0,0,0,0.5)]" 
+            : "bg-white max-w-md rounded-[24px] border-slate-100 shadow-[0_20px_60px_rgba(0,0,0,0.15)]"
         }`}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 bg-black/20 hover:bg-black/40 text-white rounded-full p-2 transition-colors backdrop-blur-md"
+          className={`absolute top-4 right-4 z-10 rounded-full p-2 transition-colors backdrop-blur-md ${
+            isUnlocked ? "bg-black/20 hover:bg-black/40 text-white" : "bg-black/5 hover:bg-black/10 text-slate-600"
+          }`}
         >
           <X size={20} />
         </button>
 
         {!isUnlocked ? (
-          /* Locked State (Premium Dark Theme) */
+          /* Locked State (Premium Clean White Theme) */
           <div className="p-8 sm:p-10 relative overflow-hidden">
             {/* Background Glow */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[200px] h-[200px] bg-blue-500/20 rounded-full blur-[60px] pointer-events-none"></div>
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[250px] h-[250px] bg-blue-500/10 rounded-full blur-[60px] pointer-events-none"></div>
             
             <div className="text-center mb-8 relative z-10">
-              <div className="w-24 h-24 bg-gradient-to-br from-slate-800 to-slate-900 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner border border-slate-700/50">
-                <span className="text-6xl drop-shadow-[0_0_15px_rgba(59,130,246,0.6)] leading-none -translate-y-1">🔒</span>
+              <div className="w-24 h-24 bg-gradient-to-br from-slate-50 to-blue-50 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm border border-slate-100">
+                <span className="text-6xl drop-shadow-[0_10px_15px_rgba(59,130,246,0.2)] leading-none -translate-y-1">🔒</span>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2 tracking-tight">Video Terkunci</h3>
-              <p className="text-[15px] text-slate-400 leading-relaxed">
+              <h3 className="text-2xl font-bold text-slate-800 mb-2 tracking-tight">Video Terkunci</h3>
+              <p className="text-[15px] text-slate-500 leading-relaxed">
                 Masukkan kunci akses rahasia untuk menonton <br/>
-                <strong className="text-slate-200 font-semibold">{title}</strong>
+                <strong className="text-slate-700 font-semibold">{title}</strong>
               </p>
             </div>
 
@@ -153,14 +157,14 @@ export default function TutorialModal({
                     setInputCode(e.target.value);
                     setError(false);
                   }}
-                  className={`w-full bg-slate-950/50 border rounded-xl px-5 py-4 text-center text-xl tracking-[0.2em] font-bold focus:outline-none transition-all shadow-inner backdrop-blur-sm ${
-                    error ? "border-red-500/50 text-red-400 focus:ring-1 focus:ring-red-500/50" : "border-slate-700/50 focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 text-white placeholder-slate-600"
+                  className={`w-full bg-white border rounded-xl px-5 py-4 text-center text-xl tracking-[0.2em] font-bold focus:outline-none transition-all shadow-sm ${
+                    error ? "border-red-400 text-red-500 focus:ring-4 focus:ring-red-500/10" : "border-slate-200 focus:border-blue-500 text-slate-800 placeholder-slate-300 focus:ring-4 focus:ring-blue-500/10"
                   }`}
                   placeholder="KODE KUNCI"
                   autoFocus
                 />
                 {error && (
-                  <p className="text-red-400 text-sm mt-3 flex items-center justify-center gap-1.5 font-medium">
+                  <p className="text-red-500 text-sm mt-3 flex items-center justify-center gap-1.5 font-medium">
                     <AlertCircle size={16} /> Kunci tidak valid, coba lagi.
                   </p>
                 )}
