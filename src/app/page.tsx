@@ -1009,7 +1009,7 @@ export default function Home() {
             <span className={`text-[24px] sm:text-[28px] font-medium text-[#1c1d20] mb-2 leading-none tracking-tight ${quicksand.className}`}>
               <CountUp to={100} suffix="%" />
             </span>
-            <span className="text-[#6b7280] text-[14px] sm:text-[15px] leading-relaxed">Akses Resmi, Aman<br />& Bergaransi Penuh</span>
+            <span className="text-[#6b7280] text-[14px] sm:text-[15px] leading-relaxed">Akses Resmi & Aman</span>
           </div>
           <div className="flex flex-col col-span-2 sm:col-span-1 items-center">
             <span className={`text-[24px] sm:text-[28px] font-medium text-[#1c1d20] mb-2 leading-none tracking-tight ${quicksand.className}`}>
