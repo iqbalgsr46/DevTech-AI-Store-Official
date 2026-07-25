@@ -13,10 +13,21 @@ export default function GiveawayWidget({
 
   useEffect(() => {
     const updateConstraints = () => {
-      setConstraints({
-        top: -window.innerHeight + 120,
-        bottom: window.innerHeight - 120,
-      });
+      const isMobile = window.innerWidth < 640;
+      if (isMobile) {
+        // Pada HP, posisi awal adalah di bawah (bottom-24). 
+        // Agar tidak menabrak navbar di atas (sekitar 80px), batas atas dikurangi ~200px.
+        setConstraints({
+          top: -(window.innerHeight - 200),
+          bottom: 20, 
+        });
+      } else {
+        // Pada Desktop, posisi awal di tengah layar (top-1/2).
+        setConstraints({
+          top: -(window.innerHeight / 2) + 100, // 100px jarak aman dari navbar
+          bottom: (window.innerHeight / 2) - 100,
+        });
+      }
     };
     
     updateConstraints();
