@@ -1089,9 +1089,9 @@ export default function Home() {
               {/* Card 1 */}
               <ScrollReveal y={40}>
                 <div className="border border-white/15 rounded-[32px] p-8 sm:p-10 flex flex-col justify-center w-full bg-[#050505] shadow-xl hover:border-white/30 transition-colors">
-                  <h3 className="text-white text-[20px] sm:text-[22px] font-bold mb-4 text-center">Limit Token Hemat & Refresh 5 Jam</h3>
+                  <h3 className="text-white text-[20px] sm:text-[22px] font-bold mb-4 text-center">Token Lebih Hemat & Refresh Cepat</h3>
                   <p className="text-[#a1a1aa] text-[14px] sm:text-[15px] text-center leading-relaxed">
-                    Model compute-based yang menggantikan batasan prompt sederhana. Kuota refresh otomatis setiap 5 jam — sehingga Anda bisa terus coding tanpa henti sepanjang hari.
+                    Sistem komputasi canggih yang membuat penggunaan token di Antigravity jauh lebih hemat. Kuota Anda akan ter-refresh otomatis dengan cepat, memastikan Anda bisa terus ngoding tanpa hambatan.
                   </p>
                 </div>
               </ScrollReveal>
