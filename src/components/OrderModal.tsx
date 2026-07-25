@@ -10,13 +10,15 @@ import { validateVoucher, VoucherValidationResult } from "@/lib/database";
 interface OrderModalProps {
   isOpen: boolean;
   onClose: () => void;
+  paketType: "super_power" | "invitation";
+  basePrice?: number | string;
 }
 
 const STEPS = ["Pilih Durasi", "Isi Data", "Konfirmasi"];
 
-export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
-  // Step state
-  const [step, setStep] = useState(0);
+export default function OrderModal({ isOpen, onClose, paketType, basePrice }: OrderModalProps) {
+  // Step state (Skip step 0 for super_power)
+  const [step, setStep] = useState(paketType === "super_power" ? 1 : 0);
 
   // Step 1: Durasi
   const [durasi, setDurasi] = useState<number>(1);
@@ -32,14 +34,14 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
   const [voucherLoading, setVoucherLoading] = useState(false);
 
   // Computed
-  const harga = HARGA_INVITATION[durasi] || 15000;
+  const harga = paketType === "super_power" ? (Number(basePrice) || 55000) : (HARGA_INVITATION[durasi] || 15000);
   const diskonInfo = voucherResult?.valid && voucherResult.voucher
     ? hitungDiskon(harga, voucherResult.voucher.type, voucherResult.voucher.value)
     : null;
   const totalBayar = diskonInfo ? diskonInfo.totalBayar : harga;
 
   const resetForm = useCallback(() => {
-    setStep(0);
+    setStep(paketType === "super_power" ? 1 : 0);
     setDurasi(1);
     setNama("");
     setEmail("");
@@ -71,11 +73,11 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
 
   const handleSubmit = () => {
     const link = generateWhatsAppLink({
-      paket: "invitation",
+      paket: paketType,
       nama,
       email,
       whatsapp,
-      durasi,
+      durasi: paketType === "super_power" ? 18 : durasi,
       harga,
       voucherCode: voucherResult?.valid ? voucherInput.toUpperCase() : null,
       diskon: diskonInfo?.potongan || 0,
@@ -116,7 +118,7 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
             <div className="sticky top-0 bg-white/95 backdrop-blur-md rounded-t-[28px] px-6 pt-5 pb-3 flex items-center justify-between border-b border-gray-100 z-20">
               <div>
                 <h2 className="text-[18px] font-bold text-gray-900">
-                  Pre-Order Paket Invitation
+                  Pre-Order Paket {paketType === "super_power" ? "Super Power" : "Invitation"}
                 </h2>
                 {/* Progress Steps */}
                 <div className="flex items-center gap-1.5 mt-2">
@@ -332,8 +334,8 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
 
                     <div className="flex gap-2 mt-5">
                       <button
-                        onClick={() => setStep(0)}
-                        className="px-4 py-3 rounded-xl border border-gray-200 text-gray-600 font-semibold text-[14px] flex items-center gap-1 hover:bg-gray-50 transition-colors"
+                        onClick={() => paketType === "super_power" ? handleClose() : setStep(0)}
+                        className="flex-1 py-3 px-4 border border-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-colors flex justify-center items-center gap-2 text-[15px]"
                       >
                         <ArrowLeft size={16} /> Kembali
                       </button>
@@ -377,11 +379,15 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
                       <div className="h-[1px] bg-gray-200" />
                       <div className="flex justify-between text-[13px]">
                         <span className="text-gray-500">Paket</span>
-                        <span className="text-gray-900 font-semibold">Invitation (Family)</span>
+                        <span className="text-gray-900 font-semibold">
+                          {paketType === "super_power" ? "Super Power (Aktivasi Mandiri)" : "Invitation (Family)"}
+                        </span>
                       </div>
                       <div className="flex justify-between text-[13px]">
                         <span className="text-gray-500">Durasi</span>
-                        <span className="text-gray-900 font-semibold">{durasi} Bulan</span>
+                        <span className="text-gray-900 font-semibold">
+                          {paketType === "super_power" ? 18 : durasi} Bulan
+                        </span>
                       </div>
                       <div className="flex justify-between text-[13px]">
                         <span className="text-gray-500">Harga</span>

@@ -675,6 +675,7 @@ export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isBtnHovered, setIsBtnHovered] = useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
+  const [selectedPaket, setSelectedPaket] = useState<"super_power" | "invitation">("invitation");
   const [isEcosystemModalOpen, setIsEcosystemModalOpen] = useState(false);
   
   const { settings, loading: settingsLoading } = useSettings();
@@ -708,8 +709,8 @@ export default function Home() {
   const [startScrollLeft, setStartScrollLeft] = useState(0);
 
   const handleOrderPaket1 = () => {
-    const link = generateWhatsAppLink({ paket: "super_power" });
-    window.open(link, "_blank");
+    setSelectedPaket("super_power");
+    setIsOrderModalOpen(true);
   };
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
@@ -1418,7 +1419,7 @@ export default function Home() {
                  <li className="flex gap-2 items-start"><CheckCircle2 size={13} className="text-indigo-500 shrink-0 mt-0.5" /> <span>Tidak perlu login, password, atau kartu kredit</span></li>
               </ul>
               
-              <button onClick={() => setIsOrderModalOpen(true)} className="border border-gray-200 rounded-xl py-2 px-6 flex items-center justify-center gap-2 mx-auto text-[14px] font-medium text-gray-800 hover:bg-gray-50 transition-colors w-fit shadow-sm cursor-pointer">
+              <button onClick={() => { setSelectedPaket("invitation"); setIsOrderModalOpen(true); }} className="border border-gray-200 rounded-xl py-2 px-6 flex items-center justify-center gap-2 mx-auto text-[14px] font-medium text-gray-800 hover:bg-gray-50 transition-colors w-fit shadow-sm cursor-pointer">
                 Pilih Paket <ArrowRight size={16} className="-rotate-45" />
               </button>
             </div>
@@ -1600,6 +1601,8 @@ export default function Home() {
       <OrderModal 
         isOpen={isOrderModalOpen}
         onClose={() => setIsOrderModalOpen(false)}
+        paketType={selectedPaket}
+        basePrice={settings?.pricing?.paket1?.hargaPromo}
       />
 
       {/* Ecosystem Modal */}
