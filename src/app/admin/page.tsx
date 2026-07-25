@@ -46,6 +46,8 @@ import {
   Home,
   Settings,
   Save,
+  CheckCircle2,
+  XCircle,
 } from "lucide-react";
 
 // ============================================
@@ -74,7 +76,10 @@ function Toast({
           : "bg-red-50 border-red-200 text-red-700"
       }`}
     >
-      {type === "success" ? "✅" : "❌"} {message}
+      <div className="shrink-0 mt-0.5">
+        {type === "success" ? <CheckCircle2 size={16} /> : <XCircle size={16} />}
+      </div>
+      {message}
     </div>
   );
 }
@@ -1080,7 +1085,7 @@ function DashboardContent({ user }: { user: User }) {
 
               <div className="bg-white shadow-sm border border-slate-200 rounded-2xl p-5 hover:shadow-md transition-shadow">
                 <div className="flex items-center justify-between mb-4">
-                  <p className="text-slate-500 text-sm font-medium">Expiring &lt;7d</p>
+                  <p className="text-slate-500 text-sm font-medium">Hampir Habis</p>
                   <div className="w-8 h-8 rounded-full bg-amber-50 flex items-center justify-center">
                     <Clock size={16} className="text-amber-500" />
                   </div>
@@ -1112,7 +1117,7 @@ function DashboardContent({ user }: { user: User }) {
                   <p className="text-4xl font-bold text-slate-900">{vouchers.filter((v) => v.isActive).length}</p>
                 </div>
                 <div className="mt-4 pt-4 border-t border-slate-100 flex items-center gap-2 text-sm text-slate-500">
-                  <span className="font-medium text-slate-700">{vouchers.reduce((acc, v) => acc + (v.currentUses || 0), 0)}x</span> total penggunaan voucher
+                  <span className="font-medium text-slate-700">{vouchers.reduce((acc, v) => acc + (v.currentUses || 0), 0)}</span> total penggunaan voucher
                 </div>
               </div>
 
@@ -1286,9 +1291,9 @@ function DashboardContent({ user }: { user: User }) {
                       setSubEditData(null);
                       setSubModalOpen(true);
                     }}
-                    className="mt-3 text-blue-400 text-sm font-medium hover:text-blue-300 transition-colors"
+                    className="mt-3 text-blue-600 text-sm font-medium hover:text-blue-700 transition-colors bg-blue-50 px-4 py-2 rounded-xl"
                   >
-                    + Tambah subscriber pertama
+                    Tambah subscriber pertama
                   </button>
                 )}
               </div>
@@ -1337,7 +1342,7 @@ function DashboardContent({ user }: { user: User }) {
                               {sub.paket === "super_power"
                                 ? "Super Power"
                                 : "Invitation"}{" "}
-                              • {sub.durasi} bln
+                              <span className="mx-1 text-slate-300">|</span> {sub.durasi} bln
                             </div>
                           </td>
                           <td className="px-5 py-4 hidden sm:table-cell">
@@ -1441,9 +1446,9 @@ function DashboardContent({ user }: { user: User }) {
                     setVouchEditData(null);
                     setVouchModalOpen(true);
                   }}
-                  className="mt-3 text-blue-400 text-sm font-medium hover:text-blue-300 transition-colors"
+                  className="mt-4 text-blue-600 text-sm font-medium hover:text-blue-700 transition-colors bg-blue-50 px-4 py-2 rounded-xl"
                 >
-                  + Buat voucher pertama
+                  Buat voucher pertama
                 </button>
               </div>
             ) : (
@@ -1468,9 +1473,14 @@ function DashboardContent({ user }: { user: User }) {
                         {v.type === "percentage"
                           ? `Diskon ${v.value}%`
                           : `Potongan Rp${v.value.toLocaleString("id-ID")}`}
-                        {" • "}
-                        Dipakai {v.currentUses || 0}/{v.maxUses}x
-                        {v.expiredAt && ` • Expired: ${v.expiredAt}`}
+                        <span className="mx-1.5 text-slate-300">|</span>
+                        Dipakai {v.currentUses || 0} dari {v.maxUses}
+                        {v.expiredAt && (
+                           <>
+                             <span className="mx-1.5 text-slate-300">|</span>
+                             Expired: {v.expiredAt}
+                           </>
+                        )}
                       </p>
                     </div>
                     <div className="flex items-center gap-1 shrink-0">
