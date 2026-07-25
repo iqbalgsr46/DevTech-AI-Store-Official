@@ -889,12 +889,12 @@ export default function Home() {
                 <a href="#beranda" onClick={(e) => handleNavClick(e, 'beranda')} className="text-[15px] font-medium text-[#181d28] hover:text-[#1b59d9] transition-colors">Beranda</a>
                 <a href="#paket-harga" onClick={(e) => handleNavClick(e, 'paket-harga')} className="text-[15px] font-medium text-[#181d28] hover:text-[#1b59d9] transition-colors">Paket Harga</a>
                 <a href="#keunggulan-fitur" onClick={(e) => handleNavClick(e, 'keunggulan-fitur')} className="text-[15px] font-medium text-[#181d28] hover:text-[#1b59d9] transition-colors">Keunggulan Fitur</a>
-                <a href="#testimoni" onClick={(e) => handleNavClick(e, 'testimoni')} className="text-[15px] font-medium text-[#181d28] hover:text-[#1b59d9] transition-colors">Testimoni</a>
-                <a href="#faq" onClick={(e) => handleNavClick(e, 'faq')} className="text-[15px] font-medium text-[#181d28] hover:text-[#1b59d9] transition-colors">FAQ</a>
+                <a href="#testimoni" onClick={(e) => handleNavClick(e, 'testimoni')} className="text-[15px] font-medium text-[#181d28] hover:text-[#1b59d9] transition-colors">Ekosistem</a>
+                <a href="#faq" onClick={(e) => handleNavClick(e, 'faq')} className="text-[15px] font-medium text-[#181d28] hover:text-[#1b59d9] transition-colors">Panduan</a>
                 
-                <button className="mt-4 bg-black hover:bg-slate-900 text-white font-bold text-[15px] py-3 px-10 rounded-full shadow-lg transition-colors">
-                  Masuk
-                </button>
+                <a href="https://wa.me/6285872066832?text=Halo%20DevTech%2C%20saya%20tertarik%20dengan%20paket%20Google%20AI%20Pro" target="_blank" rel="noopener noreferrer" className="mt-4 bg-black hover:bg-slate-900 text-white font-bold text-[15px] py-3 px-10 rounded-full shadow-lg transition-colors inline-block text-center">
+                  Hubungi Kami
+                </a>
               </motion.div>
             </motion.div>
           )}
@@ -947,7 +947,7 @@ export default function Home() {
                     </motion.div>
                   )}
                 </AnimatePresence>
-                <button className="w-full bg-white border border-[#e5e9f2] text-[#20283e] font-semibold py-2.5 px-5 rounded-[14px] shadow-[0_2px_8px_rgb(0,0,0,0.02)] transition-colors text-[14px]">
+                <button onClick={() => document.getElementById('paket-harga')?.scrollIntoView({ behavior: 'smooth' })} className="w-full bg-white border border-[#e5e9f2] text-[#20283e] font-semibold py-2.5 px-5 rounded-[14px] shadow-[0_2px_8px_rgb(0,0,0,0.02)] transition-colors text-[14px] cursor-pointer">
                   Langganan sekarang
                 </button>
               </div>
@@ -956,13 +956,7 @@ export default function Home() {
         </ScrollReveal>
       </div>
 
-      {/* Floating Chat Button */}
-      <button className="fixed bottom-6 right-6 z-50 w-[60px] h-[60px] bg-[#293649] rounded-full flex items-center justify-center shadow-xl hover:scale-105 transition-transform">
-        <div className="relative flex items-center justify-center">
-          <div className="w-[26px] h-[22px] bg-white rounded-[10px] rounded-br-sm relative"></div>
-          <div className="absolute -bottom-1 -right-0.5 w-3 h-3 bg-white transform rotate-45 rounded-sm"></div>
-        </div>
-      </button>
+
       </main>
 
       {/* Stats & Global Curriculum Section */}
@@ -1172,7 +1166,7 @@ export default function Home() {
           Infrastruktur komputasi di balik Google AI Pro dirancang oleh insinyur terbaik di planet ini. Mesin kecerdasan buatan kami menjadi tulang punggung revolusi digital dan dipercaya penuh oleh raksasa teknologi global.
         </p>
         
-        <button className="bg-white border border-[#e2e8f0] rounded-full py-2 pl-6 pr-2 flex items-center justify-center gap-4 hover:shadow-md transition-shadow mb-20 shadow-sm cursor-pointer mx-auto w-fit">
+        <button onClick={() => document.getElementById('keunggulan-fitur')?.scrollIntoView({ behavior: 'smooth' })} className="bg-white border border-[#e2e8f0] rounded-full py-2 pl-6 pr-2 flex items-center justify-center gap-4 hover:shadow-md transition-shadow mb-20 shadow-sm cursor-pointer mx-auto w-fit">
           <span className="text-[#0f172a] font-medium text-[15px]">Jelajahi integrasi ekosistem</span>
           <div className="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center">
             <ArrowRight size={18} />
@@ -1475,9 +1469,9 @@ export default function Home() {
                 <h3 className="text-white text-[19px] sm:text-[21px] font-bold leading-snug">
                   Panduan Aktivasi Paket 1 (Super Power)
                 </h3>
-                <button className="bg-white text-[#0f172a] rounded-[14px] py-3 px-5 flex items-center justify-center gap-2 font-semibold text-[15px] hover:bg-gray-100 transition-colors w-fit mt-auto shadow-sm">
-                  <Play size={18} strokeWidth={2.5} /> Putar video
-                </button>
+                <a href="https://wa.me/6285872066832?text=Halo%20DevTech%2C%20saya%20mau%20minta%20panduan%20aktivasi%20Paket%201%20Super%20Power" target="_blank" rel="noopener noreferrer" className="bg-white text-[#0f172a] rounded-[14px] py-3 px-5 flex items-center justify-center gap-2 font-semibold text-[15px] hover:bg-gray-100 transition-colors w-fit mt-auto shadow-sm">
+                  <Play size={18} strokeWidth={2.5} /> Minta Panduan
+                </a>
               </div>
             </div>
 
@@ -1492,9 +1486,9 @@ export default function Home() {
                 <h3 className="text-white text-[19px] sm:text-[21px] font-bold leading-snug">
                   Cara Invite Keluarga (Family Sharing) via Akun Head
                 </h3>
-                <button className="bg-white text-[#0f172a] rounded-[14px] py-3 px-5 flex items-center justify-center gap-2 font-semibold text-[15px] hover:bg-gray-100 transition-colors w-fit mt-auto shadow-sm">
-                  <Play size={18} strokeWidth={2.5} /> Putar video
-                </button>
+                <a href="https://wa.me/6285872066832?text=Halo%20DevTech%2C%20saya%20mau%20minta%20panduan%20cara%20Invite%20Keluarga%20Family%20Sharing" target="_blank" rel="noopener noreferrer" className="bg-white text-[#0f172a] rounded-[14px] py-3 px-5 flex items-center justify-center gap-2 font-semibold text-[15px] hover:bg-gray-100 transition-colors w-fit mt-auto shadow-sm">
+                  <Play size={18} strokeWidth={2.5} /> Minta Panduan
+                </a>
               </div>
             </div>
           </div>
@@ -1508,7 +1502,7 @@ export default function Home() {
                 <h2 className="text-[#0f172a] text-[28px] sm:text-[32px] font-medium text-center leading-[1.25] mb-8 tracking-tight">
                   Buka Akses<br/>Tanpa Batas ke<br/>Google AI Pro
                 </h2>
-                <button className="bg-[#18181b] text-white font-medium rounded-full py-3.5 px-8 text-[15px] sm:text-[16px] mb-12 hover:bg-[#27272a] transition-colors w-fit shadow-md">
+                <button onClick={() => document.getElementById('paket-harga')?.scrollIntoView({ behavior: 'smooth' })} className="bg-[#18181b] text-white font-medium rounded-full py-3.5 px-8 text-[15px] sm:text-[16px] mb-12 hover:bg-[#27272a] transition-colors w-fit shadow-md cursor-pointer">
                   Gabung sekarang
                 </button>
                 
@@ -1532,6 +1526,9 @@ export default function Home() {
         <div className="w-full max-w-[1200px] mx-auto relative z-10 flex flex-col gap-10">
           {/* Social Icons */}
           <div className="flex items-center gap-4">
+            <a href="https://wa.me/6285872066832" target="_blank" rel="noopener noreferrer" className="w-[34px] h-[34px] flex items-center justify-center hover:scale-110 transition-transform bg-[#25D366] rounded-[10px] shadow-sm">
+              <MessageCircle size={20} className="text-white" />
+            </a>
             <a href="#" className="w-[34px] h-[34px] flex items-center justify-center hover:scale-110 transition-transform shadow-sm overflow-hidden rounded-[10px]">
               <img src="/download.png" alt="TikTok" className="w-full h-full object-contain" />
             </a>
@@ -1542,31 +1539,32 @@ export default function Home() {
             <div>
               <h4 className="text-[#64748b] font-semibold text-[15px] mb-5">Perusahaan</h4>
               <ul className="flex flex-col gap-4 text-[#334155] font-semibold text-[15px]">
-                <li><a href="#" className="hover:text-blue-600 transition-colors">Tentang Kami</a></li>
-                <li><a href="#" className="hover:text-blue-600 transition-colors">Hubungi Kami</a></li>
-                <li><a href="#" className="hover:text-blue-600 transition-colors">Metode Pembayaran</a></li>
-                <li><a href="#" className="hover:text-blue-600 transition-colors">Pertanyaan Umum (FAQ)</a></li>
+                <li><a href="#beranda" onClick={(e) => handleNavClick(e, 'beranda')} className="hover:text-blue-600 transition-colors">Tentang Kami</a></li>
+                <li><a href="https://wa.me/6285872066832" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors">Hubungi Kami</a></li>
+                <li><a href="https://wa.me/6285872066832?text=Halo%20DevTech%2C%20metode%20pembayaran%20apa%20saja%20yang%20tersedia%3F" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors">Metode Pembayaran</a></li>
+                <li><a href="#faq" onClick={(e) => handleNavClick(e, 'faq')} className="hover:text-blue-600 transition-colors">Pertanyaan Umum (FAQ)</a></li>
               </ul>
             </div>
             <div>
               <h4 className="text-[#64748b] font-semibold text-[15px] mb-5">Layanan AI Pro</h4>
               <ul className="flex flex-col gap-4 text-[#334155] font-semibold text-[15px]">
-                <li><a href="#" className="hover:text-blue-600 transition-colors">Paket Personal</a></li>
-                <li><a href="#" className="hover:text-blue-600 transition-colors">Paket Family (Grup)</a></li>
-                <li><a href="#" className="hover:text-blue-600 transition-colors">Keunggulan Fitur</a></li>
-                <li><a href="#" className="hover:text-blue-600 transition-colors">Panduan Aktivasi</a></li>
-                <li><a href="#" className="hover:text-blue-600 transition-colors">Bantuan Teknis</a></li>
+                <li><a href="#paket-harga" onClick={(e) => handleNavClick(e, 'paket-harga')} className="hover:text-blue-600 transition-colors">Paket Super Power</a></li>
+                <li><a href="#paket-harga" onClick={(e) => handleNavClick(e, 'paket-harga')} className="hover:text-blue-600 transition-colors">Paket Invitation (Family)</a></li>
+                <li><a href="#keunggulan-fitur" onClick={(e) => handleNavClick(e, 'keunggulan-fitur')} className="hover:text-blue-600 transition-colors">Keunggulan Fitur</a></li>
+                <li><a href="#faq" onClick={(e) => handleNavClick(e, 'faq')} className="hover:text-blue-600 transition-colors">Panduan Aktivasi</a></li>
+                <li><a href="https://wa.me/6285872066832?text=Halo%20DevTech%2C%20saya%20butuh%20bantuan%20teknis" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors">Bantuan Teknis</a></li>
               </ul>
             </div>
           </div>
 
           {/* Footer Bottom Info */}
           <div className="mt-8 flex flex-col gap-3 text-[11px] sm:text-[12px] text-[#475569] font-medium leading-relaxed max-w-[400px]">
-            <p>© 2026 AI Store Official</p>
-            <p>AI Store Official adalah platform penyedia lisensi resmi Google AI Pro. Kami berkomitmen memberikan layanan teknologi terbaik di Indonesia.</p>
+            <p>© 2026 DevTech AI Store. All rights reserved.</p>
+            <p>DevTech AI Store adalah platform penyedia lisensi resmi Google AI Pro di Indonesia. Kami berkomitmen memberikan akses teknologi AI terbaik dengan harga terjangkau.</p>
+            <p className="text-[10px] text-gray-400">WhatsApp: 0858-7206-6832</p>
             <div className="flex items-center gap-3 pt-2 text-[13px]">
-              <a href="#" className="hover:text-gray-900 transition-colors">Terms</a>
-              <a href="#" className="hover:text-gray-900 transition-colors">Privacy</a>
+              <a href="#beranda" onClick={(e) => handleNavClick(e, 'beranda')} className="hover:text-gray-900 transition-colors">Terms</a>
+              <a href="#beranda" onClick={(e) => handleNavClick(e, 'beranda')} className="hover:text-gray-900 transition-colors">Privacy</a>
               <span className="text-gray-300">•</span>
               <a href="/admin" className="text-gray-400 hover:text-blue-600 transition-colors flex items-center gap-1">
                 <Shield size={12} /> Admin
