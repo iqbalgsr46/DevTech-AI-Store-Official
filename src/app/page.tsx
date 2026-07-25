@@ -991,13 +991,13 @@ export default function Home() {
             <span className={`text-[24px] sm:text-[28px] font-medium text-[#1c1d20] mb-2 leading-none tracking-tight ${quicksand.className}`}>
               <CountUp to={250000} suffix="+" />
             </span>
-            <span className="text-[#6b7280] text-[14px] sm:text-[15px]">Pelanggan Setia</span>
+            <span className="text-[#6b7280] text-[14px] sm:text-[15px]">Pelanggan Aktif</span>
           </div>
           <div className="flex flex-col items-center">
             <span className={`text-[24px] sm:text-[28px] font-medium text-[#1c1d20] mb-2 leading-none tracking-tight ${quicksand.className}`}>
               <CountUp to={1500000} suffix="+" />
             </span>
-            <span className="text-[#6b7280] text-[14px] sm:text-[15px]">Prompt AI Setiap Hari</span>
+            <span className="text-[#6b7280] text-[14px] sm:text-[15px]">Total Transaksi</span>
           </div>
           <div className="flex flex-col items-center">
             <span className={`text-[24px] sm:text-[28px] font-medium text-[#1c1d20] mb-2 leading-none tracking-tight ${quicksand.className}`}>
