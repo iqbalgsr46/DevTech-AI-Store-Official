@@ -76,7 +76,7 @@ export default function GiveawayWidget({
                       </li>
                       <li className="flex items-start gap-2 text-sm text-slate-600">
                         <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />
-                        <span>Wajib <strong>Like, Komentar, dan Share</strong> video tersebut.</span>
+                        <span>Wajib <strong>Follow, Like, Comment, & Share</strong> video tersebut.</span>
                       </li>
                       <li className="flex items-start gap-2 text-sm text-slate-600">
                         <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />
@@ -84,7 +84,7 @@ export default function GiveawayWidget({
                       </li>
                       <li className="flex items-start gap-2 text-sm text-slate-600">
                         <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />
-                        <span>Upload bukti <strong>Screenshot</strong> pada saat pengisian form.</span>
+                        <span>Upload semua bukti <strong>Screenshot</strong> pada saat pengisian form.</span>
                       </li>
                     </ul>
                   </div>
