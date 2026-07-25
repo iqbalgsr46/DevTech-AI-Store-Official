@@ -70,17 +70,19 @@ function Toast({
   }, [onClose]);
 
   return (
-    <div
-      className={`fixed top-4 right-4 z-[100] px-4 py-3 rounded-xl text-sm font-medium shadow-2xl border animate-slide-in flex items-center gap-2 max-w-[360px] ${
-        type === "success"
-          ? "bg-emerald-50 border-emerald-200 text-emerald-700"
-          : "bg-red-50 border-red-200 text-red-700"
-      }`}
-    >
-      <div className="shrink-0 mt-0.5">
-        {type === "success" ? <CheckCircle2 size={16} /> : <XCircle size={16} />}
+    <div className="fixed top-6 left-0 right-0 z-[100] flex justify-center pointer-events-none">
+      <div
+        className={`pointer-events-auto px-5 py-3.5 rounded-2xl text-sm font-medium shadow-xl shadow-slate-200/50 border animate-slide-down flex items-center gap-3 max-w-[400px] bg-white text-slate-800 ${
+          type === "success"
+            ? "border-emerald-200"
+            : "border-red-200"
+        }`}
+      >
+        <div className={`shrink-0 flex items-center justify-center ${type === "success" ? "text-emerald-500" : "text-red-500"}`}>
+          {type === "success" ? <CheckCircle2 size={20} /> : <XCircle size={20} />}
+        </div>
+        <p className="leading-tight">{message}</p>
       </div>
-      {message}
     </div>
   );
 }
