@@ -635,6 +635,46 @@ function VoucherFormModal({
 }
 
 // ============================================
+// REALTIME COUNTDOWN
+// ============================================
+
+function RealtimeCountdown({ endDate, daysLeft }: { endDate: string, daysLeft: number }) {
+  const [timeLeft, setTimeLeft] = useState("");
+
+  useEffect(() => {
+    // Set expiration to 23:59:59 of the endDate
+    const target = new Date(`${endDate}T23:59:59`).getTime();
+
+    const updateTimer = () => {
+      const now = new Date().getTime();
+      const diff = target - now;
+
+      if (diff <= 0) {
+        setTimeLeft("Expired");
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      setTimeLeft(`${days} Hari ${hours} Jam ${minutes} Menit ${seconds} Detik`);
+    };
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000);
+    return () => clearInterval(interval);
+  }, [endDate]);
+
+  return (
+    <div className={`text-[11px] font-mono mt-1 ${daysLeft <= 7 ? "text-amber-400" : "text-gray-400"}`}>
+      {timeLeft}
+    </div>
+  );
+}
+
+// ============================================
 // SETTINGS TAB COMPONENT
 // ============================================
 
@@ -1293,13 +1333,7 @@ function DashboardContent({ user }: { user: User }) {
                               {sub.endDate}
                             </div>
                             {sub.status === "active" && (
-                              <div
-                                className={`text-xs mt-0.5 ${daysLeft <= 7 ? "text-amber-400" : "text-gray-500"}`}
-                              >
-                                {daysLeft > 0
-                                  ? `${daysLeft} hari lagi`
-                                  : "Hari ini"}
-                              </div>
+                              <RealtimeCountdown endDate={sub.endDate} daysLeft={daysLeft} />
                             )}
                           </td>
                           <td className="px-4 py-3">
