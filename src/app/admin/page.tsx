@@ -48,6 +48,7 @@ import {
   Save,
   CheckCircle2,
   XCircle,
+  ArrowRight,
 } from "lucide-react";
 
 // ============================================
@@ -1148,28 +1149,28 @@ function DashboardContent({ user }: { user: User }) {
 
             {/* Recent Subscribers */}
             {recentSubs.length > 0 && (
-              <div className="mt-4 bg-slate-50 border border-slate-200 rounded-2xl p-5">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-sm font-semibold text-slate-600">
+              <div className="mt-5 bg-white shadow-sm border border-slate-200 rounded-2xl p-6 hover:shadow-md transition-shadow">
+                <div className="flex items-center justify-between mb-5">
+                  <h3 className="text-base font-semibold text-slate-800">
                     Subscriber Terbaru
                   </h3>
                   <button
                     onClick={() => setActiveTab("subscribers")}
-                    className="text-blue-400 text-xs font-medium hover:text-blue-300 transition-colors"
+                    className="flex items-center gap-1.5 text-blue-600 text-sm font-medium hover:text-blue-700 hover:bg-blue-50 px-3 py-1.5 rounded-lg transition-colors"
                   >
-                    Lihat Semua →
+                    Lihat Semua <ArrowRight size={14} />
                   </button>
                 </div>
-                <div className="space-y-2.5">
+                <div className="space-y-3">
                   {recentSubs.map((sub) => {
                     const badge = getStatusBadge(sub.status, sub.endDate);
                     return (
                       <div
                         key={sub.id}
-                        className="flex items-center justify-between py-2 border-b border-slate-100 last:border-0"
+                        className="flex items-center justify-between py-3 px-4 rounded-xl border border-slate-100 hover:border-slate-200 bg-slate-50 hover:bg-white transition-colors"
                       >
                         <div>
-                          <p className="text-sm font-medium text-slate-800">
+                          <p className="text-sm font-semibold text-slate-800 mb-0.5">
                             {sub.nama}
                           </p>
                           <p className="text-xs text-slate-500">
