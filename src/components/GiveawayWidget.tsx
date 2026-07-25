@@ -72,19 +72,19 @@ export default function GiveawayWidget({
                     <ul className="space-y-2">
                       <li className="flex items-start gap-2 text-sm text-slate-600">
                         <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />
-                        <span>Follow akun TikTok kami.</span>
+                        <span>Buka tautan video TikTok kami di bawah.</span>
                       </li>
                       <li className="flex items-start gap-2 text-sm text-slate-600">
                         <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />
-                        <span>Beri komentar pada link video TikTok.</span>
+                        <span>Wajib <strong>Like, Komentar, dan Share</strong> video tersebut.</span>
                       </li>
                       <li className="flex items-start gap-2 text-sm text-slate-600">
                         <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />
-                        <span>Share video tersebut ke teman kalian.</span>
+                        <span>Isi Form Pendaftaran (Nama Lengkap, No. HP, Email).</span>
                       </li>
                       <li className="flex items-start gap-2 text-sm text-slate-600">
                         <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />
-                        <span>Kirim bukti screenshot pada pengisian syarat jadi peserta.</span>
+                        <span>Upload bukti <strong>Screenshot</strong> pada saat pengisian form.</span>
                       </li>
                     </ul>
                   </div>
