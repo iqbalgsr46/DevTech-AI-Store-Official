@@ -1301,10 +1301,10 @@ function DashboardContent({ user }: { user: User }) {
                 )}
               </div>
             ) : (
-              <div className="overflow-x-auto rounded-2xl border border-slate-100 bg-white shadow-xl">
-                <table className="w-full text-sm">
+              <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
+                <table className="w-full min-w-[800px] text-sm">
                   <thead>
-                    <tr className="bg-white/[0.02] text-slate-500 text-[11px] uppercase tracking-wider font-medium border-b border-slate-100">
+                    <tr className="bg-slate-50 text-slate-500 text-[11px] uppercase tracking-wider font-medium border-b border-slate-200">
                       <th className="text-left px-5 py-4">
                         Subscriber
                       </th>
@@ -1325,14 +1325,14 @@ function DashboardContent({ user }: { user: User }) {
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-white/5">
+                  <tbody className="divide-y divide-slate-100">
                     {filteredSubs.map((sub) => {
                       const badge = getStatusBadge(sub.status, sub.endDate);
                       const daysLeft = getDaysRemaining(sub.endDate);
                       return (
                         <tr
                           key={sub.id}
-                          className="hover:bg-white/[0.04] transition-colors group"
+                          className="hover:bg-slate-50 transition-colors group"
                         >
                           <td className="px-5 py-4">
                             <div className="font-semibold text-slate-800">
