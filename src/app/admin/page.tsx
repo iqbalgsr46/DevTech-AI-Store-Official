@@ -70,8 +70,8 @@ function Toast({
     <div
       className={`fixed top-4 right-4 z-[100] px-4 py-3 rounded-xl text-sm font-medium shadow-2xl border animate-slide-in flex items-center gap-2 max-w-[360px] ${
         type === "success"
-          ? "bg-emerald-500/15 border-emerald-500/30 text-emerald-300"
-          : "bg-red-500/15 border-red-500/30 text-red-300"
+          ? "bg-emerald-50 border-emerald-200 text-emerald-700"
+          : "bg-red-50 border-red-200 text-red-700"
       }`}
     >
       {type === "success" ? "✅" : "❌"} {message}
@@ -102,39 +102,39 @@ function LoginScreen() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-screen bg-slate-50 text-slate-800 flex items-center justify-center p-4">
       <div className="w-full max-w-[380px]">
         <div className="text-center mb-8">
-          <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <div className="w-14 h-14 bg-slate-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <Shield size={28} className="text-blue-400" />
           </div>
-          <h1 className="text-2xl font-bold text-white">Admin Dashboard</h1>
-          <p className="text-gray-400 text-sm mt-1">DevTech AI Store</p>
+          <h1 className="text-2xl font-bold text-slate-800 tracking-tight">Admin Dashboard</h1>
+          <p className="text-slate-500 text-sm mt-1">DevTech AI Store</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-gray-400 mb-1.5">
+            <label className="block text-xs font-semibold text-slate-500 mb-1.5">
               Email
             </label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all placeholder:text-gray-600"
+              className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-slate-800 text-sm shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all placeholder:text-slate-400"
               placeholder="admin@email.com"
               required
             />
           </div>
           <div>
-            <label className="block text-xs font-semibold text-gray-400 mb-1.5">
+            <label className="block text-xs font-semibold text-slate-500 mb-1.5">
               Password
             </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all placeholder:text-gray-600"
+              className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-slate-800 text-sm shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all placeholder:text-slate-400"
               placeholder="••••••••"
               required
             />
@@ -159,7 +159,7 @@ function LoginScreen() {
 
         <a
           href="/"
-          className="flex items-center justify-center gap-1.5 text-gray-500 hover:text-gray-300 text-xs mt-6 transition-colors"
+          className="flex items-center justify-center gap-1.5 text-slate-500 hover:text-slate-600 text-xs mt-6 transition-colors"
         >
           <Home size={12} /> Kembali ke Halaman Utama
         </a>
@@ -249,18 +249,18 @@ function SubscriberFormModal({
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
       onClick={onClose}
     >
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" />
       <div
-        className="relative bg-[#1a1d27] rounded-2xl w-full max-w-[480px] max-h-[90vh] overflow-y-auto border border-white/10 shadow-2xl"
+        className="relative bg-[#1a1d27] rounded-2xl w-full max-w-[480px] max-h-[90vh] overflow-y-auto border border-slate-200 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="sticky top-0 bg-[#1a1d27] px-6 py-4 border-b border-white/10 flex items-center justify-between z-10">
+        <div className="sticky top-0 bg-[#1a1d27] px-6 py-4 border-b border-slate-200 flex items-center justify-between z-10">
           <h3 className="text-lg font-bold">
             {editData ? "Edit Subscriber" : "Tambah Subscriber"}
           </h3>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors"
+            className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center hover:bg-slate-100 transition-colors"
           >
             <X size={16} />
           </button>
@@ -269,7 +269,7 @@ function SubscriberFormModal({
         <div className="p-6 space-y-4">
           <div className="grid grid-cols-2 gap-3">
             <div className="col-span-2">
-              <label className="block text-xs font-semibold text-gray-400 mb-1">
+              <label className="block text-xs font-semibold text-slate-500 mb-1">
                 Nama Lengkap *
               </label>
               <input
@@ -277,11 +277,11 @@ function SubscriberFormModal({
                 value={form.nama}
                 onChange={(e) => setForm({ ...form, nama: e.target.value })}
                 placeholder="Nama subscriber"
-                className="w-full px-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 placeholder:text-gray-600"
+                className="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 text-sm shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 placeholder:text-slate-400"
               />
             </div>
             <div className="col-span-2">
-              <label className="block text-xs font-semibold text-gray-400 mb-1">
+              <label className="block text-xs font-semibold text-slate-500 mb-1">
                 Email Google *
               </label>
               <input
@@ -289,11 +289,11 @@ function SubscriberFormModal({
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 placeholder="email@gmail.com"
-                className="w-full px-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 placeholder:text-gray-600"
+                className="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 text-sm shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 placeholder:text-slate-400"
               />
             </div>
             <div className="col-span-2">
-              <label className="block text-xs font-semibold text-gray-400 mb-1">
+              <label className="block text-xs font-semibold text-slate-500 mb-1">
                 WhatsApp
               </label>
               <input
@@ -301,11 +301,11 @@ function SubscriberFormModal({
                 value={form.whatsapp}
                 onChange={(e) => setForm({ ...form, whatsapp: e.target.value })}
                 placeholder="08xxxxxxxxxx"
-                className="w-full px-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 placeholder:text-gray-600"
+                className="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 text-sm shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 placeholder:text-slate-400"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-gray-400 mb-1">
+              <label className="block text-xs font-semibold text-slate-500 mb-1">
                 Paket
               </label>
               <div className="relative">
@@ -319,7 +319,7 @@ function SubscriberFormModal({
                         e.target.value === "super_power" ? 18 : form.durasi,
                     })
                   }
-                  className="w-full px-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 appearance-none"
+                  className="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 text-sm shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 appearance-none"
                 >
                   <option value="super_power" className="bg-[#1a1d27]">
                     Super Power
@@ -330,12 +330,12 @@ function SubscriberFormModal({
                 </select>
                 <ChevronDown
                   size={14}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none"
                 />
               </div>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-gray-400 mb-1">
+              <label className="block text-xs font-semibold text-slate-500 mb-1">
                 Durasi (Bulan)
               </label>
               <input
@@ -346,11 +346,11 @@ function SubscriberFormModal({
                 onChange={(e) =>
                   setForm({ ...form, durasi: parseInt(e.target.value) || 1 })
                 }
-                className="w-full px-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                className="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 text-sm shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-gray-400 mb-1">
+              <label className="block text-xs font-semibold text-slate-500 mb-1">
                 Tanggal Mulai
               </label>
               <input
@@ -359,23 +359,23 @@ function SubscriberFormModal({
                 onChange={(e) =>
                   setForm({ ...form, startDate: e.target.value })
                 }
-                className="w-full px-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                className="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 text-sm shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-gray-400 mb-1">
+              <label className="block text-xs font-semibold text-slate-500 mb-1">
                 Tanggal Berakhir
               </label>
               <input
                 type="date"
                 value={form.endDate}
                 onChange={(e) => setForm({ ...form, endDate: e.target.value })}
-                className="w-full px-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                className="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 text-sm shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               />
             </div>
             {editData && (
               <div className="col-span-2">
-                <label className="block text-xs font-semibold text-gray-400 mb-1">
+                <label className="block text-xs font-semibold text-slate-500 mb-1">
                   Status
                 </label>
                 <div className="relative">
@@ -390,7 +390,7 @@ function SubscriberFormModal({
                           | "cancelled",
                       })
                     }
-                    className="w-full px-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 appearance-none"
+                    className="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 text-sm shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 appearance-none"
                   >
                     <option value="active" className="bg-[#1a1d27]">
                       Active
@@ -404,13 +404,13 @@ function SubscriberFormModal({
                   </select>
                   <ChevronDown
                     size={14}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none"
                   />
                 </div>
               </div>
             )}
             <div className="col-span-2">
-              <label className="block text-xs font-semibold text-gray-400 mb-1">
+              <label className="block text-xs font-semibold text-slate-500 mb-1">
                 Catatan (opsional)
               </label>
               <textarea
@@ -418,7 +418,7 @@ function SubscriberFormModal({
                 onChange={(e) => setForm({ ...form, notes: e.target.value })}
                 rows={2}
                 placeholder="Tambahkan catatan..."
-                className="w-full px-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 resize-none placeholder:text-gray-600"
+                className="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 text-sm shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 resize-none placeholder:text-slate-400"
               />
             </div>
           </div>
@@ -495,18 +495,18 @@ function VoucherFormModal({
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
       onClick={onClose}
     >
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" />
       <div
-        className="relative bg-[#1a1d27] rounded-2xl w-full max-w-[420px] border border-white/10 shadow-2xl"
+        className="relative bg-[#1a1d27] rounded-2xl w-full max-w-[420px] border border-slate-200 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between">
+        <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
           <h3 className="text-lg font-bold">
             {editData ? "Edit Voucher" : "Buat Voucher Baru"}
           </h3>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors"
+            className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center hover:bg-slate-100 transition-colors"
           >
             <X size={16} />
           </button>
@@ -514,7 +514,7 @@ function VoucherFormModal({
 
         <div className="p-6 space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-gray-400 mb-1">
+            <label className="block text-xs font-semibold text-slate-500 mb-1">
               Kode Voucher *
             </label>
             <input
@@ -524,13 +524,13 @@ function VoucherFormModal({
                 setForm({ ...form, code: e.target.value.toUpperCase() })
               }
               disabled={!!editData}
-              className="w-full px-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 uppercase disabled:opacity-50 placeholder:text-gray-600"
+              className="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 text-sm shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 uppercase disabled:opacity-50 placeholder:text-slate-400"
               placeholder="Contoh: DISKON10"
             />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-gray-400 mb-1">
+              <label className="block text-xs font-semibold text-slate-500 mb-1">
                 Tipe Diskon
               </label>
               <div className="relative">
@@ -542,7 +542,7 @@ function VoucherFormModal({
                       type: e.target.value as "percentage" | "fixed",
                     })
                   }
-                  className="w-full px-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 appearance-none"
+                  className="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 text-sm shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 appearance-none"
                 >
                   <option value="percentage" className="bg-[#1a1d27]">
                     Persen (%)
@@ -553,12 +553,12 @@ function VoucherFormModal({
                 </select>
                 <ChevronDown
                   size={14}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none"
                 />
               </div>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-gray-400 mb-1">
+              <label className="block text-xs font-semibold text-slate-500 mb-1">
                 Nilai {form.type === "percentage" ? "(%)" : "(Rp)"}
               </label>
               <input
@@ -567,13 +567,13 @@ function VoucherFormModal({
                 onChange={(e) =>
                   setForm({ ...form, value: parseInt(e.target.value) || 0 })
                 }
-                className="w-full px-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                className="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 text-sm shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-gray-400 mb-1">
+              <label className="block text-xs font-semibold text-slate-500 mb-1">
                 Max Penggunaan
               </label>
               <input
@@ -582,11 +582,11 @@ function VoucherFormModal({
                 onChange={(e) =>
                   setForm({ ...form, maxUses: parseInt(e.target.value) || 1 })
                 }
-                className="w-full px-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                className="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 text-sm shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-gray-400 mb-1">
+              <label className="block text-xs font-semibold text-slate-500 mb-1">
                 Expired (opsional)
               </label>
               <input
@@ -595,7 +595,7 @@ function VoucherFormModal({
                 onChange={(e) =>
                   setForm({ ...form, expiredAt: e.target.value })
                 }
-                className="w-full px-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                className="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 text-sm shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               />
             </div>
           </div>
@@ -609,7 +609,7 @@ function VoucherFormModal({
                 className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform shadow ${form.isActive ? "left-5" : "left-0.5"}`}
               />
             </button>
-            <span className="text-sm text-gray-300">
+            <span className="text-sm text-slate-600">
               {form.isActive ? "Aktif" : "Nonaktif"}
             </span>
           </div>
@@ -668,7 +668,7 @@ function RealtimeCountdown({ endDate, daysLeft }: { endDate: string, daysLeft: n
   }, [endDate]);
 
   return (
-    <div className={`text-[11px] font-mono mt-1 ${daysLeft <= 7 ? "text-amber-400" : "text-gray-400"}`}>
+    <div className={`text-[11px] font-mono mt-1 ${daysLeft <= 7 ? "text-amber-400" : "text-slate-500"}`}>
       {timeLeft}
     </div>
   );
@@ -735,45 +735,45 @@ function SettingsTabContent({
 
   return (
     <div className="space-y-6">
-      <div className="bg-white/5 border border-white/10 rounded-xl p-5">
-        <h4 className="text-white font-semibold mb-4">Paket 1 (Super Power)</h4>
+      <div className="bg-slate-50 border border-slate-200 rounded-xl p-5">
+        <h4 className="text-slate-800 font-semibold mb-4">Paket 1 (Super Power)</h4>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-medium text-gray-400 mb-1.5">Harga Normal (Dicoret)</label>
+            <label className="block text-xs font-medium text-slate-500 mb-1.5">Harga Normal (Dicoret)</label>
             <input
               type="text"
               value={form.pricing.paket1.hargaNormal}
               onChange={(e) => handlePaket1Change("hargaNormal", e.target.value)}
-              className="w-full bg-black/20 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500"
+              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-sm focus:outline-none focus:border-blue-500"
               placeholder="Contoh: 75000"
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-gray-400 mb-1.5">Harga Promo (Aktif)</label>
+            <label className="block text-xs font-medium text-slate-500 mb-1.5">Harga Promo (Aktif)</label>
             <input
               type="text"
               value={form.pricing.paket1.hargaPromo}
               onChange={(e) => handlePaket1Change("hargaPromo", e.target.value)}
-              className="w-full bg-black/20 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500"
+              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-sm focus:outline-none focus:border-blue-500"
               placeholder="Contoh: 55000"
             />
           </div>
         </div>
       </div>
 
-      <div className="bg-white/5 border border-white/10 rounded-xl p-5">
-        <h4 className="text-white font-semibold mb-4">Paket 2 (Invitation / Family)</h4>
+      <div className="bg-slate-50 border border-slate-200 rounded-xl p-5">
+        <h4 className="text-slate-800 font-semibold mb-4">Paket 2 (Invitation / Family)</h4>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
           {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => {
             const key = `bulan${m}` as keyof WebsiteSettings["pricing"]["paket2"];
             return (
               <div key={key}>
-                <label className="block text-xs font-medium text-gray-400 mb-1.5">{m} Bulan</label>
+                <label className="block text-xs font-medium text-slate-500 mb-1.5">{m} Bulan</label>
                 <input
                   type="text"
                   value={form.pricing.paket2[key]}
                   onChange={(e) => handlePaket2Change(key, e.target.value)}
-                  className="w-full bg-black/20 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-sm focus:outline-none focus:border-blue-500"
                   placeholder={`Harga ${m} bulan`}
                 />
               </div>
@@ -953,7 +953,7 @@ function DashboardContent({ user }: { user: User }) {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-slate-50 text-slate-800">
       {/* Toast */}
       {toast && (
         <Toast
@@ -964,7 +964,7 @@ function DashboardContent({ user }: { user: User }) {
       )}
 
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-[#0f1117]/95 backdrop-blur-md border-b border-white/5">
+      <header className="sticky top-0 z-40 bg-[#0f1117]/95 backdrop-blur-md border-b border-slate-100">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-blue-500/15 rounded-lg flex items-center justify-center">
@@ -974,19 +974,19 @@ function DashboardContent({ user }: { user: User }) {
               <h1 className="text-base font-bold leading-tight">
                 Admin Dashboard
               </h1>
-              <p className="text-gray-500 text-[11px]">{user.email}</p>
+              <p className="text-slate-500 text-[11px]">{user.email}</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
             <a
               href="/"
-              className="text-gray-500 hover:text-gray-300 text-xs font-medium transition-colors hidden sm:flex items-center gap-1"
+              className="text-slate-500 hover:text-slate-600 text-xs font-medium transition-colors hidden sm:flex items-center gap-1"
             >
               <Home size={13} /> Website
             </a>
             <button
               onClick={() => signOut(auth)}
-              className="flex items-center gap-1.5 text-gray-400 hover:text-red-400 text-xs font-medium transition-colors bg-white/5 px-3 py-1.5 rounded-lg hover:bg-red-500/10"
+              className="flex items-center gap-1.5 text-slate-500 hover:text-red-400 text-xs font-medium transition-colors bg-slate-50 px-3 py-1.5 rounded-lg hover:bg-red-500/10"
             >
               <LogOut size={14} /> Keluar
             </button>
@@ -995,7 +995,7 @@ function DashboardContent({ user }: { user: User }) {
       </header>
 
       {/* Tabs */}
-      <div className="border-b border-white/5">
+      <div className="border-b border-slate-100">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 flex gap-1">
           {TABS.map((tab) => {
             const Icon = tab.icon;
@@ -1006,7 +1006,7 @@ function DashboardContent({ user }: { user: User }) {
                 className={`flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
                   activeTab === tab.id
                     ? "border-blue-500 text-blue-400"
-                    : "border-transparent text-gray-500 hover:text-gray-300"
+                    : "border-transparent text-slate-500 hover:text-slate-600"
                 }`}
               >
                 <Icon size={16} /> {tab.label}
@@ -1023,10 +1023,10 @@ function DashboardContent({ user }: { user: User }) {
           <div>
             {/* Stat Cards */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-5">
+              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5">
                 <div className="flex items-center gap-2 mb-2">
-                  <Users size={14} className="text-gray-400" />
-                  <p className="text-gray-500 text-xs font-semibold">
+                  <Users size={14} className="text-slate-500" />
+                  <p className="text-slate-500 text-xs font-semibold">
                     Total
                   </p>
                 </div>
@@ -1069,9 +1069,9 @@ function DashboardContent({ user }: { user: User }) {
 
             {/* Quick Info Row */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-5">
+              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5">
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-sm font-semibold text-gray-300">
+                  <h3 className="text-sm font-semibold text-slate-600">
                     Voucher Aktif
                   </h3>
                   <Tag size={14} className="text-blue-400" />
@@ -1079,15 +1079,15 @@ function DashboardContent({ user }: { user: User }) {
                 <p className="text-3xl font-bold text-blue-400">
                   {vouchers.filter((v) => v.isActive).length}
                 </p>
-                <p className="text-gray-500 text-xs mt-1">
+                <p className="text-slate-500 text-xs mt-1">
                   Total penggunaan:{" "}
                   {vouchers.reduce((acc, v) => acc + (v.currentUses || 0), 0)}x
                 </p>
               </div>
 
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-5">
+              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5">
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-sm font-semibold text-gray-300">
+                  <h3 className="text-sm font-semibold text-slate-600">
                     Quick Actions
                   </h3>
                 </div>
@@ -1116,9 +1116,9 @@ function DashboardContent({ user }: { user: User }) {
 
             {/* Recent Subscribers */}
             {recentSubs.length > 0 && (
-              <div className="mt-4 bg-white/5 border border-white/10 rounded-2xl p-5">
+              <div className="mt-4 bg-slate-50 border border-slate-200 rounded-2xl p-5">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-sm font-semibold text-gray-300">
+                  <h3 className="text-sm font-semibold text-slate-600">
                     Subscriber Terbaru
                   </h3>
                   <button
@@ -1134,13 +1134,13 @@ function DashboardContent({ user }: { user: User }) {
                     return (
                       <div
                         key={sub.id}
-                        className="flex items-center justify-between py-2 border-b border-white/5 last:border-0"
+                        className="flex items-center justify-between py-2 border-b border-slate-100 last:border-0"
                       >
                         <div>
-                          <p className="text-sm font-medium text-white">
+                          <p className="text-sm font-medium text-slate-800">
                             {sub.nama}
                           </p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-slate-500">
                             {sub.email} •{" "}
                             {sub.paket === "super_power"
                               ? "Super Power"
@@ -1169,19 +1169,19 @@ function DashboardContent({ user }: { user: User }) {
               <div className="relative flex-grow">
                 <Search
                   size={16}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"
                 />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Cari nama, email, atau WA..."
-                  className="w-full pl-9 pr-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 placeholder:text-gray-600"
+                  className="w-full pl-9 pr-4 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 text-sm shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 placeholder:text-slate-400"
                 />
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery("")}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-600"
                   >
                     <X size={14} />
                   </button>
@@ -1192,7 +1192,7 @@ function DashboardContent({ user }: { user: User }) {
                   <select
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
-                    className="px-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 appearance-none pr-8"
+                    className="px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 text-sm shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 appearance-none pr-8"
                   >
                     <option value="all" className="bg-[#1a1d27]">
                       Semua Status
@@ -1209,12 +1209,12 @@ function DashboardContent({ user }: { user: User }) {
                   </select>
                   <ChevronDown
                     size={14}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none"
                   />
                 </div>
                 <button
                   onClick={handleRefreshExpiry}
-                  className="px-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-gray-400 hover:text-white transition-colors"
+                  className="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-500 hover:text-slate-800 transition-colors"
                   title="Refresh expired status"
                 >
                   <RefreshCw size={16} />
@@ -1233,7 +1233,7 @@ function DashboardContent({ user }: { user: User }) {
 
             {/* Result Count */}
             {(searchQuery || statusFilter !== "all") && (
-              <p className="text-gray-500 text-xs mb-3">
+              <p className="text-slate-500 text-xs mb-3">
                 {filteredSubs.length} hasil ditemukan
                 {searchQuery && ` untuk "${searchQuery}"`}
               </p>
@@ -1243,12 +1243,12 @@ function DashboardContent({ user }: { user: User }) {
             {subsLoading ? (
               <div className="flex flex-col items-center justify-center py-16 gap-3">
                 <Loader2 size={28} className="animate-spin text-blue-400" />
-                <p className="text-gray-500 text-sm">Memuat data...</p>
+                <p className="text-slate-500 text-sm">Memuat data...</p>
               </div>
             ) : filteredSubs.length === 0 ? (
               <div className="text-center py-16">
                 <Users size={40} className="text-gray-700 mx-auto mb-3" />
-                <p className="text-gray-500 text-sm font-medium">
+                <p className="text-slate-500 text-sm font-medium">
                   {searchQuery || statusFilter !== "all"
                     ? "Tidak ada subscriber yang cocok dengan filter"
                     : "Belum ada subscriber"}
@@ -1266,10 +1266,10 @@ function DashboardContent({ user }: { user: User }) {
                 )}
               </div>
             ) : (
-              <div className="overflow-x-auto rounded-2xl border border-white/5 bg-[#12141c] shadow-xl">
+              <div className="overflow-x-auto rounded-2xl border border-slate-100 bg-[#12141c] shadow-xl">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="bg-white/[0.02] text-gray-400 text-[11px] uppercase tracking-wider font-medium border-b border-white/5">
+                    <tr className="bg-white/[0.02] text-slate-500 text-[11px] uppercase tracking-wider font-medium border-b border-slate-100">
                       <th className="text-left px-5 py-4">
                         Subscriber
                       </th>
@@ -1300,13 +1300,13 @@ function DashboardContent({ user }: { user: User }) {
                           className="hover:bg-white/[0.04] transition-colors group"
                         >
                           <td className="px-5 py-4">
-                            <div className="font-semibold text-white">
+                            <div className="font-semibold text-slate-800">
                               {sub.nama}
                             </div>
-                            <div className="text-gray-500 text-xs mt-0.5">
+                            <div className="text-slate-500 text-xs mt-0.5">
                               {sub.email}
                             </div>
-                            <div className="text-gray-600 text-xs sm:hidden mt-1">
+                            <div className="text-slate-400 text-xs sm:hidden mt-1">
                               {sub.paket === "super_power"
                                 ? "Super Power"
                                 : "Invitation"}{" "}
@@ -1321,15 +1321,15 @@ function DashboardContent({ user }: { user: User }) {
                                 ? "Super Power"
                                 : "Invitation"}
                             </span>
-                            <span className="text-gray-500 text-xs block mt-1.5 font-medium">
+                            <span className="text-slate-500 text-xs block mt-1.5 font-medium">
                               {sub.durasi} bulan
                             </span>
                           </td>
-                          <td className="px-5 py-4 text-gray-400 text-xs hidden md:table-cell font-mono">
+                          <td className="px-5 py-4 text-slate-500 text-xs hidden md:table-cell font-mono">
                             {sub.startDate}
                           </td>
                           <td className="px-5 py-4">
-                            <div className="text-gray-300 text-xs font-mono">
+                            <div className="text-slate-600 text-xs font-mono">
                               {sub.endDate}
                             </div>
                             {sub.status === "active" && (
@@ -1354,7 +1354,7 @@ function DashboardContent({ user }: { user: User }) {
                                   setSubEditData(sub);
                                   setSubModalOpen(true);
                                 }}
-                                className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors text-gray-400 hover:text-blue-400"
+                                className="w-7 h-7 rounded-lg bg-slate-50 flex items-center justify-center hover:bg-slate-100 transition-colors text-slate-500 hover:text-blue-400"
                                 title="Edit"
                               >
                                 <Pencil size={13} />
@@ -1363,7 +1363,7 @@ function DashboardContent({ user }: { user: User }) {
                                 onClick={() =>
                                   handleDeleteSubscriber(sub.id)
                                 }
-                                className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center hover:bg-red-500/10 transition-colors text-gray-400 hover:text-red-400"
+                                className="w-7 h-7 rounded-lg bg-slate-50 flex items-center justify-center hover:bg-red-500/10 transition-colors text-slate-500 hover:text-red-400"
                                 title="Hapus"
                               >
                                 <Trash2 size={13} />
@@ -1384,7 +1384,7 @@ function DashboardContent({ user }: { user: User }) {
         {activeTab === "vouchers" && (
           <div>
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-sm font-semibold text-gray-300">
+              <h3 className="text-sm font-semibold text-slate-600">
                 {vouchers.length} voucher
               </h3>
               <button
@@ -1401,12 +1401,12 @@ function DashboardContent({ user }: { user: User }) {
             {vouchLoading ? (
               <div className="flex flex-col items-center justify-center py-16 gap-3">
                 <Loader2 size={28} className="animate-spin text-blue-400" />
-                <p className="text-gray-500 text-sm">Memuat voucher...</p>
+                <p className="text-slate-500 text-sm">Memuat voucher...</p>
               </div>
             ) : vouchers.length === 0 ? (
               <div className="text-center py-16">
                 <Tag size={40} className="text-gray-700 mx-auto mb-3" />
-                <p className="text-gray-500 text-sm font-medium">
+                <p className="text-slate-500 text-sm font-medium">
                   Belum ada voucher
                 </p>
                 <button
@@ -1424,20 +1424,20 @@ function DashboardContent({ user }: { user: User }) {
                 {vouchers.map((v) => (
                   <div
                     key={v.code}
-                    className={`bg-white/5 border rounded-xl p-4 flex flex-col sm:flex-row sm:items-center gap-3 ${v.isActive ? "border-white/10" : "border-white/5 opacity-50"}`}
+                    className={`bg-slate-50 border rounded-xl p-4 flex flex-col sm:flex-row sm:items-center gap-3 ${v.isActive ? "border-slate-200" : "border-slate-100 opacity-50"}`}
                   >
                     <div className="flex-grow">
                       <div className="flex items-center gap-2 mb-1">
-                        <code className="text-white font-bold text-sm bg-white/5 px-2 py-0.5 rounded-md">
+                        <code className="text-slate-800 font-bold text-sm bg-slate-50 px-2 py-0.5 rounded-md">
                           {v.code}
                         </code>
                         <span
-                          className={`text-xs font-semibold px-2 py-0.5 rounded-md ${v.isActive ? "bg-emerald-500/10 text-emerald-400" : "bg-gray-500/10 text-gray-500"}`}
+                          className={`text-xs font-semibold px-2 py-0.5 rounded-md ${v.isActive ? "bg-emerald-500/10 text-emerald-400" : "bg-gray-500/10 text-slate-500"}`}
                         >
                           {v.isActive ? "Aktif" : "Nonaktif"}
                         </span>
                       </div>
-                      <p className="text-gray-400 text-xs">
+                      <p className="text-slate-500 text-xs">
                         {v.type === "percentage"
                           ? `Diskon ${v.value}%`
                           : `Potongan Rp${v.value.toLocaleString("id-ID")}`}
@@ -1452,13 +1452,13 @@ function DashboardContent({ user }: { user: User }) {
                           setVouchEditData(v);
                           setVouchModalOpen(true);
                         }}
-                        className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors text-gray-400 hover:text-blue-400"
+                        className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center hover:bg-slate-100 transition-colors text-slate-500 hover:text-blue-400"
                       >
                         <Pencil size={14} />
                       </button>
                       <button
                         onClick={() => handleDeleteVoucher(v.code)}
-                        className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center hover:bg-red-500/10 transition-colors text-gray-400 hover:text-red-400"
+                        className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center hover:bg-red-500/10 transition-colors text-slate-500 hover:text-red-400"
                       >
                         <Trash2 size={14} />
                       </button>
@@ -1474,16 +1474,16 @@ function DashboardContent({ user }: { user: User }) {
         {activeTab === "settings" && (
           <div>
             <div className="mb-4">
-              <h3 className="text-sm font-semibold text-gray-300">
+              <h3 className="text-sm font-semibold text-slate-600">
                 Pengaturan Website
               </h3>
-              <p className="text-xs text-gray-500 mt-1">Ubah konten dinamis pada halaman utama (landing page).</p>
+              <p className="text-xs text-slate-500 mt-1">Ubah konten dinamis pada halaman utama (landing page).</p>
             </div>
             
             {settingsLoading ? (
               <div className="flex flex-col items-center justify-center py-16 gap-3">
                 <Loader2 size={28} className="animate-spin text-blue-400" />
-                <p className="text-gray-500 text-sm">Memuat pengaturan...</p>
+                <p className="text-slate-500 text-sm">Memuat pengaturan...</p>
               </div>
             ) : (
               <SettingsTabContent
@@ -1539,9 +1539,9 @@ export default function AdminPage() {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-3">
+      <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col items-center justify-center gap-3">
         <Loader2 size={32} className="animate-spin text-blue-400" />
-        <p className="text-gray-500 text-sm">Memuat...</p>
+        <p className="text-slate-500 text-sm">Memuat...</p>
       </div>
     );
   }
