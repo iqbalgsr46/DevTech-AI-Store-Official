@@ -1054,93 +1054,88 @@ function DashboardContent({ user }: { user: User }) {
         {activeTab === "overview" && (
           <div>
             {/* Stat Cards */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5">
-                <div className="flex items-center gap-2 mb-2">
-                  <Users size={14} className="text-slate-500" />
-                  <p className="text-slate-500 text-xs font-semibold">
-                    Total
-                  </p>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+              <div className="bg-white shadow-sm border border-slate-200 rounded-2xl p-5 hover:shadow-md transition-shadow">
+                <div className="flex items-center justify-between mb-4">
+                  <p className="text-slate-500 text-sm font-medium">Total Subscribers</p>
+                  <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+                    <Users size={16} className="text-slate-600" />
+                  </div>
                 </div>
-                <p className="text-2xl font-bold">{stats.total}</p>
+                <p className="text-3xl font-bold text-slate-900">{stats.total}</p>
               </div>
-              <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-5">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-                  <p className="text-emerald-400 text-xs font-semibold">
-                    Active
-                  </p>
+
+              <div className="bg-white shadow-sm border border-slate-200 rounded-2xl p-5 hover:shadow-md transition-shadow">
+                <div className="flex items-center justify-between mb-4">
+                  <p className="text-slate-500 text-sm font-medium">Active</p>
+                  <div className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center">
+                    <div className="relative flex items-center justify-center">
+                       <div className="absolute w-2 h-2 bg-emerald-400 rounded-full animate-ping opacity-75" />
+                       <div className="w-2 h-2 bg-emerald-500 rounded-full" />
+                    </div>
+                  </div>
                 </div>
-                <p className="text-2xl font-bold text-emerald-400">
-                  {stats.active}
-                </p>
+                <p className="text-3xl font-bold text-slate-900">{stats.active}</p>
               </div>
-              <div className="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-5">
-                <div className="flex items-center gap-2 mb-2">
-                  <Clock size={14} className="text-amber-400" />
-                  <p className="text-amber-400 text-xs font-semibold">
-                    Expiring &lt;7d
-                  </p>
+
+              <div className="bg-white shadow-sm border border-slate-200 rounded-2xl p-5 hover:shadow-md transition-shadow">
+                <div className="flex items-center justify-between mb-4">
+                  <p className="text-slate-500 text-sm font-medium">Expiring &lt;7d</p>
+                  <div className="w-8 h-8 rounded-full bg-amber-50 flex items-center justify-center">
+                    <Clock size={16} className="text-amber-500" />
+                  </div>
                 </div>
-                <p className="text-2xl font-bold text-amber-400">
-                  {stats.expiringSoon}
-                </p>
+                <p className="text-3xl font-bold text-slate-900">{stats.expiringSoon}</p>
               </div>
-              <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-5">
-                <div className="flex items-center gap-2 mb-2">
-                  <AlertTriangle size={14} className="text-red-400" />
-                  <p className="text-red-400 text-xs font-semibold">
-                    Expired
-                  </p>
+
+              <div className="bg-white shadow-sm border border-slate-200 rounded-2xl p-5 hover:shadow-md transition-shadow">
+                <div className="flex items-center justify-between mb-4">
+                  <p className="text-slate-500 text-sm font-medium">Expired</p>
+                  <div className="w-8 h-8 rounded-full bg-red-50 flex items-center justify-center">
+                    <AlertTriangle size={16} className="text-red-500" />
+                  </div>
                 </div>
-                <p className="text-2xl font-bold text-red-400">
-                  {stats.expired}
-                </p>
+                <p className="text-3xl font-bold text-slate-900">{stats.expired}</p>
               </div>
             </div>
 
             {/* Quick Info Row */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
-              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-sm font-semibold text-slate-600">
-                    Voucher Aktif
-                  </h3>
-                  <Tag size={14} className="text-blue-400" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mt-5">
+              <div className="bg-white shadow-sm border border-slate-200 rounded-2xl p-6 flex flex-col justify-between hover:shadow-md transition-shadow">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-base font-semibold text-slate-800">Voucher Aktif</h3>
+                    <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center">
+                      <Tag size={16} className="text-blue-600" />
+                    </div>
+                  </div>
+                  <p className="text-4xl font-bold text-slate-900">{vouchers.filter((v) => v.isActive).length}</p>
                 </div>
-                <p className="text-3xl font-bold text-blue-400">
-                  {vouchers.filter((v) => v.isActive).length}
-                </p>
-                <p className="text-slate-500 text-xs mt-1">
-                  Total penggunaan:{" "}
-                  {vouchers.reduce((acc, v) => acc + (v.currentUses || 0), 0)}x
-                </p>
+                <div className="mt-4 pt-4 border-t border-slate-100 flex items-center gap-2 text-sm text-slate-500">
+                  <span className="font-medium text-slate-700">{vouchers.reduce((acc, v) => acc + (v.currentUses || 0), 0)}x</span> total penggunaan voucher
+                </div>
               </div>
 
-              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-sm font-semibold text-slate-600">
-                    Quick Actions
-                  </h3>
-                </div>
-                <div className="flex flex-col gap-2">
+              <div className="bg-white shadow-sm border border-slate-200 rounded-2xl p-6 flex flex-col hover:shadow-md transition-shadow">
+                <h3 className="text-base font-semibold text-slate-800 mb-6">Quick Actions</h3>
+                <div className="flex flex-col gap-3 mt-auto">
                   <button
                     onClick={() => {
                       setSubEditData(null);
                       setSubModalOpen(true);
                     }}
-                    className="w-full text-left px-3 py-2 bg-blue-500/10 border border-blue-500/20 rounded-xl text-blue-400 text-xs font-medium hover:bg-blue-500/20 transition-colors flex items-center gap-2"
+                    className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-slate-900 text-white rounded-xl text-sm font-medium hover:bg-slate-800 transition-colors shadow-sm"
                   >
-                    <Plus size={14} /> Tambah Subscriber Baru
+                    <Plus size={16} /> Tambah Subscriber Baru
                   </button>
                   <button
                     onClick={() => {
                       setVouchEditData(null);
                       setVouchModalOpen(true);
                     }}
-                    className="w-full text-left px-3 py-2 bg-indigo-500/10 border border-indigo-500/20 rounded-xl text-indigo-400 text-xs font-medium hover:bg-indigo-500/20 transition-colors flex items-center gap-2"
+                    className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white border border-slate-200 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50 transition-colors shadow-sm"
                   >
-                    <Tag size={14} /> Buat Voucher Baru
+                    <Tag size={16} className="text-slate-400" /> Buat Voucher Baru
                   </button>
                 </div>
               </div>
@@ -1347,13 +1342,13 @@ function DashboardContent({ user }: { user: User }) {
                           </td>
                           <td className="px-5 py-4 hidden sm:table-cell">
                             <span
-                              className={`text-xs font-semibold px-2.5 py-1 rounded-md ${sub.paket === "super_power" ? "bg-blue-500/10 text-blue-400 border border-blue-500/20" : "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"}`}
+                              className={`text-[11px] font-bold px-2.5 py-1 rounded-full border ${sub.paket === "super_power" ? "bg-blue-50 text-blue-700 border-blue-200" : "bg-indigo-50 text-indigo-700 border-indigo-200"}`}
                             >
                               {sub.paket === "super_power"
                                 ? "Super Power"
                                 : "Invitation"}
                             </span>
-                            <span className="text-slate-500 text-xs block mt-1.5 font-medium">
+                            <span className="text-slate-500 text-xs block mt-2 font-medium">
                               {sub.durasi} bulan
                             </span>
                           </td>
@@ -1370,10 +1365,10 @@ function DashboardContent({ user }: { user: User }) {
                           </td>
                           <td className="px-5 py-4">
                             <span
-                              className={`text-xs font-semibold px-2.5 py-1 rounded-md border ${badge.bgColor} ${badge.color} ${
-                                badge.label === "Active" ? "border-emerald-500/20" : 
-                                badge.label === "Expiring" ? "border-amber-500/20" : 
-                                badge.label === "Cancelled" ? "border-gray-500/20" : "border-red-500/20"
+                              className={`text-[11px] font-bold px-2.5 py-1 rounded-full border ${badge.bgColor} ${badge.color} ${
+                                badge.label === "Active" ? "border-emerald-200" : 
+                                badge.label === "Expiring" ? "border-amber-200" : 
+                                badge.label === "Dibatalkan" || badge.label === "Cancelled" ? "border-slate-200" : "border-red-200"
                               }`}
                             >
                               {badge.label}
@@ -1464,7 +1459,7 @@ function DashboardContent({ user }: { user: User }) {
                           {v.code}
                         </code>
                         <span
-                          className={`text-xs font-semibold px-2 py-0.5 rounded-md ${v.isActive ? "bg-emerald-500/10 text-emerald-400" : "bg-gray-500/10 text-slate-500"}`}
+                          className={`text-[11px] font-bold px-2 py-0.5 rounded-full border ${v.isActive ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-slate-50 text-slate-500 border-slate-200"}`}
                         >
                           {v.isActive ? "Aktif" : "Nonaktif"}
                         </span>
