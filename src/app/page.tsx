@@ -1502,7 +1502,7 @@ export default function Home() {
                 <h2 className="text-[#0f172a] text-[28px] sm:text-[32px] font-medium text-center leading-[1.25] mb-8 tracking-tight">
                   Buka Akses<br/>Tanpa Batas ke<br/>Google AI Pro
                 </h2>
-                <a href="https://chat.whatsapp.com/JhZU4iF12DLLqUS2Jwx1nM" target="_blank" rel="noopener noreferrer" className="bg-[#18181b] text-white font-medium rounded-full py-3.5 px-8 text-[15px] sm:text-[16px] mb-12 hover:bg-[#27272a] transition-colors w-fit shadow-md cursor-pointer block text-center">
+                <a href="https://chat.whatsapp.com/JpPApmNxF713hdKKJhc6lG" target="_blank" rel="noopener noreferrer" className="bg-[#18181b] text-white font-medium rounded-full py-3.5 px-8 text-[15px] sm:text-[16px] mb-12 hover:bg-[#27272a] transition-colors w-fit shadow-md cursor-pointer block text-center">
                   Gabung sekarang
                 </a>
                 
