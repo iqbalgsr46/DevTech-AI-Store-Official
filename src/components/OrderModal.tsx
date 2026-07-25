@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowRight, ArrowLeft, CheckCircle2, Loader2, Tag, AlertCircle } from "lucide-react";
 import { HARGA_INVITATION, formatRupiah, hitungDiskon } from "@/lib/pricing";
@@ -48,7 +48,14 @@ export default function OrderModal({ isOpen, onClose, paketType, basePrice }: Or
     setWhatsapp("");
     setVoucherInput("");
     setVoucherResult(null);
-  }, []);
+  }, [paketType]);
+
+  // Reset state whenever the modal opens
+  useEffect(() => {
+    if (isOpen) {
+      resetForm();
+    }
+  }, [isOpen, resetForm]);
 
   const handleClose = () => {
     resetForm();
