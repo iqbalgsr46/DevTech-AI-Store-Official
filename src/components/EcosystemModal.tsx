@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Mail, FileText, Table, Video, HardDrive, Sparkles } from "lucide-react";
+import { X, Sparkles } from "lucide-react";
 
 interface EcosystemModalProps {
   isOpen: boolean;
@@ -11,124 +11,137 @@ interface EcosystemModalProps {
 
 const INTEGRATIONS = [
   {
-    icon: Mail,
+    iconUrl: "https://www.gstatic.com/images/branding/product/2x/gmail_2020q4_48dp.png",
     title: "Gmail",
     desc: "Tulis, balas, dan rangkum email panjang dalam hitungan detik. Biarkan AI menyusun draf profesional untuk Anda.",
-    color: "text-red-500",
     bg: "bg-red-500/10"
   },
   {
-    icon: FileText,
+    iconUrl: "https://www.gstatic.com/images/branding/product/2x/docs_2020q4_48dp.png",
     title: "Google Docs",
     desc: "Dapatkan bantuan menulis dari awal, perbaiki tata bahasa, dan buat ringkasan dokumen dengan satu klik.",
-    color: "text-blue-500",
     bg: "bg-blue-500/10"
   },
   {
-    icon: Table,
+    iconUrl: "https://www.gstatic.com/images/branding/product/2x/sheets_2020q4_48dp.png",
     title: "Google Sheets",
     desc: "Otomatisasi pembuatan tabel, analisis data kompleks, dan dapatkan formula instan tanpa perlu mengingat rumus.",
-    color: "text-emerald-500",
     bg: "bg-emerald-500/10"
   },
   {
-    icon: Video,
+    iconUrl: "https://www.gstatic.com/images/branding/product/2x/meet_2020q4_48dp.png",
     title: "Google Meet",
     desc: "Gemini dapat membantu merangkum rapat, membuat notulen otomatis, dan menerjemahkan obrolan secara real-time.",
-    color: "text-green-600",
     bg: "bg-green-600/10"
   },
   {
-    icon: HardDrive,
+    iconUrl: "https://www.gstatic.com/images/branding/product/2x/drive_2020q4_48dp.png",
     title: "Google Drive",
     desc: "Cari informasi tersembunyi di dalam jutaan dokumen Anda dengan bertanya langsung kepada Gemini.",
-    color: "text-amber-500",
     bg: "bg-amber-500/10"
   }
 ];
 
 export default function EcosystemModal({ isOpen, onClose }: EcosystemModalProps) {
-  // Prevent body scroll when modal is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
+    if (isOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "unset";
+    return () => { document.body.style.overflow = "unset"; };
   }, [isOpen]);
+
+  const overlayVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.3 } }
+  };
+
+  const modalVariants = {
+    hidden: { opacity: 0, scale: 0.85, y: 30, rotateX: 10 },
+    visible: { 
+      opacity: 1, 
+      scale: 1, 
+      y: 0, 
+      rotateX: 0,
+      transition: { type: "spring", damping: 22, stiffness: 350, staggerChildren: 0.1, delayChildren: 0.1 } 
+    },
+    exit: { opacity: 0, scale: 0.9, y: -20, transition: { duration: 0.2 } }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0, transition: { type: "spring", damping: 20, stiffness: 300 } }
+  };
 
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 sm:px-6">
-          {/* Backdrop with elegant blur */}
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 sm:px-6 perspective-1000">
+          {/* Backdrop */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            variants={overlayVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
             onClick={onClose}
-            className="absolute inset-0 bg-[#0f172a]/40 backdrop-blur-md"
+            className="absolute inset-0 bg-[#0f172a]/60 backdrop-blur-md"
           />
 
           {/* Modal Container */}
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-[600px] bg-white rounded-[32px] shadow-[0_20px_60px_rgba(0,0,0,0.1)] overflow-hidden flex flex-col max-h-[85vh]"
+            variants={modalVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="relative w-full max-w-[550px] bg-white rounded-[32px] shadow-[0_30px_80px_rgba(0,0,0,0.2)] overflow-hidden flex flex-col"
+            style={{ maxHeight: "calc(100vh - 40px)", transformOrigin: "center center" }}
           >
             {/* Header Area */}
-            <div className="relative px-8 pt-10 pb-6 bg-gradient-to-b from-blue-50/50 to-white shrink-0">
+            <div className="relative px-6 sm:px-10 pt-10 pb-6 bg-gradient-to-b from-[#f8fafc] to-white shrink-0 border-b border-gray-100">
               <button
                 onClick={onClose}
-                className="absolute top-6 right-6 w-10 h-10 bg-white border border-gray-100 rounded-full flex items-center justify-center text-gray-500 hover:text-gray-900 hover:bg-gray-50 hover:scale-105 transition-all shadow-sm z-10"
+                className="absolute top-6 right-6 w-9 h-9 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-900 hover:bg-gray-50 hover:scale-105 transition-all shadow-sm z-10"
               >
-                <X size={20} />
+                <X size={18} />
               </button>
               
-              <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-blue-600/20">
+              <motion.div 
+                initial={{ rotate: -15, scale: 0.8 }}
+                animate={{ rotate: 0, scale: 1 }}
+                transition={{ type: "spring", damping: 15, stiffness: 200, delay: 0.2 }}
+                className="w-12 h-12 bg-[#2563eb] rounded-[14px] flex items-center justify-center mb-5 shadow-[0_8px_20px_rgba(37,99,235,0.25)]"
+              >
                 <Sparkles size={24} className="text-white" />
-              </div>
-              <h2 className="text-[24px] sm:text-[28px] font-bold text-[#0f172a] leading-tight mb-3">
-                Kekuatan AI di Seluruh<br />Ekosistem Google Anda
+              </motion.div>
+              <h2 className="text-[24px] sm:text-[28px] font-bold text-[#0f172a] leading-tight mb-2 tracking-tight">
+                Integrasi Ekosistem Google
               </h2>
-              <p className="text-[#64748b] text-[15px] leading-relaxed max-w-[450px]">
-                Akun Google AI Pro Anda otomatis terintegrasi ke dalam aplikasi Google Workspace yang Anda gunakan setiap hari.
+              <p className="text-[#64748b] text-[15px] leading-relaxed max-w-[400px]">
+                Kekuatan AI otomatis terintegrasi ke dalam aplikasi Google Workspace Anda.
               </p>
             </div>
 
-            {/* Content Area */}
-            <div className="px-8 pb-10 overflow-y-auto scrollbar-hide flex-1 relative">
-              <div className="grid grid-cols-1 gap-4">
-                {INTEGRATIONS.map((item, idx) => {
-                  const Icon = item.icon;
-                  return (
-                    <motion.div 
-                      key={idx}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 + (idx * 0.05) }}
-                      className="group flex gap-5 p-4 rounded-2xl hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100"
-                    >
-                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${item.bg} ${item.color} group-hover:scale-110 transition-transform duration-300`}>
-                        <Icon size={22} strokeWidth={2.5} />
-                      </div>
-                      <div>
-                        <h3 className="text-[#0f172a] font-semibold text-[16px] mb-1 group-hover:text-blue-600 transition-colors">{item.title}</h3>
-                        <p className="text-[#64748b] text-[13px] leading-relaxed">{item.desc}</p>
-                      </div>
-                    </motion.div>
-                  );
-                })}
+            {/* Content Area - Scrollable */}
+            <div className="px-4 sm:px-6 py-4 overflow-y-auto" style={{ maxHeight: "400px" }}>
+              <div className="flex flex-col gap-2 pb-6">
+                {INTEGRATIONS.map((item, idx) => (
+                  <motion.div 
+                    key={idx}
+                    variants={itemVariants}
+                    className="group flex items-start sm:items-center gap-4 sm:gap-5 p-4 sm:p-5 rounded-2xl hover:bg-[#f8fafc] transition-colors border border-transparent hover:border-gray-200 cursor-default"
+                  >
+                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 ${item.bg} group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300`}>
+                      <img src={item.iconUrl} alt={item.title} className="w-8 h-8 object-contain" />
+                    </div>
+                    <div>
+                      <h3 className="text-[#0f172a] font-semibold text-[17px] mb-1 group-hover:text-blue-600 transition-colors">{item.title}</h3>
+                      <p className="text-[#64748b] text-[13px] leading-relaxed">{item.desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
             </div>
             
-            {/* Elegant Fade at bottom of scroll */}
-            <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-white to-transparent pointer-events-none rounded-b-[32px]"></div>
+            {/* Fade Out Effect for Scroll */}
+            <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white to-transparent pointer-events-none rounded-b-[32px]"></div>
           </motion.div>
         </div>
       )}
