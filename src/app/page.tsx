@@ -939,7 +939,7 @@ export default function Home() {
             
             <p className="mt-8 text-[14px] sm:text-base md:text-lg text-[#4a5568] w-full max-w-2xl mx-auto leading-relaxed">
               Dapatkan akses resmi Gemini 3.1 Pro dengan Deep Research, Workspace Intelligence,<br />
-              dan limit token hemat yang refresh setiap 5 jam — ideal untuk programmer & profesional.
+              dan limit token hemat yang refresh setiap 5 jam, ideal untuk programmer & profesional.
             </p>
           </div>
 
@@ -1027,7 +1027,7 @@ export default function Home() {
           <ScrollReveal y={20}>
             <h2 className="text-white text-2xl sm:text-[28px] font-bold mb-4 text-center z-10">Kuasai Kekuatan Gemini 3.1 Pro</h2>
             <p className="text-[#e5e7eb] text-[14px] sm:text-[15px] text-center max-w-lg leading-relaxed z-10 font-medium mx-auto">
-              Rasakan performa Gemini 3.1 Pro — model AI terkuat dari Google untuk reasoning mendalam, coding intensif, dan analisis data kompleks. Dilengkapi Deep Research, Workspace Intelligence, dan context window 1 juta token. Semua premium, harga super hemat.
+              Rasakan performa Gemini 3.1 Pro, model AI terkuat dari Google untuk reasoning mendalam, coding intensif, dan analisis data kompleks. Dilengkapi Deep Research, Workspace Intelligence, dan context window 1 juta token. Semua premium, harga super hemat.
             </p>
           </ScrollReveal>
           
@@ -1126,7 +1126,7 @@ export default function Home() {
             <ScrollReveal y={20}>
               <h2 className="text-white text-2xl sm:text-[32px] font-bold mb-4 text-center z-10">Ekosistem AI Terlengkap</h2>
               <p className="text-[#e5e7eb] text-[14px] sm:text-[15px] text-center max-w-lg leading-relaxed z-10 font-medium mx-auto">
-                Gemini Notebook (NotebookLM), Gemini Spark Agent, 5 TB Cloud Storage, dan akses dini fitur masa depan Google — semuanya dalam satu paket AI Pro.
+                Gemini Notebook (NotebookLM), Gemini Spark Agent, 5 TB Cloud Storage, dan akses dini fitur masa depan Google, semuanya dalam satu paket AI Pro.
               </p>
             </ScrollReveal>
             
@@ -1155,7 +1155,7 @@ export default function Home() {
 
                   <h3 className="text-white text-[20px] sm:text-[22px] font-bold mb-4 text-center">Gemini Spark Agent<br/>& 5 TB Storage</h3>
                   <p className="text-[#a1a1aa] text-[14px] sm:text-[15px] text-center leading-relaxed">
-                    Asisten AI yang bertindak atas nama Anda — kelola kalender, booking jadwal, dan kirim reminder otomatis. Ditambah 5 TB cloud storage untuk Google Drive, Gmail, dan Photos.
+                    Asisten AI yang bertindak atas nama Anda untuk kelola kalender, booking jadwal, dan kirim reminder otomatis. Ditambah 5 TB cloud storage untuk Google Drive, Gmail, dan Photos.
                   </p>
                 </div>
               </ScrollReveal>
@@ -1332,7 +1332,7 @@ export default function Home() {
                 Paket 1: Super Power
               </h3>
               
-              <p className="text-[12px] text-red-500 font-bold text-center mb-3">Aktivasi Mandiri — 18 Bulan</p>
+              <p className="text-[12px] text-red-500 font-bold text-center mb-3">Aktivasi Mandiri (18 Bulan)</p>
               
               <div className="flex justify-center items-center gap-2 mb-4">
                  <span className="text-[12px] text-gray-400 line-through">Rp{formatPrice(settings?.pricing?.paket1?.hargaNormal, "75000")}</span>
@@ -1348,7 +1348,7 @@ export default function Home() {
               </ul>
               
               <p className="text-[11px] text-gray-500 text-center leading-relaxed mb-5 font-medium px-2 italic mt-auto">
-                "Paling banyak dipilih — praktis, akun tetap aman, bisa invite keluarga."
+                "Paling banyak dipilih: praktis, akun tetap aman, bisa invite keluarga."
               </p>
               
               <button onClick={handleOrderPaket1} className="border border-gray-200 rounded-xl py-2 px-6 flex items-center justify-center gap-2 mx-auto text-[14px] font-medium text-gray-800 hover:bg-gray-50 transition-colors w-fit shadow-sm cursor-pointer">
@@ -1376,7 +1376,7 @@ export default function Home() {
               <h3 className="text-[17px] sm:text-[19px] font-semibold text-gray-900 text-center mb-1">
                 Paket 2: Invitation
               </h3>
-              <p className="text-[12px] text-indigo-500 font-bold text-center mb-3">Via Google Family — Durasi Fleksibel</p>
+              <p className="text-[12px] text-indigo-500 font-bold text-center mb-3">Via Google Family (Durasi Fleksibel)</p>
               <div className="bg-slate-50/80 rounded-[16px] p-2.5 mb-3 border border-slate-100 shadow-[inset_0_1px_2px_rgba(0,0,0,0.02)]">
                 <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[10.5px] text-gray-500 font-medium">
                   {/* Row 1 */}
@@ -1472,7 +1472,7 @@ export default function Home() {
             Panduan <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Aktivasi & Akses Grup</span>
           </h2>
           <p className="text-[#475569] text-[15px] sm:text-[17px] leading-relaxed px-4 sm:px-12 mb-14">
-            <strong>Paket 1 (Super Power):</strong> Anda akan menerima link aktivasi resmi — cukup buka dan klik Aktifkan di akun Google Anda. Setelah aktif, Anda bisa mengundang hingga 5 anggota keluarga via Family Sharing.<br/><br/>
+            <strong>Paket 1 (Super Power):</strong> Anda akan menerima link aktivasi resmi, cukup buka dan klik Aktifkan di akun Google Anda. Setelah aktif, Anda bisa mengundang hingga 5 anggota keluarga via Family Sharing.<br/><br/>
             <strong>Paket 2 (Invitation):</strong> Kirimkan email Google Anda, kami akan mengirim undangan Google Family. Terima undangan di inbox email → lisensi AI Pro langsung aktif sesuai durasi yang dipilih.
           </p>
 

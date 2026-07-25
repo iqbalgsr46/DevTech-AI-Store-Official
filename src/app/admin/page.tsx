@@ -810,7 +810,7 @@ type TabId = (typeof TABS)[number]["id"];
 function DashboardContent({ user }: { user: User }) {
   const [activeTab, setActiveTab] = useState<TabId>("overview");
 
-  // Data — real-time listeners (hanya aktif setelah login)
+  // Data: real-time listeners (hanya aktif setelah login)
   const { subscribers, loading: subsLoading } = useSubscribers();
   const { vouchers, loading: vouchLoading } = useVouchers();
   const { settings, loading: settingsLoading } = useSettings();
@@ -844,7 +844,7 @@ function DashboardContent({ user }: { user: User }) {
   // Auto-expire check on mount
   useEffect(() => {
     checkAndExpireSubscribers().catch(() => {
-      // silently ignore — rules may block if no data yet
+      // silently ignore: rules may block if no data yet
     });
   }, []);
 
@@ -1522,7 +1522,7 @@ function DashboardContent({ user }: { user: User }) {
 }
 
 // ============================================
-// ROOT COMPONENT — Auth Gate
+// ROOT COMPONENT: Auth Gate
 // ============================================
 
 export default function AdminPage() {

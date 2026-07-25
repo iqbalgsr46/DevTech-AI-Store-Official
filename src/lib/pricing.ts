@@ -8,7 +8,7 @@
 export const PAKET_SUPER_POWER = {
   id: "super_power",
   nama: "Super Power",
-  deskripsi: "Paket 18 Bulan — Aktivasi Mandiri",
+  deskripsi: "Paket 18 Bulan (Aktivasi Mandiri)",
   durasi: 18,
   hargaAsli: 75000,
   hargaPromo: 55000,
@@ -46,7 +46,7 @@ export const HARGA_INVITATION: Record<number, number> = {
 export const PAKET_INVITATION = {
   id: "invitation",
   nama: "Invitation",
-  deskripsi: "Paket Fleksibel — Via Undangan Google Family",
+  deskripsi: "Paket Fleksibel (Via Undangan Google Family)",
   proses: [
     "Klik tombol 'Pilih Paket' dan isi form data Anda",
     "Data pesanan Anda akan terkirim ke WhatsApp kami",
@@ -95,13 +95,13 @@ export const FITUR_AI_PRO = [
     icon: "🤖",
     judul: "Gemini Spark Agent",
     deskripsi:
-      "Asisten AI yang bertindak atas nama Anda — kelola kalender, booking jadwal, unsubscribe email, dan kirim reminder secara otomatis.",
+      "Asisten AI yang bertindak atas nama Anda untuk kelola kalender, booking jadwal, unsubscribe email, dan kirim reminder secara otomatis.",
   },
   {
     icon: "📓",
     judul: "Gemini Notebook (NotebookLM)",
     deskripsi:
-      "Ruang riset interaktif — unggah dokumen untuk mendapatkan insight instan, mind map, dan Audio Overview seperti podcast.",
+      "Ruang riset interaktif: unggah dokumen untuk mendapatkan insight instan, mind map, dan Audio Overview seperti podcast.",
   },
   {
     icon: "🎬",
@@ -113,19 +113,19 @@ export const FITUR_AI_PRO = [
     icon: "💼",
     judul: "Custom Gems",
     deskripsi:
-      "Buat asisten AI khusus untuk tugas berulang — analisis data, coding, atau proses bisnis spesifik Anda.",
+      "Buat asisten AI khusus untuk tugas berulang seperti analisis data, coding, atau proses bisnis spesifik Anda.",
   },
   {
     icon: "☁️",
     judul: "5 TB Cloud Storage",
     deskripsi:
-      "Penyimpanan cloud besar yang dibagikan ke seluruh ekosistem Google — Drive, Gmail, dan Photos.",
+      "Penyimpanan cloud besar yang dibagikan ke seluruh ekosistem Google seperti Drive, Gmail, dan Photos.",
   },
   {
     icon: "⚡",
     judul: "Limit Token Hemat & Refresh Cepat",
     deskripsi:
-      "Limit token berlapis ganda untuk pemakaian intensif. Kuota refresh otomatis setiap 5 jam — ideal untuk programmer yang sering coding dengan Antigravity IDE dan tools AI coding lainnya.",
+      "Limit token berlapis ganda untuk pemakaian intensif. Kuota refresh otomatis setiap 5 jam, ideal untuk programmer yang sering coding dengan Antigravity IDE dan tools AI coding lainnya.",
   },
   {
     icon: "📦",
