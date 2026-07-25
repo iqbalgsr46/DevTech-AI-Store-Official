@@ -107,10 +107,18 @@ export default function EcosystemModal({ isOpen, onClose }: EcosystemModalProps)
                 initial={{ rotate: -15, scale: 0.8 }}
                 animate={{ rotate: 0, scale: 1 }}
                 transition={{ type: "spring", damping: 15, stiffness: 200, delay: 0.2 }}
-                className="w-14 h-14 bg-[#2068e8] rounded-[16px] flex items-center justify-center mb-5 shadow-[0_8px_20px_rgba(32,104,232,0.3)]"
+                className="w-14 h-14 flex items-center justify-center mb-5"
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-white">
-                  <path d="M12 24C12 17.3726 6.62742 12 0 12C6.62742 12 12 6.62742 12 0C12 6.62742 17.3726 12 24 12C17.3726 12 12 17.3726 12 24Z" fill="currentColor"/>
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-md">
+                  <path d="M12 24C12 17.3726 6.62742 12 0 12C6.62742 12 12 6.62742 12 0C12 6.62742 17.3726 12 24 12C17.3726 12 12 17.3726 12 24Z" fill="url(#gemini-grad-real)"/>
+                  <defs>
+                    <linearGradient id="gemini-grad-real" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stopColor="#4285F4"/>
+                      <stop offset="33%" stopColor="#9B72CB"/>
+                      <stop offset="67%" stopColor="#D96570"/>
+                      <stop offset="100%" stopColor="#F4B400"/>
+                    </linearGradient>
+                  </defs>
                 </svg>
               </motion.div>
               <h2 className="text-[24px] sm:text-[28px] font-bold text-[#0f172a] leading-tight mb-2 tracking-tight">
