@@ -50,12 +50,12 @@ export default function EcosystemModal({ isOpen, onClose }: EcosystemModalProps)
   }, [isOpen]);
 
   const overlayVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.3 } }
+    hidden: { opacity: 0, transition: { duration: 0.3, ease: "easeInOut" } },
+    visible: { opacity: 1, transition: { duration: 0.3, ease: "easeOut" } }
   };
 
   const modalVariants = {
-    hidden: { opacity: 0, scale: 0.85, y: 30, rotateX: 10 },
+    hidden: { opacity: 0, scale: 0.85, y: 40, rotateX: 10 },
     visible: { 
       opacity: 1, 
       scale: 1, 
@@ -63,7 +63,13 @@ export default function EcosystemModal({ isOpen, onClose }: EcosystemModalProps)
       rotateX: 0,
       transition: { type: "spring", damping: 22, stiffness: 350, staggerChildren: 0.1, delayChildren: 0.1 } 
     },
-    exit: { opacity: 0, scale: 0.9, y: -20, transition: { duration: 0.2 } }
+    exit: { 
+      opacity: 0, 
+      scale: 0.9, 
+      y: 30, 
+      rotateX: -10, 
+      transition: { type: "spring", damping: 25, stiffness: 400 } 
+    }
   };
 
   const itemVariants = {
