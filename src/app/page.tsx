@@ -18,8 +18,9 @@ const ScrollReveal = ({ children, delay = 0, y = 40, className = "" }: { childre
     initial={{ opacity: 0, y }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.05 }}
-    transition={{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }}
+    transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
     className={`w-full flex flex-col items-center ${className}`}
+    style={{ willChange: "transform, opacity" }}
   >
     {children}
   </motion.div>
@@ -74,6 +75,7 @@ const CountUp = ({ to, suffix = "" }: { to: number, suffix?: string }) => {
 // Komponen Animasi Rotating 3D ASCII Globe dengan Peta Bumi & Bioma (Canvas Version)
 const AsciiGlobe = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
   
   // Peta Bumi Equirectangular Resolusi Tinggi (80x36) dengan pulau-pulau asli
   const earthMap = [
@@ -116,6 +118,16 @@ const AsciiGlobe = () => {
   ];
 
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.05 }
+    );
+    if (canvasRef.current) observer.observe(canvasRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -129,7 +141,6 @@ const AsciiGlobe = () => {
     const width = 80; 
     const height = 40;
     
-    // Set ukuran canvas internal dengan rasio yang lebih rapat agar tidak kaku
     const charWidth = 7;
     const charHeight = 14;
     canvas.width = width * charWidth;
@@ -139,19 +150,18 @@ const AsciiGlobe = () => {
     ctx.textBaseline = "top";
 
     const renderGlobe = (time: number) => {
-      // Limit framerate (24 fps)
-      if (time - lastTime < 41) {
+      // 20 FPS for silky performance and 0 lag during scroll
+      if (time - lastTime < 50) {
         animationId = requestAnimationFrame(renderGlobe);
         return;
       }
       lastTime = time;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const aspect = 0.5; // Rasio asli monospace (7/14)
+      const aspect = 0.5;
       
-      // Vektor arah cahaya dari kiri atas untuk efek shading 3D (seperti referensi)
       const lightX = -0.7;
-      const lightY = -0.7; // -1 adalah atas
+      const lightY = -0.7;
       const lightZ = 0.2;
       
       for (let y = 0; y < height; y++) {
@@ -161,7 +171,7 @@ const AsciiGlobe = () => {
           const nx = ((x / (width - 1)) * 2 - 1) * ((width * aspect) / height); 
           const d = nx*nx + ny*ny;
           
-          if (d > 1.05) continue; // Luar bola
+          if (d > 1.05) continue;
           
           let char = '';
           let color = '';
@@ -170,11 +180,9 @@ const AsciiGlobe = () => {
           const theta = Math.atan2(nx, nz) + phi;
           const lat = -Math.asin(ny); 
           
-          // Hitung intensitas cahaya (dot product)
           const dotLight = nx * lightX + ny * lightY + nz * lightZ;
-          const intensity = Math.max(0.1, dotLight); // Ambient light minimum 0.1
+          const intensity = Math.max(0.1, dotLight);
           
-          // Pemetaan Koordinat Bola ke Peta 2D (Equirectangular)
           let tx = Math.floor(((theta % (2 * Math.PI)) / (2 * Math.PI)) * 80);
           if (tx < 0) tx += 80;
           
@@ -182,52 +190,39 @@ const AsciiGlobe = () => {
           if (ty < 0) ty = 0;
           if (ty > 35) ty = 35;
           
-          // Noise organik untuk membuat garis pantai natural dan pulau-pulau kecil (tidak kaku/kotak)
-          // Menggunakan theta dan lat agar noise berputar bersama bumi
           const organicNoise = Math.sin(theta * 24) * Math.cos(lat * 24) 
                              + Math.sin(theta * 44) * 0.5
                              + Math.cos(lat * 34) * 0.5;
           
           const baseLand = earthMap[ty][tx] === '#';
-          
-          // Erosi pantai (-0.7) dan pembentukan kepulauan baru (1.4)
           const isLand = baseLand ? (organicNoise > -0.7) : (organicNoise > 1.4);
           const deg = (lat * 180) / Math.PI; 
           
           if (isLand) {
-            // Daratan: Teks GOOGLEAI
             char = text[tx % text.length];
-            
-            // Noise tambahan untuk memecah garis lintang agar batas antar warna (bioma) terlihat acak & organik
             const colorNoise = Math.sin(theta * 10) * 15 + Math.cos(lat * 10) * 10;
             const organicDeg = deg + colorNoise;
             
-            // Pewarnaan Bioma Daratan
             if (organicDeg > 70 || organicDeg < -65) {
-              color = '#e2e8f0'; // Salju dikurangi, hanya di ujung kutub
+              color = '#e2e8f0';
             } else if (organicDeg > -20 && organicDeg < 25) {
-              color = '#064e3b'; // Hutan Lebat: Hijau paling tua banget (Sangat Gelap / Emerald-900)
+              color = '#064e3b';
             } else {
-              color = '#4d7c0f'; // Daratan Sedang: Hijau Tua Kecoklatan
+              color = '#4d7c0f';
             }
             
-            // Shading 3D yang sangat mulus, tanpa batas warna putih kaku
             ctx.globalAlpha = Math.min(1.0, intensity + 0.3);
           } else {
-            // Lautan: Pola 0 dan 1
             char = ty % 2 === 0 ? '0' : '1';
-            color = '#3b82f6'; // Lautan (Biru)
-            
-            // Lautan lebih gelap di sisi kanan/bawah
+            color = '#3b82f6';
             ctx.globalAlpha = Math.min(0.6, intensity);
           }
           
-          // Fading & anti-aliasing di pinggiran globe
           if (nz < 0.2) {
             char = (x + y) % 2 === 0 ? '-' : '.';
             ctx.globalAlpha = 0.2;
           } else if (nz < 0.3) {
-            if (!isLand) char = '.'; // Tepi lautan memudar jadi titik
+            if (!isLand) char = '.';
             ctx.globalAlpha *= 0.5;
           }
           
@@ -236,19 +231,19 @@ const AsciiGlobe = () => {
         }
       }
       
-      phi -= 0.04; // Rotasi bumi ke arah kanan (phi berkurang)
+      phi -= 0.04;
       animationId = requestAnimationFrame(renderGlobe);
     };
     
     animationId = requestAnimationFrame(renderGlobe);
     return () => cancelAnimationFrame(animationId);
-  }, []);
+  }, [isVisible]);
 
   return (
     <canvas 
       ref={canvasRef} 
-      className="w-full h-auto max-w-[300px] sm:max-w-[380px] mx-auto select-none" 
-      style={{ imageRendering: 'pixelated' }} 
+      className="w-full h-auto max-w-[300px] sm:max-w-[380px] mx-auto select-none transform-gpu" 
+      style={{ imageRendering: 'pixelated', willChange: 'transform' }} 
     />
   );
 };
@@ -256,8 +251,19 @@ const AsciiGlobe = () => {
 // Komponen Animasi Rotating 3D ASCII Bintang Gemini
 const AsciiGeminiStar = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.05 }
+    );
+    if (canvasRef.current) observer.observe(canvasRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -280,23 +286,17 @@ const AsciiGeminiStar = () => {
     ctx.textBaseline = "top";
 
     const getMap = (px: number, py: number, pz: number) => {
-      // 2D Astroid profile (Bintang Gemini)
       const r2d = Math.pow(Math.pow(Math.abs(px), 0.6) + Math.pow(Math.abs(py), 0.6), 1/0.6);
-      const d2d = r2d - 1.7; // Radius proporsional
-      
-      // Ketebalan 3D (Bevel: Tebal di tengah, tipis/runcing di ujung)
+      const d2d = r2d - 1.7;
       const thickness = 0.45 * Math.pow(Math.max(0, 1.0 - r2d / 1.7), 1.5);
       const dZ = Math.abs(pz) - thickness;
-      
-      // Kombinasi ke 3D SDF
       const dExtruded = Math.sqrt(Math.max(d2d, 0)**2 + Math.max(dZ, 0)**2) + Math.min(Math.max(d2d, dZ), 0.0);
-      
-      // Faktor koreksi 0.5 karena ini SDF aproksimasi agar raymarch stabil
       return { d: dExtruded * 0.5, id: 1 }; 
     };
 
     const renderStar = (time: number) => {
-      if (time - lastTime < 41) {
+      // 20 FPS for silky performance and 0 lag during scroll
+      if (time - lastTime < 50) {
         animationId = requestAnimationFrame(renderStar);
         return;
       }
@@ -304,8 +304,7 @@ const AsciiGeminiStar = () => {
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const aspect = (charWidth * width) / (charHeight * height); 
-      
-      const camZ = -2.2; // Kamera sangat didekatkan agar bintang memenuhi seluruh ruang kanvas
+      const camZ = -2.2;
       
       for (let y = 0; y < height; y++) {
         const ny = (y / (height - 1)) * 2 - 1; 
@@ -319,7 +318,6 @@ const AsciiGeminiStar = () => {
           const rdLen = Math.sqrt(rdX*rdX + rdY*rdY + rdZ*rdZ);
           rdX /= rdLen; rdY /= rdLen; rdZ /= rdLen;
           
-          // Camera Pan (Membuat bintang berputar)
           const pan = phi;
           let pX = roX * Math.cos(pan) - roZ * Math.sin(pan);
           let pZ = roX * Math.sin(pan) + roZ * Math.cos(pan);
@@ -329,12 +327,12 @@ const AsciiGeminiStar = () => {
           let rdpZ = rdX * Math.sin(pan) + rdZ * Math.cos(pan);
           rdX = rdpX; rdZ = rdpZ;
           
-          // Raymarching Loop
           let t = 0;
           let hit = { d: 0, id: 0 };
           let pX_hit=0, pY_hit=0, pZ_hit=0;
           
-          for (let i = 0; i < 45; i++) {
+          // Optimized raymarching steps (28 max steps)
+          for (let i = 0; i < 28; i++) {
             pX_hit = roX + rdX * t;
             pY_hit = roY + rdY * t;
             pZ_hit = roZ + rdZ * t;
@@ -346,9 +344,7 @@ const AsciiGeminiStar = () => {
             if (t > 10.0) { hit.id = 0; break; }
           }
           
-          // Jika mengenai bintang
           if (hit.id > 0 && hit.d < 0.02) {
-            // Kalkulasi Normal 3D
             const eps = 0.01;
             const dCenter = getMap(pX_hit, pY_hit, pZ_hit).d;
             const nX = getMap(pX_hit+eps, pY_hit, pZ_hit).d - dCenter;
@@ -357,27 +353,21 @@ const AsciiGeminiStar = () => {
             const nLen = Math.sqrt(nX*nX + nY*nY + nZ*nZ);
             const normalX = nX/nLen, normalY = nY/nLen, normalZ = nZ/nLen;
             
-            // Pencahayaan terarah dari kiri atas
             const lX = -0.5, lY = -0.5, lZ = -0.7;
             const dot = normalX*lX + normalY*lY + normalZ*lZ;
             const intensity = Math.max(0.1, dot * 0.9 + 0.1);
             
-            // Inversi rotasi untuk mendapatkan koordinat lokal (agar warna tidak ikut berputar)
             const localX = pX_hit * Math.cos(-pan) - pZ_hit * Math.sin(-pan);
             const localY = pY_hit;
             
-            // Gradasi 4 Arah Asli Gemini (Bilinear Interpolation)
-            // Mapping koordinat lokal ke u (kiri-kanan) dan v (atas-bawah)
-            const u = Math.max(0, Math.min(1, (localX / 1.7 + 1) / 2)); // 0 (Kiri) ke 1 (Kanan)
-            const v = Math.max(0, Math.min(1, (localY / 1.7 + 1) / 2)); // 0 (Atas) ke 1 (Bawah)
+            const u = Math.max(0, Math.min(1, (localX / 1.7 + 1) / 2));
+            const v = Math.max(0, Math.min(1, (localY / 1.7 + 1) / 2));
             
-            // Warna Asli Gemini Logo
-            const tl = {r: 155, g: 114, b: 203}; // Kiri Atas: Ungu / Purple
-            const tr = {r: 234, g: 67, b: 53};   // Kanan Atas: Merah Muda / Pink Red
-            const bl = {r: 66, g: 133, b: 244};  // Kiri Bawah: Biru / Google Blue
-            const br = {r: 251, g: 188, b: 5};   // Kanan Bawah: Kuning / Yellow
+            const tl = {r: 155, g: 114, b: 203};
+            const tr = {r: 234, g: 67, b: 53};
+            const bl = {r: 66, g: 133, b: 244};
+            const br = {r: 251, g: 188, b: 5};
             
-            // Interpolasi Horizontal (Kiri ke Kanan)
             const rTop = tl.r * (1 - u) + tr.r * u;
             const gTop = tl.g * (1 - u) + tr.g * u;
             const bTop = tl.b * (1 - u) + tr.b * u;
@@ -386,18 +376,15 @@ const AsciiGeminiStar = () => {
             const gBot = bl.g * (1 - u) + br.g * u;
             const bBot = bl.b * (1 - u) + br.b * u;
             
-            // Interpolasi Vertikal (Atas ke Bawah)
             const rCol = Math.floor(rTop * (1 - v) + rBot * v);
             const gCol = Math.floor(gTop * (1 - v) + gBot * v);
             const bCol = Math.floor(bTop * (1 - v) + bBot * v);
             
-            // Mapping Tekstur ASCII 'GEMINI'
             const textIdx = Math.floor(Math.abs(localX * 18 + localY * 18) + time/300);
             const char = text[textIdx % text.length];
             
-            // Efek pantulan cahaya (Specular Highlight) di bagian tepi dan sudut
             if (intensity > 0.85) {
-                ctx.fillStyle = '#ffffff'; // Silau cahaya
+                ctx.fillStyle = '#ffffff';
                 ctx.globalAlpha = 1.0;
             } else {
                 ctx.fillStyle = `rgb(${rCol},${gCol},${bCol})`;
@@ -409,19 +396,19 @@ const AsciiGeminiStar = () => {
         }
       }
       
-      phi -= 0.03; // Kecepatan putaran bintang
+      phi -= 0.03;
       animationId = requestAnimationFrame(renderStar);
     };
     
     animationId = requestAnimationFrame(renderStar);
     return () => cancelAnimationFrame(animationId);
-  }, []);
+  }, [isVisible]);
 
   return (
     <canvas 
       ref={canvasRef} 
-      className="w-full h-auto max-w-[500px] sm:max-w-[700px] mx-auto select-none" 
-      style={{ imageRendering: 'pixelated' }} 
+      className="w-full h-auto max-w-[500px] sm:max-w-[700px] mx-auto select-none transform-gpu" 
+      style={{ imageRendering: 'pixelated', willChange: 'transform' }} 
     />
   );
 };
@@ -429,8 +416,19 @@ const AsciiGeminiStar = () => {
 // Komponen Animasi Rotating 3D ASCII AI Dice (Dadu AI)
 const AsciiAIDice = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.05 }
+    );
+    if (canvasRef.current) observer.observe(canvasRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -453,17 +451,13 @@ const AsciiAIDice = () => {
     ctx.textBaseline = "top";
 
     const getMap = (px: number, py: number, pz: number) => {
-      // Rotasi 3D dadu pada sumbu Y (phi)
       let rx = px * Math.cos(-phi) - pz * Math.sin(-phi);
       let rz = px * Math.sin(-phi) + pz * Math.cos(-phi);
-      
-      // Rotasi sumbu X (theta) agar berputar diagonal
       let ry = py * Math.cos(-theta) - rz * Math.sin(-theta);
       let rz2 = py * Math.sin(-theta) + rz * Math.cos(-theta);
       
-      // SDF Round Box (Kotak Dadu Bersudut Lengkung)
-      const b = 1.3; // Lebar sisi dadu diperbesar
-      const r = 0.3; // Jari-jari sudut diperbesar proporsional
+      const b = 1.3;
+      const r = 0.3;
       
       const qx = Math.abs(rx) - b + r;
       const qy = Math.abs(ry) - b + r;
@@ -476,7 +470,8 @@ const AsciiAIDice = () => {
     };
 
     const renderDice = (time: number) => {
-      if (time - lastTime < 41) {
+      // 20 FPS for silky performance and 0 lag during scroll
+      if (time - lastTime < 50) {
         animationId = requestAnimationFrame(renderDice);
         return;
       }
@@ -484,10 +479,8 @@ const AsciiAIDice = () => {
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const aspect = (charWidth * width) / (charHeight * height); 
+      const camZ = -3.2;
       
-      const camZ = -3.2; // Kamera sedikit dijauhkan agar dadu tampak sedikit lebih kecil (ada ruang napas)
-      
-      // Ascii Shading Palette untuk badan dadu
       const shadeChars = " .:-=+*#%@";
       const getShade = (light: number) => {
          const idx = Math.max(0, Math.min(shadeChars.length - 1, Math.floor(light * shadeChars.length)));
@@ -510,7 +503,8 @@ const AsciiAIDice = () => {
           let hit = { d: 0, id: 0, lx: 0, ly: 0, lz: 0 };
           let pX=0, pY=0, pZ=0;
           
-          for (let i = 0; i < 40; i++) {
+          // Optimized raymarching steps (25 max steps)
+          for (let i = 0; i < 25; i++) {
             pX = roX + rdX * t;
             pY = roY + rdY * t;
             pZ = roZ + rdZ * t;
@@ -523,7 +517,6 @@ const AsciiAIDice = () => {
           }
           
           if (hit.id > 0 && hit.d < 0.02) {
-            // Kalkulasi Normal 3D
             const eps = 0.01;
             const dCenter = getMap(pX, pY, pZ).d;
             const nX = getMap(pX+eps, pY, pZ).d - dCenter;
@@ -532,12 +525,10 @@ const AsciiAIDice = () => {
             const nLen = Math.sqrt(nX*nX + nY*nY + nZ*nZ);
             const normalX = nX/nLen, normalY = nY/nLen, normalZ = nZ/nLen;
             
-            // Cahaya Sorot
             const lX = -0.6, lY = -0.8, lZ = -0.4;
             const dot = normalX*lX + normalY*lY + normalZ*lZ;
             const intensity = Math.max(0.1, dot * 0.9 + 0.1);
             
-            // Proyeksi koordinat 2D pada permukaan terdekat (Sisi kubus mana kita berada?)
             const absX = Math.abs(hit.lx);
             const absY = Math.abs(hit.ly);
             const absZ = Math.abs(hit.lz);
@@ -548,13 +539,12 @@ const AsciiAIDice = () => {
                v = hit.ly;
             } else if (absY >= absX && absY >= absZ) {
                u = hit.lx; 
-               v = hit.lz * -Math.sign(hit.ly); // Balik agar tulisan tidak terbalik di bagian bawah
+               v = hit.lz * -Math.sign(hit.ly);
             } else {
                u = hit.lx * Math.sign(hit.lz); 
                v = hit.ly;
             }
             
-            // Logika Menggambar tulisan "AI" menggunakan Line-Segment SDF (Sangat Rapi dan Halus)
             const sdSegment = (x: number, y: number, x1: number, y1: number, x2: number, y2: number) => {
                 const dx = x2 - x1;
                 const dy = y2 - y1;
@@ -564,29 +554,23 @@ const AsciiAIDice = () => {
                 return Math.sqrt((px - dx * h)**2 + (py - dy * h)**2);
             };
             
-            // Ketebalan garis huruf
             const thickness = 0.08;
-            
-            // Huruf 'A': Kiri Bawah (-0.3, 0.3) ke Puncak (-0.1, -0.3), lalu ke Kanan Bawah (0.1, 0.3)
             const dALeft = sdSegment(u, v, -0.3, 0.3, -0.1, -0.3);
             const dARight = sdSegment(u, v, -0.1, -0.3, 0.1, 0.3);
-            const dACross = sdSegment(u, v, -0.22, 0.05, 0.02, 0.05); // Garis horizontal tengah
-            
-            // Huruf 'I': Garis lurus vertikal di sisi kanan
+            const dACross = sdSegment(u, v, -0.22, 0.05, 0.02, 0.05);
             const dI = sdSegment(u, v, 0.3, -0.3, 0.3, 0.3);
             
-            // Gabungkan semua SDF menjadi satu logo "AI" yang presisi
             const inLogo = dALeft < thickness || dARight < thickness || dACross < thickness || dI < thickness;
             
             let char = '';
             
             if (inLogo) {
-               char = '@'; // Logo menggunakan karakter penuh menyala
-               ctx.fillStyle = '#000000'; // Hitam pekat untuk tulisan AI
+               char = '@';
+               ctx.fillStyle = '#000000';
                ctx.globalAlpha = Math.min(1.0, intensity + 0.8);
             } else {
                char = getShade(intensity);
-               ctx.fillStyle = '#ffffff'; // Putih bersih untuk badan dadu
+               ctx.fillStyle = '#ffffff';
                ctx.globalAlpha = Math.min(1.0, intensity + 0.4);
             }
             
@@ -595,7 +579,6 @@ const AsciiAIDice = () => {
         }
       }
       
-      // Dadu berputar secara diagonal
       phi -= 0.025; 
       theta -= 0.015;
       animationId = requestAnimationFrame(renderDice);
@@ -603,13 +586,13 @@ const AsciiAIDice = () => {
     
     animationId = requestAnimationFrame(renderDice);
     return () => cancelAnimationFrame(animationId);
-  }, []);
+  }, [isVisible]);
 
   return (
     <canvas 
       ref={canvasRef} 
-      className="w-full h-auto max-w-[500px] sm:max-w-[700px] mx-auto select-none" 
-      style={{ imageRendering: 'pixelated' }} 
+      className="w-full h-auto max-w-[500px] sm:max-w-[700px] mx-auto select-none transform-gpu" 
+      style={{ imageRendering: 'pixelated', willChange: 'transform' }} 
     />
   );
 };
@@ -620,13 +603,13 @@ const SmokeCloud = ({ className, duration = 60, delay = 0 }: { className?: strin
     initial={{ x: "120vw" }}
     animate={{ x: "-120vw" }}
     transition={{ repeat: Infinity, duration, ease: "linear", delay }}
-    className={`absolute ${className} opacity-80`}
+    className={`absolute ${className} opacity-80 pointer-events-none transform-gpu`}
+    style={{ willChange: "transform" }}
   >
     <div className="relative w-[350px] sm:w-[600px] h-[200px] sm:h-[350px]">
-      {/* Inti Asap - Radial Gradients */}
-      <div className="absolute top-[10%] left-[5%] w-[60%] h-[70%] bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.7)_0%,_rgba(255,255,255,0)_70%)] blur-[15px] sm:blur-[25px]" />
-      <div className="absolute top-[20%] left-[35%] w-[55%] h-[80%] bg-[radial-gradient(ellipse_at_center,_rgba(230,244,253,0.8)_0%,_rgba(230,244,253,0)_70%)] blur-[20px] sm:blur-[30px]" />
-      <div className="absolute top-[5%] left-[20%] w-[70%] h-[65%] bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.6)_0%,_rgba(255,255,255,0)_75%)] blur-[10px] sm:blur-[20px]" />
+      <div className="absolute top-[10%] left-[5%] w-[60%] h-[70%] bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.7)_0%,_rgba(255,255,255,0)_70%)] blur-[12px] sm:blur-[20px]" />
+      <div className="absolute top-[20%] left-[35%] w-[55%] h-[80%] bg-[radial-gradient(ellipse_at_center,_rgba(230,244,253,0.8)_0%,_rgba(230,244,253,0)_70%)] blur-[15px] sm:blur-[25px]" />
+      <div className="absolute top-[5%] left-[20%] w-[70%] h-[65%] bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.6)_0%,_rgba(255,255,255,0)_75%)] blur-[8px] sm:blur-[15px]" />
     </div>
   </motion.div>
 );
@@ -758,13 +741,9 @@ export default function Home() {
 
   const handleCarouselScroll = () => {
     if (carouselRef.current) {
-      // Use lightweight scrollLeft check to prevent layout thrashing (60fps smooth)
       const scrollLeft = carouselRef.current.scrollLeft;
-      if (scrollLeft > 120) { // If scrolled more than 120px, we are on slide 2
-        setActiveSlide(1);
-      } else {
-        setActiveSlide(0);
-      }
+      const nextSlide = scrollLeft > 120 ? 1 : 0;
+      setActiveSlide((prev) => (prev !== nextSlide ? nextSlide : prev));
     }
   };
 
