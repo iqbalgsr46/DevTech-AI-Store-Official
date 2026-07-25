@@ -70,6 +70,7 @@ export interface WebsiteSettings {
     isActive: boolean;
     tiktokUrl: string;
     googleFormUrl: string;
+    announcementDate: string;
   };
 }
 

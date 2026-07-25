@@ -717,6 +717,7 @@ function SettingsTabContent({
       isActive: false,
       tiktokUrl: "",
       googleFormUrl: "",
+      announcementDate: "",
     },
   });
 
@@ -728,6 +729,7 @@ function SettingsTabContent({
           isActive: false,
           tiktokUrl: "",
           googleFormUrl: "",
+          announcementDate: "",
         }
       });
     }
@@ -856,6 +858,16 @@ function SettingsTabContent({
               onChange={(e) => handleGiveawayChange("googleFormUrl", e.target.value)}
               className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-sm focus:outline-none focus:border-blue-500"
               placeholder="https://forms.gle/..."
+            />
+          </div>
+          <div className="md:col-span-2">
+            <label className="block text-xs font-medium text-slate-500 mb-1.5">Tanggal Pengumuman (Opsional)</label>
+            <input
+              type="text"
+              value={form.giveaway?.announcementDate || ""}
+              onChange={(e) => handleGiveawayChange("announcementDate", e.target.value)}
+              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-sm focus:outline-none focus:border-blue-500"
+              placeholder="Contoh: 15 Agustus 2026 (kosongkan jika belum ada)"
             />
           </div>
         </div>

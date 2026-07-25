@@ -13,6 +13,7 @@ export default function GiveawayWidget({
     isActive: false,
     tiktokUrl: "",
     googleFormUrl: "",
+    announcementDate: "",
   };
 
   return (
@@ -107,6 +108,14 @@ export default function GiveawayWidget({
                       Isi Form Pendaftaran
                     </a>
                   </div>
+
+                  {giveaway.announcementDate && (
+                    <div className="mt-4 pt-4 border-t border-slate-100">
+                      <p className="text-xs text-slate-500">
+                        Pengumuman pemenang: <strong className="text-slate-700">{giveaway.announcementDate}</strong>
+                      </p>
+                    </div>
+                  )}
                 </>
               )}
             </div>
