@@ -19,7 +19,7 @@ const ScrollReveal = ({ children, delay = 0, y = 40, className = "" }: { childre
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.05 }}
     transition={{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }}
-    className={`w-full ${className}`}
+    className={`w-full flex flex-col items-center ${className}`}
   >
     {children}
   </motion.div>
