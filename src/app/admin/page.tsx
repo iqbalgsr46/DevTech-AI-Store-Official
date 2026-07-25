@@ -1301,7 +1301,7 @@ function DashboardContent({ user }: { user: User }) {
                 )}
               </div>
             ) : (
-              <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm pb-1 scrollbar-thin">
                 <table className="w-full min-w-[800px] text-sm">
                   <thead>
                     <tr className="bg-slate-50 text-slate-500 text-[11px] uppercase tracking-wider font-medium border-b border-slate-200">
