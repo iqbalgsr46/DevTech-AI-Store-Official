@@ -1013,9 +1013,9 @@ export default function Home() {
           </div>
           <div className="flex flex-col col-span-2 sm:col-span-1 items-center">
             <span className={`text-[24px] sm:text-[28px] font-medium text-[#1c1d20] mb-2 leading-none tracking-tight ${quicksand.className}`}>
-              <CountUp to={24} suffix="/7" />
+              <CountUp to={99} suffix="%" />
             </span>
-            <span className="text-[#6b7280] text-[14px] sm:text-[15px]">Dukungan Pelanggan Prioritas Tanpa Henti</span>
+            <span className="text-[#6b7280] text-[14px] sm:text-[15px]">Tingkat Kepuasan Pelanggan</span>
           </div>
         </div>
 
@@ -1160,9 +1160,9 @@ export default function Home() {
               {/* Card 3 */}
               <ScrollReveal y={40}>
                 <div className="border border-white/15 rounded-[32px] p-8 sm:p-10 flex flex-col justify-center w-full bg-[#050505] shadow-xl hover:border-white/30 transition-colors">
-                  <h3 className="text-white text-[20px] sm:text-[22px] font-bold mb-4 text-center">Dukungan Teknis Premium 24/7</h3>
+                  <h3 className="text-white text-[20px] sm:text-[22px] font-bold mb-4 text-center">Dukungan Pelanggan Responsif</h3>
                   <p className="text-[#a1a1aa] text-[14px] sm:text-[15px] text-center leading-relaxed">
-                    Nikmati channel dukungan khusus VIP yang menjamin masalah teknis atau pertanyaan Anda diselesaikan dengan prioritas absolut. Anda tidak pernah berjuang sendirian.
+                    Tim dukungan teknis kami selalu siap membantu memastikan setiap pertanyaan dan kendala Anda terselesaikan dengan baik. Anda tidak pernah berjuang sendirian.
                   </p>
                 </div>
               </ScrollReveal>
