@@ -1583,9 +1583,51 @@ export default function Home() {
       {/* Footer Section */}
       <footer className="relative w-full bg-gradient-to-b from-white to-[#f8f9fa] pt-24 pb-12 px-8 overflow-hidden flex flex-col -mt-1">
 <ScrollReveal>
-        {/* Premium blue gradient glow */}
-        <div className="absolute -bottom-40 -right-20 w-[800px] h-[800px] bg-gradient-to-tl from-blue-500/40 via-blue-400/20 to-transparent rounded-full blur-[100px] pointer-events-none z-0"></div>
-        <div className="absolute top-20 -left-40 w-[500px] h-[500px] bg-cyan-300/20 rounded-full blur-[100px] pointer-events-none z-0"></div>
+        {/* Animated Premium blue gradient glow */}
+        <motion.div 
+          animate={{
+            scale: [1, 1.2, 1],
+            x: [0, 50, -30, 0],
+            y: [0, -40, 30, 0],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "easeInOut"
+          }}
+          className="absolute top-0 right-[10%] w-[600px] sm:w-[900px] h-[600px] sm:h-[900px] bg-blue-500/20 sm:bg-blue-500/30 rounded-full blur-[100px] sm:blur-[140px] pointer-events-none z-0"
+        />
+        <motion.div 
+          animate={{
+            scale: [1, 1.3, 1],
+            x: [0, -60, 40, 0],
+            y: [0, 50, -40, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "easeInOut",
+            delay: 2
+          }}
+          className="absolute bottom-10 left-[10%] w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] bg-cyan-400/20 rounded-full blur-[90px] sm:blur-[120px] pointer-events-none z-0"
+        />
+        <motion.div 
+          animate={{
+            scale: [1, 1.1, 1],
+            x: [0, 30, -50, 0],
+            y: [0, 30, -30, 0],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "easeInOut",
+            delay: 5
+          }}
+          className="absolute top-1/2 left-1/3 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-purple-400/15 rounded-full blur-[100px] pointer-events-none z-0"
+        />
 
         <div className="w-full max-w-[1200px] mx-auto relative z-10 flex flex-col pt-4 px-6 md:px-10">
           <div className="flex flex-col md:flex-row justify-between w-full">
