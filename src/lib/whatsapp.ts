@@ -27,14 +27,18 @@ export interface OrderDataPaket2 {
 export type OrderData = OrderDataPaket1 | OrderDataPaket2;
 
 function formatTanggal(): string {
-  return new Date().toLocaleDateString("id-ID", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  const now = new Date();
+  const hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"][now.getDay()];
+  const tgl = now.getDate();
+  const bulan = [
+    "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+    "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+  ][now.getMonth()];
+  const tahun = now.getFullYear();
+  const jam = String(now.getHours()).padStart(2, "0");
+  const menit = String(now.getMinutes()).padStart(2, "0");
+
+  return `${hari}, ${tgl} ${bulan} ${tahun} pukul ${jam}.${menit}`;
 }
 
 function formatRupiahWA(angka: number): string {
@@ -46,18 +50,18 @@ export function formatOrderMessage(data: OrderData): string {
     const p1Lines = [
       "📦 *PRE-ORDER - DevTech AI Store*",
       "━━━━━━━━━━━━━━━━",
-      `👤 Nama: ${data.nama}`,
+      `👤 *Nama:* ${data.nama}`,
       "━━━━━━━━━━━━━━━━",
-      "📋 Paket: Super Power (18 Bulan)",
-      `💰 Harga: Rp${formatRupiahWA(data.harga)}`,
+      "📋 *Paket:* Super Power (18 Bulan)",
+      `💰 *Harga:* Rp${formatRupiahWA(data.harga)}`,
     ];
 
     if (data.voucherCode && data.diskon > 0) {
-      p1Lines.push(`🎫 Voucher: ${data.voucherCode} (-Rp${formatRupiahWA(data.diskon)})`);
+      p1Lines.push(`🎫 *Voucher:* ${data.voucherCode} (-Rp${formatRupiahWA(data.diskon)})`);
     }
 
     p1Lines.push(
-      `💵 *Total: Rp${formatRupiahWA(data.totalBayar)}*`,
+      `💵 *Total:* Rp${formatRupiahWA(data.totalBayar)}`,
       "━━━━━━━━━━━━━━━━",
       "",
       "Halo, saya ingin membeli Paket Super Power Google AI Pro 18 Bulan.",
@@ -72,22 +76,24 @@ export function formatOrderMessage(data: OrderData): string {
   const lines = [
     "📦 *PRE-ORDER - DevTech AI Store*",
     "━━━━━━━━━━━━━━━━",
-    `👤 Nama: ${data.nama}`,
-    `📧 Email: ${data.email}`,
-    `📱 WhatsApp: ${data.whatsapp}`,
+    `👤 *Nama:* ${data.nama}`,
+    `📧 *Email:* ${data.email}`,
+    `📱 *WhatsApp:* ${data.whatsapp}`,
     "━━━━━━━━━━━━━━━━",
-    "📋 Paket: Invitation (Family Invite)",
-    `⏱️ Durasi: ${data.durasi} bulan`,
-    `💰 Harga: Rp${formatRupiahWA(data.harga)}`,
+    "📋 *Paket:* Invitation (Family Invite)",
+    `⏱️ *Durasi:* ${data.durasi} Bulan`,
+    `💰 *Harga:* Rp${formatRupiahWA(data.harga)}`,
   ];
 
   if (data.voucherCode && data.diskon > 0) {
-    lines.push(`🎫 Voucher: ${data.voucherCode} (-Rp${formatRupiahWA(data.diskon)})`);
+    lines.push(`🎫 *Voucher:* ${data.voucherCode} (-Rp${formatRupiahWA(data.diskon)})`);
   }
 
   lines.push(
-    `💵 *Total: Rp${formatRupiahWA(data.totalBayar)}*`,
+    `💵 *Total:* Rp${formatRupiahWA(data.totalBayar)}`,
     "━━━━━━━━━━━━━━━━",
+    "",
+    "Halo, saya ingin membeli Paket Invitation Google AI Pro.",
     "",
     `📅 ${formatTanggal()}`
   );
