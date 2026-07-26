@@ -843,13 +843,13 @@ export default function Home() {
   }, [typedText, isDeleting, textIndex]);
 
   return (
-    <div className="bg-[#f8f9fa] font-sans overflow-x-hidden selection:bg-[#20283e] selection:text-white">
+    <div className="relative bg-[#f8f9fa] font-sans overflow-x-hidden selection:bg-[#20283e] selection:text-white">
+      {/* Decorative Container Borders (Left & Right Lines) */}
+      <div className="absolute inset-0 w-full max-w-[1200px] mx-auto border-x border-slate-300/40 pointer-events-none z-[1]" />
+      
       <GiveawayWidget settings={settings} />
       <main className="relative min-h-screen w-full flex flex-col bg-gradient-to-b from-[#7ec5f2] via-[#b6dff6] to-[#f8f9fa]">
       
-      {/* Decorative Container Borders (Left & Right Lines) */}
-      <div className="absolute inset-0 w-full max-w-[1300px] mx-auto border-x border-black/5 pointer-events-none z-[1]" />
-
       {/* Animated Clouds & Stars Background */}
       <div className="absolute inset-0 pointer-events-none z-0">
         
