@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { ArrowRight, X, CheckCircle2, Zap, Sparkles, Users, ChevronLeft, ChevronRight, Play, Instagram, Facebook, Linkedin, Youtube, MessageCircle, Shield, Lock } from "lucide-react";
+import { ArrowRight, X, CheckCircle2, Zap, Sparkles, Users, ChevronLeft, ChevronRight, Play, Instagram, Facebook, Linkedin, Youtube, MessageCircle, Shield, Lock, Twitter } from "lucide-react";
 import { Quicksand, Inter } from "next/font/google";
 import { motion, AnimatePresence } from "framer-motion";
 import OrderModal from "@/components/OrderModal";
@@ -1581,65 +1581,93 @@ export default function Home() {
 </section>
 
       {/* Footer Section */}
-      <footer className="relative w-full bg-gradient-to-b from-white to-[#f8f9fa] pt-16 pb-24 px-8 overflow-hidden flex flex-col -mt-1">
+      <footer className="relative w-full bg-gradient-to-b from-white to-[#f8f9fa] pt-16 pb-12 px-8 overflow-hidden flex flex-col -mt-1">
 <ScrollReveal>
         {/* Premium blue gradient glow */}
         <div className="absolute -bottom-40 -right-20 w-[800px] h-[800px] bg-gradient-to-tl from-blue-500/40 via-blue-400/20 to-transparent rounded-full blur-[100px] pointer-events-none z-0"></div>
         <div className="absolute top-20 -left-40 w-[500px] h-[500px] bg-cyan-300/20 rounded-full blur-[100px] pointer-events-none z-0"></div>
 
-        <div className="w-full max-w-[1200px] mx-auto relative z-10 flex flex-col gap-10">
-          {/* Social Icons */}
-          <div className="flex items-center gap-4">
-            <a href="https://wa.me/6285872066832" target="_blank" rel="noopener noreferrer" className="w-[34px] h-[34px] flex items-center justify-center hover:scale-110 transition-transform bg-[#25D366] rounded-[10px] shadow-sm">
-              <MessageCircle size={20} className="text-white" />
-            </a>
-            <a href="https://www.tiktok.com/@devtech_official_store?_r=1&_t=ZS-98KjKmDZNMi" target="_blank" rel="noopener noreferrer" className="w-[34px] h-[34px] flex items-center justify-center hover:scale-110 transition-transform shadow-sm overflow-hidden rounded-[10px]">
-              <img src="/download.png" alt="TikTok" className="w-full h-full object-contain" />
-            </a>
+        <div className="w-full max-w-[1200px] mx-auto relative z-10 flex flex-col pt-4">
+          <div className="flex flex-col md:flex-row justify-between gap-12 lg:gap-24 mb-16">
+            
+            {/* Left: Alamat & Socials */}
+            <div className="flex-1 max-w-sm">
+              <h4 className="text-[#64748b] font-semibold text-[15px] mb-5">Alamat</h4>
+              <p className="text-[#475569] text-[14px] leading-relaxed mb-6 font-medium">
+                DevTech AI Store<br />
+                Pusat Layanan Langganan Google AI Pro<br />
+                Beroperasi secara online melayani seluruh wilayah Indonesia.
+              </p>
+              
+              <div className="flex items-center gap-3">
+                <a href="#" className="w-8 h-8 flex items-center justify-center rounded-md hover:scale-110 transition-transform bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-500 shadow-sm">
+                  <Instagram size={15} className="text-white" />
+                </a>
+                <a href="#" className="w-8 h-8 flex items-center justify-center rounded-md hover:scale-110 transition-transform bg-blue-600 shadow-sm">
+                  <Facebook size={15} className="text-white fill-white" />
+                </a>
+                <a href="#" className="w-8 h-8 flex items-center justify-center rounded-md hover:scale-110 transition-transform bg-[#0077b5] shadow-sm">
+                  <Linkedin size={15} className="text-white fill-white" />
+                </a>
+                <a href="https://www.tiktok.com/@devtech_official_store?_r=1&_t=ZS-98KjKmDZNMi" target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center hover:scale-110 transition-transform shadow-sm overflow-hidden rounded-md bg-black">
+                  <img src="/download.png" alt="TikTok" className="w-full h-full object-contain" />
+                </a>
+                <a href="#" className="w-8 h-8 flex items-center justify-center rounded-md hover:scale-110 transition-transform bg-red-600 shadow-sm">
+                  <Youtube size={15} className="text-white fill-white" />
+                </a>
+                <a href="#" className="w-8 h-8 flex items-center justify-center rounded-md hover:scale-110 transition-transform bg-black shadow-sm relative">
+                  {/* Custom X Logo icon using SVG since Lucide Twitter is bird, and X is a cross */}
+                  <svg viewBox="0 0 24 24" aria-hidden="true" className="w-[14px] h-[14px] fill-white">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.007 3.93H5.078z"></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            {/* Right: Link Columns */}
+            <div className="flex flex-col sm:flex-row gap-12 sm:gap-24 lg:mr-20">
+              <div>
+                <h4 className="text-[#64748b] font-semibold text-[15px] mb-5">Perusahaan</h4>
+                <ul className="flex flex-col gap-4 text-[#475569] font-semibold text-[14px]">
+                  <li><a href="#beranda" onClick={(e) => handleNavClick(e, 'beranda')} className="hover:text-blue-600 transition-colors">Tentang Kami</a></li>
+                  <li><button onClick={() => setIsRedeemModalOpen(true)} className="hover:text-blue-600 transition-colors flex items-center gap-2"><Lock size={14} className="opacity-70" /> Klaim Pesanan</button></li>
+                  <li><a href="https://wa.me/6285872066832?text=Halo%20DevTech%2C%20metode%20pembayaran%20apa%20saja%20yang%20tersedia%3F" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors">Metode Pembayaran</a></li>
+                  <li><a href="#faq" onClick={(e) => handleNavClick(e, 'faq')} className="hover:text-blue-600 transition-colors">Pertanyaan Umum (FAQ)</a></li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="text-[#64748b] font-semibold text-[15px] mb-5">Layanan AI Pro</h4>
+                <ul className="flex flex-col gap-4 text-[#475569] font-semibold text-[14px]">
+                  <li><a href="#paket-harga" onClick={(e) => handleNavClick(e, 'paket-harga')} className="hover:text-blue-600 transition-colors">Paket Super Power</a></li>
+                  <li><a href="#paket-harga" onClick={(e) => handleNavClick(e, 'paket-harga')} className="hover:text-blue-600 transition-colors">Paket Invitation (Family)</a></li>
+                  <li><a href="#keunggulan-fitur" onClick={(e) => handleNavClick(e, 'keunggulan-fitur')} className="hover:text-blue-600 transition-colors">Keunggulan Fitur</a></li>
+                  <li><a href="#faq" onClick={(e) => handleNavClick(e, 'faq')} className="hover:text-blue-600 transition-colors">Panduan Aktivasi</a></li>
+                  <li><a href="https://wa.me/6285872066832?text=Halo%20DevTech%2C%20saya%20butuh%20bantuan%20teknis" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors">Bantuan Teknis</a></li>
+                </ul>
+              </div>
+            </div>
           </div>
 
-          {/* Links Columns */}
-          <div className="flex flex-col gap-10 mt-6">
-            <div>
-              <h4 className="text-[#64748b] font-semibold text-[15px] mb-5">Perusahaan</h4>
-              <ul className="flex flex-col gap-4 text-[#334155] font-semibold text-[15px]">
-                <li><a href="#beranda" onClick={(e) => handleNavClick(e, 'beranda')} className="hover:text-blue-600 transition-colors">Tentang Kami</a></li>
-                <li><button onClick={() => setIsRedeemModalOpen(true)} className="hover:text-blue-600 transition-colors flex items-center gap-2"><Lock size={14} className="opacity-70" /> Klaim Pesanan</button></li>
-                <li><a href="https://wa.me/6285872066832?text=Halo%20DevTech%2C%20metode%20pembayaran%20apa%20saja%20yang%20tersedia%3F" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors">Metode Pembayaran</a></li>
-                <li><a href="#faq" onClick={(e) => handleNavClick(e, 'faq')} className="hover:text-blue-600 transition-colors">Pertanyaan Umum (FAQ)</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-[#64748b] font-semibold text-[15px] mb-5">Layanan AI Pro</h4>
-              <ul className="flex flex-col gap-4 text-[#334155] font-semibold text-[15px]">
-                <li><a href="#paket-harga" onClick={(e) => handleNavClick(e, 'paket-harga')} className="hover:text-blue-600 transition-colors">Paket Super Power</a></li>
-                <li><a href="#paket-harga" onClick={(e) => handleNavClick(e, 'paket-harga')} className="hover:text-blue-600 transition-colors">Paket Invitation (Family)</a></li>
-                <li><a href="#keunggulan-fitur" onClick={(e) => handleNavClick(e, 'keunggulan-fitur')} className="hover:text-blue-600 transition-colors">Keunggulan Fitur</a></li>
-                <li><a href="#faq" onClick={(e) => handleNavClick(e, 'faq')} className="hover:text-blue-600 transition-colors">Panduan Aktivasi</a></li>
-                <li><a href="https://wa.me/6285872066832?text=Halo%20DevTech%2C%20saya%20butuh%20bantuan%20teknis" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors">Bantuan Teknis</a></li>
-              </ul>
-            </div>
-          </div>
+          <hr className="border-slate-200/80 mb-6" />
 
           {/* Footer Bottom Info */}
-          <div className="mt-8 flex flex-col gap-3 text-[11px] sm:text-[12px] text-[#475569] font-medium leading-relaxed max-w-[400px]">
-            <p>© 2026 DevTech AI Store. All rights reserved.</p>
-            <p>DevTech AI Store adalah platform penyedia lisensi resmi Google AI Pro di Indonesia. Kami berkomitmen memberikan akses teknologi AI terbaik dengan harga terjangkau.</p>
-            <p className="text-[10px] text-gray-400">WhatsApp: 0858-7206-6832</p>
-            <div className="flex items-center gap-3 pt-2 text-[13px]">
-              <a href="#beranda" onClick={(e) => handleNavClick(e, 'beranda')} className="hover:text-gray-900 transition-colors">Terms</a>
-              <a href="#beranda" onClick={(e) => handleNavClick(e, 'beranda')} className="hover:text-gray-900 transition-colors">Privacy</a>
-              <span className="text-gray-300">•</span>
-              <a href="/admin" className="text-gray-400 hover:text-blue-600 transition-colors flex items-center" title="Admin Login">
-                <Shield size={12} />
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-[13px] text-[#64748b] font-medium w-full">
+            <p>© 2026 DevTech | DevTech AI Store adalah platform penyedia lisensi resmi Google AI Pro di Indonesia.</p>
+            <div className="flex items-center gap-4">
+              <a href="#beranda" className="hover:text-blue-600 transition-colors">Terms</a>
+              <span className="text-gray-300">|</span>
+              <a href="#beranda" className="hover:text-blue-600 transition-colors">Privacy</a>
+              <span className="text-gray-300">|</span>
+              <a href="/admin" className="hover:text-blue-600 transition-colors flex items-center" title="Admin Login">
+                <Shield size={14} />
               </a>
             </div>
           </div>
         </div>
 
         {/* Large Background Text */}
-        <div className="absolute bottom-[-10px] sm:-bottom-6 left-0 right-0 flex justify-center pointer-events-none select-none z-0 overflow-hidden">
-          <span className="text-[60px] sm:text-[100px] lg:text-[140px] leading-none font-extrabold text-white tracking-tighter mix-blend-overlay opacity-80 whitespace-nowrap">DevTech AI Store</span>
+        <div className="absolute bottom-[-5px] sm:-bottom-8 left-0 right-0 flex justify-center pointer-events-none select-none z-0 overflow-hidden">
+          <span className="text-[70px] sm:text-[150px] lg:text-[200px] leading-none font-extrabold text-white tracking-tighter mix-blend-overlay opacity-100 whitespace-nowrap lowercase">devtech</span>
         </div>
 
       </ScrollReveal>
