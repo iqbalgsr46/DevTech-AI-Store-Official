@@ -63,20 +63,57 @@ export default function OrderModal({ isOpen, onClose, paketType, basePrice }: Or
     onClose();
   };
 
-  const handleValidateVoucher = async () => {
-    if (!voucherInput.trim()) return;
-    setVoucherLoading(true);
-    try {
-      const result = await validateVoucher(voucherInput.trim(), paketType);
-      setVoucherResult(result);
-    } catch {
-      setVoucherResult({
-        valid: false,
-        voucher: null,
-        message: "Gagal memvalidasi voucher. Periksa koneksi internet.",
-      });
+  // Auto-validate voucher when user types
+  useEffect(() => {
+    const code = voucherInput.trim();
+    if (!code) {
+      setVoucherResult(null);
+      setVoucherLoading(false);
+      return;
     }
-    setVoucherLoading(false);
+
+    setVoucherLoading(true);
+    const timer = setTimeout(async () => {
+      try {
+        const result = await validateVoucher(code, paketType);
+        setVoucherResult(result);
+      } catch {
+        setVoucherResult({
+          valid: false,
+          voucher: null,
+          message: "Gagal memvalidasi voucher. Periksa koneksi internet.",
+        });
+      } finally {
+        setVoucherLoading(false);
+      }
+    }, 250);
+
+    return () => clearTimeout(timer);
+  }, [voucherInput, paketType]);
+
+  const handleProceedToStep3 = async () => {
+    const code = voucherInput.trim();
+    if (code) {
+      setVoucherLoading(true);
+      try {
+        const result = await validateVoucher(code, paketType);
+        setVoucherResult(result);
+        if (!result.valid) {
+          setVoucherLoading(false);
+          return;
+        }
+      } catch {
+        setVoucherResult({
+          valid: false,
+          voucher: null,
+          message: "Gagal memvalidasi voucher. Periksa koneksi internet.",
+        });
+        setVoucherLoading(false);
+        return;
+      }
+      setVoucherLoading(false);
+    }
+    setStep(2);
   };
 
   const handleSubmit = async () => {
@@ -319,31 +356,24 @@ export default function OrderModal({ isOpen, onClose, paketType, basePrice }: Or
                         <label className="block text-[12px] font-semibold text-gray-600 mb-1">
                           Kode Voucher / Referral <span className="text-gray-400 font-normal">(opsional)</span>
                         </label>
-                        <div className="flex gap-2">
-                          <div className="relative flex-grow">
-                            <Tag size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                            <input
-                              type="text"
-                              value={voucherInput}
-                              onChange={(e) => {
-                                setVoucherInput(e.target.value.toUpperCase());
-                                setVoucherResult(null);
-                              }}
-                              placeholder="Masukkan kode"
-                              className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 text-[14px] text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400 transition-all placeholder:text-gray-300 uppercase"
-                            />
-                          </div>
-                          <button
-                            onClick={handleValidateVoucher}
-                            disabled={!voucherInput.trim() || voucherLoading}
-                            className="px-4 py-2.5 bg-gray-100 rounded-xl text-[13px] font-semibold text-gray-700 hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
-                          >
-                            {voucherLoading ? (
-                              <Loader2 size={16} className="animate-spin" />
-                            ) : (
-                              "Cek"
-                            )}
-                          </button>
+                        <div className="relative w-full">
+                          <Tag size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
+                          <input
+                            type="text"
+                            value={voucherInput}
+                            onChange={(e) => setVoucherInput(e.target.value.toUpperCase())}
+                            placeholder="Masukkan kode"
+                            className="w-full pl-9 pr-9 py-2.5 rounded-xl border border-gray-200 text-[14px] text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400 transition-all placeholder:text-gray-300 uppercase font-medium"
+                          />
+                          {voucherLoading && (
+                            <Loader2 size={16} className="absolute right-3 top-1/2 -translate-y-1/2 animate-spin text-blue-500" />
+                          )}
+                          {!voucherLoading && voucherResult?.valid && (
+                            <CheckCircle2 size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-emerald-500" />
+                          )}
+                          {!voucherLoading && voucherResult && !voucherResult.valid && (
+                            <AlertCircle size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-red-500" />
+                          )}
                         </div>
 
                         {/* Voucher Result */}
@@ -381,11 +411,17 @@ export default function OrderModal({ isOpen, onClose, paketType, basePrice }: Or
                         <ArrowLeft size={16} /> Kembali
                       </button>
                       <button
-                        onClick={() => setStep(2)}
-                        disabled={!canProceedStep2}
+                        onClick={handleProceedToStep3}
+                        disabled={!canProceedStep2 || voucherLoading}
                         className="flex-grow bg-[#1E3A8A] text-white rounded-xl py-3 font-semibold text-[14px] flex items-center justify-center gap-2 hover:bg-[#162d6e] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        Lanjut <ArrowRight size={16} />
+                        {voucherLoading ? (
+                          <Loader2 size={16} className="animate-spin" />
+                        ) : (
+                          <>
+                            Lanjut <ArrowRight size={16} />
+                          </>
+                        )}
                       </button>
                     </div>
                   </motion.div>
