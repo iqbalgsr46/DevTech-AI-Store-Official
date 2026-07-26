@@ -1648,38 +1648,8 @@ export default function Home() {
               </p>
               
               <div className="flex items-center gap-6 mt-8">
-                <a href="#" className="hover:scale-110 transition-transform">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="url(#ig-grad)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="2" y="2" width="20" height="20" rx="5" fill="none" />
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                    <defs>
-                      <linearGradient id="ig-grad" x1="2" y1="22" x2="22" y2="2" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="#f09433" />
-                        <stop offset="0.25" stopColor="#e6683c" />
-                        <stop offset="0.5" stopColor="#dc2743" />
-                        <stop offset="0.75" stopColor="#cc2366" />
-                        <stop offset="1" stopColor="#bc1888" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                </a>
-                <a href="#" className="hover:scale-110 transition-transform text-blue-600">
-                  <Facebook size={22} strokeWidth={0} className="fill-blue-600" />
-                </a>
-                <a href="#" className="hover:scale-110 transition-transform text-[#0077b5]">
-                  <Linkedin size={22} strokeWidth={0} className="fill-[#0077b5]" />
-                </a>
-                <a href="https://www.tiktok.com/@devtech_official_store?_r=1&_t=ZS-98KjKmDZNMi" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform flex items-center">
-                  <img src="/download.png" alt="TikTok" className="w-[22px] h-[22px] object-contain" />
-                </a>
-                <a href="#" className="hover:scale-110 transition-transform text-red-600">
-                  <Youtube size={26} strokeWidth={0} className="fill-red-600 relative top-[1px]" />
-                </a>
-                <a href="#" className="hover:scale-110 transition-transform text-black flex items-center">
-                  <svg viewBox="0 0 24 24" aria-hidden="true" className="w-[18px] h-[18px] fill-black">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.007 3.93H5.078z"></path>
-                  </svg>
+                <a href="https://www.tiktok.com/@devtech_official_store?_r=1&_t=ZS-98KjKmDZNMi" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform flex items-center justify-center w-[38px] h-[38px] rounded-full overflow-hidden shadow-sm border border-slate-200 bg-white">
+                  <img src="/download.png" alt="TikTok" className="w-full h-full object-contain p-1.5" />
                 </a>
               </div>
             </div>
