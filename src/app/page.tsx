@@ -1586,16 +1586,24 @@ export default function Home() {
                    <motion.img 
                      src="/digital_tree.png" 
                      alt="Digital Tech Tree" 
-                     className="w-full max-w-[320px] md:max-w-[450px] lg:max-w-[550px] h-auto object-contain mix-blend-multiply translate-y-4 md:translate-y-0"
+                     className="w-full max-w-[320px] md:max-w-[450px] lg:max-w-[550px] h-auto object-contain mix-blend-multiply translate-y-4 md:translate-y-0 origin-bottom"
                      animate={{
-                       clipPath: ["inset(100% 0% 0% 0%)", "inset(0% 0% 0% 0%)", "inset(0% 0% 0% 0%)", "inset(100% 0% 0% 0%)"],
-                       opacity: [0, 0.85, 0.85, 0]
+                       clipPath: [
+                         "inset(0% 0% 100% 0%)",
+                         "inset(0% 0% 65% 0%)",
+                         "inset(0% 0% 35% 0%)",
+                         "inset(0% 0% 0% 0%)",
+                         "inset(0% 0% 0% 0%)",
+                         "inset(0% 0% 100% 0%)"
+                       ],
+                       scaleY: [0.1, 0.4, 0.75, 1, 1, 0.1],
+                       opacity: [0.2, 0.6, 0.75, 0.85, 0.85, 0]
                      }}
                      transition={{
-                       duration: 6,
-                       times: [0, 0.3, 0.8, 1],
+                       duration: 8,
+                       times: [0, 0.15, 0.45, 0.65, 0.88, 1],
                        repeat: Infinity,
-                       ease: "easeInOut"
+                       ease: "easeOut"
                      }}
                    />
                 </div>
