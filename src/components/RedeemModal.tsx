@@ -106,9 +106,37 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[250px] h-[250px] bg-blue-500/10 rounded-full blur-[60px] pointer-events-none"></div>
                 
                 <div className="text-center mb-8 relative z-10">
-                  <div className="w-24 h-24 bg-gradient-to-br from-amber-50 to-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm border border-amber-200 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-400/20 via-transparent to-transparent opacity-60 blur-md pointer-events-none"></div>
-                    <KeyRound size={44} className="text-amber-500 drop-shadow-sm relative z-10" strokeWidth={1.5} />
+                  <div style={{ perspective: "1000px" }} className="w-28 h-28 mx-auto mb-6 relative">
+                    {/* The circle background */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-amber-50 to-yellow-100/50 rounded-full shadow-sm border border-amber-200/50">
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-400/20 via-transparent to-transparent opacity-60 blur-md pointer-events-none rounded-full"></div>
+                    </div>
+                    
+                    {/* The 3D rotating key */}
+                    <motion.div
+                      animate={{ rotateY: [0, 360] }}
+                      transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                      className="absolute inset-0 flex items-center justify-center transform-gpu"
+                      style={{ transformStyle: "preserve-3d" }}
+                    >
+                      {/* Back layers for 3D extrusion depth */}
+                      {[0, 1, 2, 3, 4].map((i) => (
+                        <KeyRound 
+                          key={i} 
+                          size={48} 
+                          className="absolute text-amber-600" 
+                          strokeWidth={2} 
+                          style={{ transform: `translateZ(${i}px)` }} 
+                        />
+                      ))}
+                      {/* Front golden face with glow */}
+                      <KeyRound 
+                        size={48} 
+                        className="absolute text-yellow-400 drop-shadow-[0_0_12px_rgba(253,224,71,0.8)]" 
+                        strokeWidth={2} 
+                        style={{ transform: `translateZ(5px)` }} 
+                      />
+                    </motion.div>
                   </div>
                   <h3 className="text-2xl font-bold text-slate-800 mb-2 tracking-tight">Klaim Pesanan</h3>
                   <p className="text-[15px] text-slate-500 leading-relaxed">
