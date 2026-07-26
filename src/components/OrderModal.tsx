@@ -164,29 +164,29 @@ export default function OrderModal({ isOpen, onClose, paketType, basePrice }: Or
     ? nama.trim() !== ""
     : nama.trim() !== "" && email.trim() !== "" && whatsapp.trim() !== "";
 
-  if (!isOpen) return null;
-
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {isOpen && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          transition={{ duration: 0.25, ease: "easeInOut" }}
           className="fixed inset-0 z-[100] flex items-center justify-center p-4"
           onClick={handleClose}
         >
           {/* Backdrop */}
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+          <div className="absolute inset-0 bg-black/55 backdrop-blur-sm" />
 
           {/* Modal */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            initial={{ opacity: 0, scale: 0.9, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ type: "spring", stiffness: 400, damping: 30 }}
+            exit={{ opacity: 0, scale: 0.92, y: 20 }}
+            transition={{ type: "spring", stiffness: 380, damping: 28, mass: 0.9 }}
+            style={{ willChange: "transform, opacity" }}
             onClick={(e) => e.stopPropagation()}
-            className="relative bg-white rounded-[28px] w-full max-w-[460px] max-h-[90vh] overflow-y-auto shadow-2xl z-10"
+            className="relative bg-white rounded-[28px] w-full max-w-[460px] max-h-[90vh] overflow-y-auto shadow-2xl z-10 transform-gpu"
           >
             {/* Header */}
             <div className="sticky top-0 bg-white/95 backdrop-blur-md rounded-t-[28px] px-6 pt-5 pb-3 flex items-center justify-between border-b border-gray-100 z-20">

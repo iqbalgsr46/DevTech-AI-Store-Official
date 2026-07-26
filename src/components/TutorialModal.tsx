@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { X, Lock, Play, AlertCircle } from "lucide-react";
 
 interface TutorialModalProps {
@@ -29,7 +30,7 @@ export default function TutorialModal({
     }
   }, [isOpen]);
 
-  if (!isOpen) return null;
+// Remove early return to allow AnimatePresence exit animations
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -106,21 +107,34 @@ export default function TutorialModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
-      {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-        onClick={onClose}
-      ></div>
+    <AnimatePresence mode="wait">
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25, ease: "easeInOut" }}
+          className="fixed inset-0 z-[100] flex items-center justify-center px-4"
+        >
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            onClick={onClose}
+          ></div>
 
-      {/* Modal Content */}
-      <div
-        className={`relative w-full overflow-hidden animate-in zoom-in-95 duration-200 border ${
-          isUnlocked 
-            ? "bg-black max-w-4xl rounded-xl border-slate-800 shadow-[0_0_50px_rgba(0,0,0,0.5)]" 
-            : "bg-white max-w-md rounded-[24px] border-slate-100 shadow-[0_20px_60px_rgba(0,0,0,0.15)]"
-        }`}
-      >
+          {/* Modal Content */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 30 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.92, y: 20 }}
+            transition={{ type: "spring", stiffness: 380, damping: 28, mass: 0.9 }}
+            style={{ willChange: "transform, opacity" }}
+            className={`relative w-full overflow-hidden border transform-gpu ${
+              isUnlocked 
+                ? "bg-black max-w-4xl rounded-xl border-slate-800 shadow-[0_0_50px_rgba(0,0,0,0.5)]" 
+                : "bg-white max-w-md rounded-[24px] border-slate-100 shadow-[0_20px_60px_rgba(0,0,0,0.15)]"
+            }`}
+          >
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -197,7 +211,9 @@ export default function TutorialModal({
             </div>
           </div>
         )}
-      </div>
-    </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

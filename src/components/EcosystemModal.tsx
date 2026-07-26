@@ -55,7 +55,7 @@ export default function EcosystemModal({ isOpen, onClose }: EcosystemModalProps)
   }, [isOpen]);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {isOpen && (
         <>
           {/* Overlay */}
@@ -64,7 +64,7 @@ export default function EcosystemModal({ isOpen, onClose }: EcosystemModalProps)
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
             onClick={onClose}
             style={{
               position: "fixed",
@@ -78,10 +78,10 @@ export default function EcosystemModal({ isOpen, onClose }: EcosystemModalProps)
           {/* Modal */}
           <motion.div
             key="modal"
-            initial={{ opacity: 0, scale: 0.88, y: 40 }}
+            initial={{ opacity: 0, scale: 0.9, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 24 }}
-            transition={{ type: "spring", damping: 24, stiffness: 360 }}
+            exit={{ opacity: 0, scale: 0.92, y: 20 }}
+            transition={{ type: "spring", stiffness: 380, damping: 28, mass: 0.9 }}
             style={{
               position: "fixed",
               inset: 0,
@@ -91,6 +91,7 @@ export default function EcosystemModal({ isOpen, onClose }: EcosystemModalProps)
               justifyContent: "center",
               padding: "16px",
               pointerEvents: "none",
+              willChange: "transform, opacity",
             }}
           >
             <div
