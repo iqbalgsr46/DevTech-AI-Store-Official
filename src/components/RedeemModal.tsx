@@ -200,11 +200,22 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
 
                 <a
                   href={redeemData.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => {
+                  onClick={(e) => {
                     if (!redeemData.isOpened) {
-                      updateRedeemLink(redeemData.id, { isOpened: true }).catch(console.error);
+                      e.preventDefault();
+                      const targetUrl = redeemData.url;
+                      // Buka tab kosong dulu secara sinkron agar tidak diblokir popup blocker
+                      const newWindow = window.open('', '_blank');
+                      
+                      updateRedeemLink(redeemData.id, { isOpened: true })
+                        .catch(console.error)
+                        .finally(() => {
+                          if (newWindow) {
+                            newWindow.location.href = targetUrl;
+                          } else {
+                            window.location.href = targetUrl;
+                          }
+                        });
                     }
                   }}
                   className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(16,185,129,0.25)] hover:shadow-[0_0_25px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 active:translate-y-0 relative z-10"
