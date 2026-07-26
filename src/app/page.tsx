@@ -8,6 +8,7 @@ import OrderModal from "@/components/OrderModal";
 import EcosystemModal from "@/components/EcosystemModal";
 import { generateWhatsAppLink } from "@/lib/whatsapp";
 import { useSettings } from "@/lib/database";
+import AsciiTree from "@/components/AsciiTree";
 import GiveawayWidget from "@/components/GiveawayWidget";
 import TutorialModal from "@/components/TutorialModal";
 import RedeemModal from "@/components/RedeemModal";
@@ -1582,30 +1583,8 @@ export default function Home() {
                 </div>
                 
                 {/* Image Content */}
-                <div className="w-full md:w-[50%] flex justify-center md:justify-end items-end md:items-center mt-auto md:mt-0 relative px-4 md:pr-12 lg:pr-20">
-                   <motion.img 
-                     src="/digital_tree.png" 
-                     alt="Digital Tech Tree" 
-                     className="w-full max-w-[320px] md:max-w-[450px] lg:max-w-[550px] h-auto object-contain mix-blend-multiply translate-y-4 md:translate-y-0 origin-bottom"
-                     animate={{
-                       clipPath: [
-                         "inset(0% 0% 100% 0%)",
-                         "inset(0% 0% 65% 0%)",
-                         "inset(0% 0% 35% 0%)",
-                         "inset(0% 0% 0% 0%)",
-                         "inset(0% 0% 0% 0%)",
-                         "inset(0% 0% 100% 0%)"
-                       ],
-                       scaleY: [0.1, 0.4, 0.75, 1, 1, 0.1],
-                       opacity: [0.2, 0.6, 0.75, 0.85, 0.85, 0]
-                     }}
-                     transition={{
-                       duration: 8,
-                       times: [0, 0.15, 0.45, 0.65, 0.88, 1],
-                       repeat: Infinity,
-                       ease: "easeOut"
-                     }}
-                   />
+                <div className="w-full md:w-[50%] flex justify-center md:justify-end items-end md:items-center mt-auto md:mt-0 relative px-4 md:pr-8 lg:pr-12 py-8 md:py-4">
+                  <AsciiTree />
                 </div>
               </div>
             </div>
