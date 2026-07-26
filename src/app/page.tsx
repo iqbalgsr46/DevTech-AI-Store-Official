@@ -1516,7 +1516,7 @@ export default function Home() {
 
       {/* Activation & Invite Guide Section */}
       <section id="faq" className="w-full bg-white py-20 flex flex-col items-center px-6 -mt-1">
-<ScrollReveal>
+<ScrollReveal className="w-full flex flex-col items-center">
         <div className="max-w-[700px] w-full flex flex-col items-center text-center">
           <h2 className="text-[28px] sm:text-[32px] font-bold mb-6 text-[#0f172a]">
             Panduan <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Aktivasi & Akses Grup</span>
@@ -1562,11 +1562,12 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
 
-          {/* AI Talent CTA Card */}
-          <div className="mt-28 w-full flex justify-center px-4 mb-4 relative z-10">
-            {/* The outer border frame */}
-            <div className="border border-[#e2e8f0] p-1.5 sm:p-2 rounded-[52px] bg-transparent w-full max-w-[380px] md:max-w-[900px] lg:max-w-[1000px] transition-all duration-300">
+        {/* AI Talent CTA Card */}
+        <div className="mt-28 w-full flex justify-center mb-4 relative z-10 max-w-[1000px] mx-auto">
+          {/* The outer border frame */}
+          <div className="border border-[#e2e8f0] p-1.5 sm:p-2 rounded-[52px] bg-transparent w-full max-w-[380px] md:max-w-[900px] lg:max-w-[1000px] transition-all duration-300">
               {/* The inner white card */}
               <div className="bg-white rounded-[44px] flex flex-col md:flex-row items-center md:items-stretch pt-16 md:pt-0 pb-0 md:pb-0 px-8 md:pl-20 md:pr-0 overflow-hidden shadow-[inset_0_0_15px_rgba(0,0,0,0.01)] border border-gray-50 min-h-[450px]">
                 
@@ -1587,7 +1588,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
       </ScrollReveal>
 </section>
 
