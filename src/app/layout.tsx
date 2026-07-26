@@ -38,6 +38,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://devtechstore.my.id",
   },
+  verification: {
+    google: "_2Q1cke-Z0W6oJhYJWeYX9MDqSui1HvRqZ7w5q7qs_U",
+  },
   openGraph: {
     title: "DevTech AI Store - Langganan Google AI Pro Lebih Murah",
     description: "Akses Penuh Google AI Pro Premium Resmi, Aman & Bergaransi. Bayar via QRIS Cepat.",
@@ -104,6 +107,7 @@ export default function RootLayout({
       className={`${plusJakartaSans.variable} h-full antialiased font-sans`}
     >
       <head>
+        <meta name="google-site-verification" content="_2Q1cke-Z0W6oJhYJWeYX9MDqSui1HvRqZ7w5q7qs_U" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
