@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { ArrowRight, X, CheckCircle2, Zap, Sparkles, Users, ChevronLeft, ChevronRight, Play, Instagram, Facebook, Linkedin, Youtube, MessageCircle, Shield } from "lucide-react";
+import { ArrowRight, X, CheckCircle2, Zap, Sparkles, Users, ChevronLeft, ChevronRight, Play, Instagram, Facebook, Linkedin, Youtube, MessageCircle, Shield, Lock } from "lucide-react";
 import { Quicksand, Inter } from "next/font/google";
 import { motion, AnimatePresence } from "framer-motion";
 import OrderModal from "@/components/OrderModal";
@@ -10,6 +10,7 @@ import { generateWhatsAppLink } from "@/lib/whatsapp";
 import { useSettings } from "@/lib/database";
 import GiveawayWidget from "@/components/GiveawayWidget";
 import TutorialModal from "@/components/TutorialModal";
+import RedeemModal from "@/components/RedeemModal";
 
 const quicksand = Quicksand({ subsets: ["latin"], weight: ["700"] });
 const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
@@ -681,8 +682,21 @@ export default function Home() {
   const [isEcosystemModalOpen, setIsEcosystemModalOpen] = useState(false);
   const [isTutorialOpen, setIsTutorialOpen] = useState(false);
   const [tutorialData, setTutorialData] = useState({ title: "", videoUrl: "", passcode: "" });
+  const [isRedeemModalOpen, setIsRedeemModalOpen] = useState(false);
+  const [initialRedeemCode, setInitialRedeemCode] = useState("");
   
   const { settings, loading: settingsLoading } = useSettings();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const urlParams = new URLSearchParams(window.location.search);
+      const redeemCode = urlParams.get('redeem');
+      if (redeemCode) {
+        setInitialRedeemCode(redeemCode);
+        setIsRedeemModalOpen(true);
+      }
+    }
+  }, []);
 
   const handleOpenTutorial = (type: "paket1" | "family") => {
     if (!settings?.tutorials) return;
@@ -882,9 +896,9 @@ export default function Home() {
             <a href="#keunggulan-fitur" onClick={(e) => handleNavClick(e, 'keunggulan-fitur')} className="text-[14px] font-medium text-[#475569] hover:text-[#1b59d9] transition-colors">Keunggulan Fitur</a>
             <a href="#testimoni" onClick={(e) => handleNavClick(e, 'testimoni')} className="text-[14px] font-medium text-[#475569] hover:text-[#1b59d9] transition-colors">Ekosistem</a>
             <a href="#faq" onClick={(e) => handleNavClick(e, 'faq')} className="text-[14px] font-medium text-[#475569] hover:text-[#1b59d9] transition-colors">Panduan</a>
-            <a href="https://wa.me/6285872066832?text=Halo%20DevTech%2C%20saya%20tertarik%20dengan%20paket%20Google%20AI%20Pro" target="_blank" rel="noopener noreferrer" className="bg-black hover:bg-slate-900 text-white font-semibold text-[13px] py-2 px-5 rounded-full shadow-md transition-all hover:scale-105 active:scale-95">
-              Hubungi Kami
-            </a>
+            <button onClick={() => setIsRedeemModalOpen(true)} className="bg-black hover:bg-slate-900 text-white font-semibold text-[13px] py-2 px-5 rounded-full shadow-md transition-all hover:scale-105 active:scale-95 flex items-center gap-1.5">
+              <Lock size={14} className="opacity-70" /> Klaim Pesanan
+            </button>
           </div>
 
           {/* Mobile Toggle Button */}
@@ -943,9 +957,9 @@ export default function Home() {
                   <a href="#testimoni" onClick={(e) => handleNavClick(e, 'testimoni')} className="text-[15px] font-medium text-[#181d28] hover:text-[#1b59d9] transition-colors">Ekosistem</a>
                   <a href="#faq" onClick={(e) => handleNavClick(e, 'faq')} className="text-[15px] font-medium text-[#181d28] hover:text-[#1b59d9] transition-colors">Panduan</a>
                   
-                  <a href="https://wa.me/6285872066832?text=Halo%20DevTech%2C%20saya%20tertarik%20dengan%20paket%20Google%20AI%20Pro" target="_blank" rel="noopener noreferrer" className="mt-4 bg-black hover:bg-slate-900 text-white font-bold text-[15px] py-3 px-10 rounded-full shadow-lg transition-colors inline-block text-center">
-                    Hubungi Kami
-                  </a>
+                  <button onClick={() => { setIsMenuOpen(false); setIsRedeemModalOpen(true); }} className="mt-4 bg-black hover:bg-slate-900 text-white font-bold text-[15px] py-3 px-10 rounded-full shadow-lg transition-colors inline-flex items-center justify-center gap-2">
+                    <Lock size={16} className="opacity-70" /> Klaim Pesanan
+                  </button>
                 </motion.div>
               </motion.div>
             )}
@@ -1587,7 +1601,7 @@ export default function Home() {
               <h4 className="text-[#64748b] font-semibold text-[15px] mb-5">Perusahaan</h4>
               <ul className="flex flex-col gap-4 text-[#334155] font-semibold text-[15px]">
                 <li><a href="#beranda" onClick={(e) => handleNavClick(e, 'beranda')} className="hover:text-blue-600 transition-colors">Tentang Kami</a></li>
-                <li><a href="https://wa.me/6285872066832" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors">Hubungi Kami</a></li>
+                <li><button onClick={() => setIsRedeemModalOpen(true)} className="hover:text-blue-600 transition-colors flex items-center gap-2"><Lock size={14} className="opacity-70" /> Klaim Pesanan</button></li>
                 <li><a href="https://wa.me/6285872066832?text=Halo%20DevTech%2C%20metode%20pembayaran%20apa%20saja%20yang%20tersedia%3F" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors">Metode Pembayaran</a></li>
                 <li><a href="#faq" onClick={(e) => handleNavClick(e, 'faq')} className="hover:text-blue-600 transition-colors">Pertanyaan Umum (FAQ)</a></li>
               </ul>
@@ -1657,6 +1671,7 @@ export default function Home() {
         videoUrl={tutorialData.videoUrl}
         passcode={tutorialData.passcode}
       />
+      <RedeemModal isOpen={isRedeemModalOpen} onClose={() => setIsRedeemModalOpen(false)} initialPasscode={initialRedeemCode} />
     </div>
   );
 }

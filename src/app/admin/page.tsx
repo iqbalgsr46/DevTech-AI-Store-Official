@@ -26,6 +26,11 @@ import {
   useSettings,
   updateSettings,
   WebsiteSettings,
+  RedeemLink,
+  useRedeemLinks,
+  addRedeemLink,
+  updateRedeemLink,
+  deleteRedeemLink,
 } from "@/lib/database";
 import {
   Users,
@@ -49,6 +54,8 @@ import {
   CheckCircle2,
   XCircle,
   ArrowRight,
+  Link2,
+  Copy,
 } from "lucide-react";
 
 // ============================================
@@ -702,6 +709,246 @@ function RealtimeCountdown({ endDate, daysLeft }: { endDate: string, daysLeft: n
 }
 
 // ============================================
+// REDEEM LINK MODAL
+// ============================================
+
+function RedeemLinkFormModal({
+  isOpen,
+  onClose,
+  onSubmit,
+  editData,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmit: (data: any) => Promise<void>;
+  editData: RedeemLink | null;
+}) {
+  const [passcode, setPasscode] = useState("");
+  const [url, setUrl] = useState("");
+  const [guideText, setGuideText] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      if (editData) {
+        setPasscode(editData.passcode);
+        setUrl(editData.url);
+        setGuideText(editData.guideText);
+      } else {
+        // default template
+        setPasscode(Math.random().toString(36).substring(2, 8).toUpperCase());
+        setUrl("https://");
+        setGuideText("Silakan klik tombol di bawah ini untuk mengakses pesanan Anda. Pastikan Anda tidak membagikan link ini kepada siapapun.");
+      }
+    }
+  }, [isOpen, editData]);
+
+  if (!isOpen) return null;
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    await onSubmit({ passcode, url, guideText });
+    setLoading(false);
+  };
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+        <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between sticky top-0 bg-white z-10">
+          <h2 className="text-lg font-bold text-slate-800">
+            {editData ? "Edit Link Redeem" : "Tambah Link Redeem"}
+          </h2>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 transition-colors p-1 rounded-lg hover:bg-slate-100">
+            <X size={20} />
+          </button>
+        </div>
+        <div className="p-6 overflow-y-auto">
+          <form id="redeemForm" onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-1">
+                Passcode (Kunci Akses)
+              </label>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={passcode}
+                  onChange={(e) => setPasscode(e.target.value)}
+                  className="w-full px-4 py-2 border border-slate-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 text-slate-800 font-mono font-bold tracking-widest"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setPasscode(Math.random().toString(36).substring(2, 8).toUpperCase())}
+                  className="px-3 bg-slate-100 text-slate-600 rounded-xl hover:bg-slate-200"
+                  title="Generate Random"
+                >
+                  <RefreshCw size={16} />
+                </button>
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-1">
+                URL Tujuan
+              </label>
+              <input
+                type="url"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                className="w-full px-4 py-2 border border-slate-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 text-slate-800 text-sm"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-1">
+                Panduan Aktivasi
+              </label>
+              <textarea
+                value={guideText}
+                onChange={(e) => setGuideText(e.target.value)}
+                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 text-slate-800 text-sm min-h-[100px]"
+                required
+              />
+            </div>
+          </form>
+        </div>
+        <div className="p-4 border-t border-slate-100 bg-slate-50 sticky bottom-0 z-10 flex justify-end gap-2">
+          <button
+            type="button"
+            onClick={onClose}
+            className="px-5 py-2 text-slate-600 font-medium hover:bg-slate-200 rounded-xl transition-colors text-sm"
+          >
+            Batal
+          </button>
+          <button
+            type="submit"
+            form="redeemForm"
+            disabled={loading}
+            className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition-colors flex items-center gap-2 text-sm disabled:opacity-50"
+          >
+            {loading && <Loader2 size={16} className="animate-spin" />}
+            Simpan
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============================================
+// REDEEM TAB COMPONENT
+// ============================================
+
+function RedeemTabContent({
+  links,
+  onAdd,
+  onEdit,
+  onDelete,
+}: {
+  links: RedeemLink[];
+  onAdd: () => void;
+  onEdit: (l: RedeemLink) => void;
+  onDelete: (l: RedeemLink) => void;
+}) {
+  const handleCopyLink = (passcode: string) => {
+    const text = `Pesanan Anda sudah siap!\n\nSilakan kunjungi website kami dan klik tombol Redeem/Klaim Pesanan, atau gunakan link berikut:\n\nhttps://devtech-aistore.com/?redeem=${passcode}\n\nMasukkan KODE AKSES: *${passcode}*`;
+    navigator.clipboard.writeText(text);
+    alert("Teks panduan untuk pelanggan telah disalin ke clipboard!");
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+        <div>
+          <h2 className="text-xl font-bold text-slate-800">Manajemen Link Redeem</h2>
+          <p className="text-slate-500 text-sm mt-1">Buat kunci akses untuk pelanggan mengambil pesanannya.</p>
+        </div>
+        <button
+          onClick={onAdd}
+          className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2.5 rounded-xl transition-colors flex items-center gap-2 text-sm whitespace-nowrap"
+        >
+          <Plus size={18} />
+          Tambah Link Baru
+        </button>
+      </div>
+
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-sm text-slate-600">
+            <thead className="bg-slate-50 text-slate-700 border-b border-slate-200">
+              <tr>
+                <th className="px-6 py-4 font-semibold whitespace-nowrap">Passcode</th>
+                <th className="px-6 py-4 font-semibold whitespace-nowrap">URL Tujuan</th>
+                <th className="px-6 py-4 font-semibold whitespace-nowrap">Tanggal Dibuat</th>
+                <th className="px-6 py-4 font-semibold text-right whitespace-nowrap">Aksi</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {links.length === 0 ? (
+                <tr>
+                  <td colSpan={4} className="px-6 py-12 text-center text-slate-500">
+                    Belum ada link redeem yang dibuat.
+                  </td>
+                </tr>
+              ) : (
+                links.map((link) => (
+                  <tr key={link.id} className="hover:bg-slate-50/50 transition-colors">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 font-mono font-bold">
+                        {link.passcode}
+                        <button onClick={() => navigator.clipboard.writeText(link.passcode)} className="hover:text-blue-900" title="Salin Passcode">
+                          <Copy size={14} />
+                        </button>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 max-w-[200px] truncate text-slate-500" title={link.url}>
+                      {link.url}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {new Date(link.createdAt).toLocaleDateString("id-ID", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-right">
+                      <div className="flex justify-end gap-2">
+                        <button
+                          onClick={() => handleCopyLink(link.passcode)}
+                          className="p-1.5 text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"
+                          title="Salin Pesan WA"
+                        >
+                          <Link2 size={18} />
+                        </button>
+                        <button
+                          onClick={() => onEdit(link)}
+                          className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          title="Edit"
+                        >
+                          <Pencil size={18} />
+                        </button>
+                        <button
+                          onClick={() => onDelete(link)}
+                          className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                          title="Hapus"
+                        >
+                          <Trash2 size={18} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============================================
 // SETTINGS TAB COMPONENT
 // ============================================
 
@@ -989,6 +1236,7 @@ const TABS = [
   { id: "overview", label: "Overview", icon: BarChart3 },
   { id: "subscribers", label: "Subscribers", icon: Users },
   { id: "vouchers", label: "Vouchers", icon: Tag },
+  { id: "redeem", label: "Redeem Links", icon: Link2 },
   { id: "settings", label: "Pengaturan", icon: Settings },
 ] as const;
 
@@ -1001,12 +1249,15 @@ function DashboardContent({ user }: { user: User }) {
   const { subscribers, loading: subsLoading } = useSubscribers();
   const { vouchers, loading: vouchLoading } = useVouchers();
   const { settings, loading: settingsLoading } = useSettings();
+  const { links: redeemLinks, loading: redeemLoading } = useRedeemLinks();
 
   // Modals
   const [subModalOpen, setSubModalOpen] = useState(false);
   const [subEditData, setSubEditData] = useState<Subscriber | null>(null);
   const [vouchModalOpen, setVouchModalOpen] = useState(false);
   const [vouchEditData, setVouchEditData] = useState<Voucher | null>(null);
+  const [redeemModalOpen, setRedeemModalOpen] = useState(false);
+  const [redeemEditData, setRedeemEditData] = useState<RedeemLink | null>(null);
 
   // Filters
   const [searchQuery, setSearchQuery] = useState("");
@@ -1715,6 +1966,31 @@ function DashboardContent({ user }: { user: User }) {
           </div>
         )}
 
+        {/* ====================== REDEEM LINKS TAB ====================== */}
+        {activeTab === "redeem" && (
+          <RedeemTabContent
+            links={redeemLinks}
+            onAdd={() => {
+              setRedeemEditData(null);
+              setRedeemModalOpen(true);
+            }}
+            onEdit={(l) => {
+              setRedeemEditData(l);
+              setRedeemModalOpen(true);
+            }}
+            onDelete={async (l) => {
+              if (confirm(`Yakin ingin menghapus link redeem dengan passcode ${l.passcode}?`)) {
+                try {
+                  await deleteRedeemLink(l.id);
+                  showToast("Link redeem berhasil dihapus", "success");
+                } catch (err: any) {
+                  showToast(err.message, "error");
+                }
+              }
+            }}
+          />
+        )}
+
         {/* ====================== SETTINGS TAB ====================== */}
         {activeTab === "settings" && (
           <div>
@@ -1762,6 +2038,28 @@ function DashboardContent({ user }: { user: User }) {
         onSave={handleSaveVoucher}
         editData={vouchEditData}
         saving={saving}
+      />
+      <RedeemLinkFormModal
+        isOpen={redeemModalOpen}
+        onClose={() => {
+          setRedeemModalOpen(false);
+          setRedeemEditData(null);
+        }}
+        onSubmit={async (data) => {
+          try {
+            if (redeemEditData) {
+              await updateRedeemLink(redeemEditData.id, data);
+              showToast("Link redeem berhasil diupdate", "success");
+            } else {
+              await addRedeemLink(data);
+              showToast("Link redeem baru berhasil dibuat", "success");
+            }
+            setRedeemModalOpen(false);
+          } catch (err: any) {
+            showToast(err.message, "error");
+          }
+        }}
+        editData={redeemEditData}
       />
     </div>
   );

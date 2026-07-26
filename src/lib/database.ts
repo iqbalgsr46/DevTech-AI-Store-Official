@@ -46,6 +46,14 @@ export interface Voucher {
   applicablePackage?: "all" | "super_power" | "invitation";
 }
 
+export interface RedeemLink {
+  id: string;
+  passcode: string;
+  url: string;
+  guideText: string;
+  createdAt: number;
+}
+
 export interface WebsiteSettings {
   pricing: {
     paket1: {
@@ -423,4 +431,57 @@ export function getStatusBadge(
     color: "text-emerald-700",
     bgColor: "bg-emerald-50",
   };
+}
+
+// ============================================
+// REDEEM LINKS CRUD
+// ============================================
+
+export function useRedeemLinks() {
+  const [links, setLinks] = useState<RedeemLink[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const linksRef = ref(db, "redeemLinks");
+    const unsubscribe = onValue(linksRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const linksArray = Object.values(data) as RedeemLink[];
+        linksArray.sort((a, b) => b.createdAt - a.createdAt);
+        setLinks(linksArray);
+      } else {
+        setLinks([]);
+      }
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  return { links, loading };
+}
+
+export async function addRedeemLink(linkData: Omit<RedeemLink, "id" | "createdAt">) {
+  const linksRef = ref(db, "redeemLinks");
+  const newLinkRef = push(linksRef);
+  const newId = newLinkRef.key as string;
+
+  const newLink: RedeemLink = {
+    ...linkData,
+    id: newId,
+    createdAt: Date.now(),
+  };
+
+  await set(newLinkRef, newLink);
+  return newId;
+}
+
+export async function updateRedeemLink(id: string, updates: Partial<RedeemLink>) {
+  const linkRef = ref(db, `redeemLinks/${id}`);
+  await update(linkRef, updates);
+}
+
+export async function deleteRedeemLink(id: string) {
+  const linkRef = ref(db, `redeemLinks/${id}`);
+  await remove(linkRef);
 }
