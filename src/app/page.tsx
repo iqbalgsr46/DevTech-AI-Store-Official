@@ -1583,7 +1583,21 @@ export default function Home() {
                 
                 {/* Image Content */}
                 <div className="w-full md:w-[50%] flex justify-center md:justify-end items-end md:items-center mt-auto md:mt-0 relative px-4 md:pr-12 lg:pr-20">
-                   <img src="/digital_tree.png" alt="Digital Tech Tree" className="w-full max-w-[320px] md:max-w-[450px] lg:max-w-[550px] h-auto object-contain opacity-85 mix-blend-multiply translate-y-4 md:translate-y-0" />
+                   <motion.img 
+                     src="/digital_tree.png" 
+                     alt="Digital Tech Tree" 
+                     className="w-full max-w-[320px] md:max-w-[450px] lg:max-w-[550px] h-auto object-contain mix-blend-multiply translate-y-4 md:translate-y-0"
+                     animate={{
+                       clipPath: ["inset(100% 0% 0% 0%)", "inset(0% 0% 0% 0%)", "inset(0% 0% 0% 0%)", "inset(100% 0% 0% 0%)"],
+                       opacity: [0, 0.85, 0.85, 0]
+                     }}
+                     transition={{
+                       duration: 6,
+                       times: [0, 0.3, 0.8, 1],
+                       repeat: Infinity,
+                       ease: "easeInOut"
+                     }}
+                   />
                 </div>
               </div>
             </div>
