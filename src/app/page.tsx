@@ -1564,20 +1564,25 @@ export default function Home() {
           </div>
 
           {/* AI Talent CTA Card */}
-          <div className="mt-28 w-full flex justify-center px-4 mb-4">
+          <div className="mt-28 w-full flex justify-center px-4 mb-4 relative z-10">
             {/* The outer border frame */}
-            <div className="border border-[#e2e8f0] p-1.5 sm:p-2 rounded-[52px] bg-transparent w-full max-w-[380px]">
+            <div className="border border-[#e2e8f0] p-1.5 sm:p-2 rounded-[52px] bg-transparent w-full max-w-[380px] md:max-w-[900px] lg:max-w-[1000px] transition-all duration-300">
               {/* The inner white card */}
-              <div className="bg-white rounded-[44px] flex flex-col items-center pt-16 pb-0 px-8 overflow-hidden shadow-[inset_0_0_15px_rgba(0,0,0,0.01)] border border-gray-50">
-                <h2 className="text-[#0f172a] text-[28px] sm:text-[32px] font-medium text-center leading-[1.25] mb-8 tracking-tight">
-                  Gabung Komunitas<br/>Eksklusif DevTech<br/>di WhatsApp
-                </h2>
-                <a href="https://chat.whatsapp.com/JpPApmNxF713hdKKJhc6lG" target="_blank" rel="noopener noreferrer" className="bg-[#18181b] text-white font-medium rounded-full py-3.5 px-8 text-[15px] sm:text-[16px] mb-12 hover:bg-[#27272a] transition-colors w-fit shadow-md cursor-pointer block text-center">
-                  Gabung sekarang
-                </a>
+              <div className="bg-white rounded-[44px] flex flex-col md:flex-row items-center md:items-stretch pt-16 md:pt-0 pb-0 md:pb-0 px-8 md:px-12 lg:px-20 overflow-hidden shadow-[inset_0_0_15px_rgba(0,0,0,0.01)] border border-gray-50 relative min-h-[450px]">
                 
-                <div className="w-full flex justify-center mt-auto">
-                   <img src="/digital_tree.png" alt="Digital Tech Tree" className="w-[120%] max-w-[400px] h-auto object-cover opacity-80 mix-blend-multiply translate-y-2 scale-110" />
+                {/* Text Content */}
+                <div className="flex flex-col items-center md:items-start justify-center flex-1 md:py-20 z-10 text-center md:text-left">
+                  <h2 className="text-[#0f172a] text-[28px] sm:text-[32px] md:text-[36px] lg:text-[42px] font-medium leading-[1.25] mb-8 lg:mb-10 tracking-tight">
+                    Gabung Komunitas<br className="md:hidden"/> Eksklusif DevTech<br className="md:hidden"/> di WhatsApp
+                  </h2>
+                  <a href="https://chat.whatsapp.com/JpPApmNxF713hdKKJhc6lG" target="_blank" rel="noopener noreferrer" className="bg-[#18181b] text-white font-medium rounded-full py-3.5 px-8 text-[15px] sm:text-[16px] mb-12 md:mb-0 hover:bg-[#27272a] transition-colors w-fit shadow-md cursor-pointer block">
+                    Gabung sekarang
+                  </a>
+                </div>
+                
+                {/* Image Content */}
+                <div className="w-full md:w-1/2 flex justify-center md:justify-end items-end md:items-center mt-auto md:mt-0 md:absolute md:right-0 md:bottom-0 md:top-0">
+                   <img src="/digital_tree.png" alt="Digital Tech Tree" className="w-[120%] md:w-[850px] max-w-[400px] md:max-w-none h-auto object-cover opacity-80 mix-blend-multiply translate-y-2 md:translate-y-16 md:translate-x-12 scale-110 md:scale-125 origin-bottom md:origin-right" />
                 </div>
               </div>
             </div>
