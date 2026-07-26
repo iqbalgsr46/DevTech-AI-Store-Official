@@ -881,13 +881,14 @@ function RedeemTabContent({
                 <th className="px-6 py-4 font-semibold whitespace-nowrap">Passcode</th>
                 <th className="px-6 py-4 font-semibold whitespace-nowrap">URL Tujuan</th>
                 <th className="px-6 py-4 font-semibold whitespace-nowrap">Tanggal Dibuat</th>
+                <th className="px-6 py-4 font-semibold whitespace-nowrap">Status</th>
                 <th className="px-6 py-4 font-semibold text-right whitespace-nowrap">Aksi</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {links.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="px-6 py-12 text-center text-slate-500">
+                  <td colSpan={5} className="px-6 py-12 text-center text-slate-500">
                     Belum ada link redeem yang dibuat.
                   </td>
                 </tr>
@@ -911,6 +912,19 @@ function RedeemTabContent({
                         month: "short",
                         year: "numeric",
                       })}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {link.isOpened ? (
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">
+                          <CheckCircle2 size={14} />
+                          Sudah Dibuka
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-50 text-slate-500 text-xs font-bold border border-slate-200">
+                          <Clock size={14} />
+                          Belum Dibuka
+                        </span>
+                      )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right">
                       <div className="flex justify-end gap-2">

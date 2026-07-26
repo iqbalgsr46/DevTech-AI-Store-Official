@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Lock, Link2, AlertCircle, Loader2, CheckCircle2, KeyRound } from "lucide-react";
 import { ref, get } from "firebase/database";
 import { db } from "@/lib/firebase";
-import { RedeemLink } from "@/lib/database";
+import { RedeemLink, updateRedeemLink } from "@/lib/database";
 
 interface RedeemModalProps {
   isOpen: boolean;
@@ -202,6 +202,11 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
                   href={redeemData.url}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => {
+                    if (!redeemData.isOpened) {
+                      updateRedeemLink(redeemData.id, { isOpened: true }).catch(console.error);
+                    }
+                  }}
                   className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(16,185,129,0.25)] hover:shadow-[0_0_25px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 active:translate-y-0 relative z-10"
                 >
                   <Link2 size={20} />

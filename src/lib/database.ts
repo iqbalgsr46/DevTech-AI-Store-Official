@@ -52,6 +52,7 @@ export interface RedeemLink {
   url: string;
   guideText: string;
   createdAt: number;
+  isOpened?: boolean;
 }
 
 export interface WebsiteSettings {
