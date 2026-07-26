@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Lock, Link2, AlertCircle, Loader2 } from "lucide-react";
+import { X, Lock, Link2, AlertCircle, Loader2, CheckCircle2 } from "lucide-react";
 import { ref, get } from "firebase/database";
 import { db } from "@/lib/firebase";
 import { RedeemLink } from "@/lib/database";
@@ -87,16 +87,14 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
             style={{ willChange: "transform, opacity" }}
             className={`relative w-full overflow-hidden border transform-gpu ${
               redeemData 
-                ? "bg-slate-900 max-w-2xl rounded-2xl border-slate-700 shadow-[0_0_50px_rgba(0,0,0,0.5)]" 
+                ? "bg-white max-w-2xl rounded-2xl border-slate-100 shadow-[0_20px_60px_rgba(0,0,0,0.15)]" 
                 : "bg-white max-w-md rounded-[24px] border-slate-100 shadow-[0_20px_60px_rgba(0,0,0,0.15)]"
             }`}
           >
             {/* Close Button */}
             <button
               onClick={onClose}
-              className={`absolute top-4 right-4 z-10 rounded-full p-2 transition-colors backdrop-blur-md ${
-                redeemData ? "bg-white/10 hover:bg-white/20 text-white" : "bg-black/5 hover:bg-black/10 text-slate-600"
-              }`}
+              className={`absolute top-4 right-4 z-10 rounded-full p-2 transition-colors backdrop-blur-md bg-black/5 hover:bg-black/10 text-slate-600`}
             >
               <X size={20} />
             </button>
@@ -152,23 +150,24 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
               </div>
             ) : (
               /* Unlocked State (Success) */
-              <div className="w-full bg-slate-900 text-white flex flex-col p-8 sm:p-10 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-indigo-500/10 rounded-full blur-[80px] pointer-events-none"></div>
-                <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-blue-500/10 rounded-full blur-[60px] pointer-events-none"></div>
+              <div className="w-full bg-white text-slate-800 flex flex-col p-8 sm:p-10 relative overflow-hidden">
+                {/* Clean decorative background elements */}
+                <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-emerald-500/5 rounded-full blur-[80px] pointer-events-none"></div>
+                <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-blue-500/5 rounded-full blur-[60px] pointer-events-none"></div>
 
                 <div className="relative z-10 text-center mb-8">
-                  <div className="w-20 h-20 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-5 border border-emerald-500/20">
-                    <span className="text-4xl">✅</span>
+                  <div className="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-5 border border-emerald-100 shadow-sm">
+                    <CheckCircle2 size={40} className="text-emerald-500" />
                   </div>
-                  <h3 className="text-2xl font-bold mb-2">Akses Berhasil Dibuka!</h3>
-                  <p className="text-slate-400">Pesanan Anda sudah siap digunakan.</p>
+                  <h3 className="text-2xl font-bold mb-2 text-slate-900">Akses Berhasil Dibuka!</h3>
+                  <p className="text-slate-500 font-medium">Pesanan Anda sudah siap digunakan.</p>
                 </div>
 
-                <div className="bg-white/5 border border-white/10 rounded-xl p-6 mb-8 relative z-10">
-                  <h4 className="font-semibold text-blue-400 mb-3 flex items-center gap-2">
-                    <AlertCircle size={18} /> Panduan Aktivasi
+                <div className="bg-blue-50/80 border border-blue-100/80 rounded-xl p-6 mb-8 relative z-10 shadow-sm">
+                  <h4 className="font-bold text-blue-700 mb-3 flex items-center gap-2 text-[15px]">
+                    <AlertCircle size={18} className="text-blue-600" /> Panduan Aktivasi
                   </h4>
-                  <div className="text-slate-300 text-sm leading-relaxed whitespace-pre-wrap">
+                  <div className="text-slate-700 text-sm leading-relaxed whitespace-pre-wrap font-medium">
                     {redeemData.guideText}
                   </div>
                 </div>
@@ -177,7 +176,7 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
                   href={redeemData.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] hover:-translate-y-0.5 active:translate-y-0 relative z-10"
+                  className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(16,185,129,0.25)] hover:shadow-[0_0_25px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 active:translate-y-0 relative z-10"
                 >
                   <Link2 size={20} />
                   Buka Link Pesanan Sekarang
