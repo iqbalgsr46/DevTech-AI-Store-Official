@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ArrowRight, ArrowLeft, CheckCircle2, Loader2, Tag, AlertCircle } from "lucide-react";
+import { X, ArrowRight, ArrowLeft, CheckCircle2, Loader2, Tag, AlertCircle, Sparkles } from "lucide-react";
 import { HARGA_INVITATION, formatRupiah, hitungDiskon } from "@/lib/pricing";
 import { generateWhatsAppLink } from "@/lib/whatsapp";
 import { validateVoucher, VoucherValidationResult, incrementVoucherUsage } from "@/lib/database";
@@ -352,7 +352,22 @@ export default function OrderModal({ isOpen, onClose, paketType, basePrice }: Or
                       )}
 
                       {/* Voucher */}
-                      <div>
+                      <div className="relative">
+                        {/* Floating Comment Badge */}
+                        <motion.div
+                          initial={{ opacity: 0, y: 5 }}
+                          animate={{ opacity: 1, y: [0, -3, 0] }}
+                          transition={{
+                            opacity: { duration: 0.3 },
+                            y: { repeat: Infinity, duration: 2.2, ease: "easeInOut" }
+                          }}
+                          className="mb-1.5 inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl text-[11px] font-semibold shadow-md shadow-blue-500/20 relative"
+                        >
+                          <Sparkles size={12} className="text-amber-300 shrink-0" />
+                          <span>Masukkan kode voucher referral jika ada</span>
+                          <div className="absolute -bottom-1 left-4 w-2 h-2 bg-indigo-600 rotate-45 rounded-[1px]"></div>
+                        </motion.div>
+
                         <label className="block text-[12px] font-semibold text-gray-600 mb-1">
                           Kode Voucher / Referral <span className="text-gray-400 font-normal">(opsional)</span>
                         </label>
