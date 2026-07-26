@@ -738,7 +738,7 @@ function RedeemLinkFormModal({
         // default template
         setPasscode(Math.random().toString(36).substring(2, 8).toUpperCase());
         setUrl("https://");
-        setGuideText("Silakan klik tombol di bawah ini untuk mengakses pesanan Anda. Pastikan Anda tidak membagikan link ini kepada siapapun.");
+        setGuideText("Note: \n- jangan klik aktivasi sebelum cek akun email yg dituju\n- jangan aktivasi di akun email yg aktif langganan google plus/pro/ultra\n- pastikan berada di akun email yg ingin berlangganan saat melakukan aktivasi, dapat dilihat di pojok atas sebelah kanan untuk akunnya");
       }
     }
   }, [isOpen, editData]);
@@ -807,7 +807,7 @@ function RedeemLinkFormModal({
               <textarea
                 value={guideText}
                 onChange={(e) => setGuideText(e.target.value)}
-                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 text-slate-800 text-sm min-h-[100px]"
+                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 text-slate-800 text-sm min-h-[160px]"
                 required
               />
             </div>
