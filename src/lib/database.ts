@@ -442,7 +442,7 @@ export function useRedeemLinks() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const linksRef = ref(db, "redeemLinks");
+    const linksRef = ref(db, "settings/redeemLinks");
     const unsubscribe = onValue(linksRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
@@ -462,7 +462,7 @@ export function useRedeemLinks() {
 }
 
 export async function addRedeemLink(linkData: Omit<RedeemLink, "id" | "createdAt">) {
-  const linksRef = ref(db, "redeemLinks");
+  const linksRef = ref(db, "settings/redeemLinks");
   const newLinkRef = push(linksRef);
   const newId = newLinkRef.key as string;
 
@@ -477,11 +477,11 @@ export async function addRedeemLink(linkData: Omit<RedeemLink, "id" | "createdAt
 }
 
 export async function updateRedeemLink(id: string, updates: Partial<RedeemLink>) {
-  const linkRef = ref(db, `redeemLinks/${id}`);
+  const linkRef = ref(db, `settings/redeemLinks/${id}`);
   await update(linkRef, updates);
 }
 
 export async function deleteRedeemLink(id: string) {
-  const linkRef = ref(db, `redeemLinks/${id}`);
+  const linkRef = ref(db, `settings/redeemLinks/${id}`);
   await remove(linkRef);
 }

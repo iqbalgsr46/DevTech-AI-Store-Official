@@ -38,7 +38,7 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
     setError(false);
 
     try {
-      const linksRef = ref(db, "redeemLinks");
+      const linksRef = ref(db, "settings/redeemLinks");
       const snapshot = await get(linksRef);
       const data = snapshot.val();
       
