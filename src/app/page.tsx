@@ -847,6 +847,9 @@ export default function Home() {
       <GiveawayWidget settings={settings} />
       <main className="relative min-h-screen w-full flex flex-col bg-gradient-to-b from-[#7ec5f2] via-[#b6dff6] to-[#f8f9fa]">
       
+      {/* Decorative Container Borders (Left & Right Lines) */}
+      <div className="absolute inset-0 w-full max-w-[1300px] mx-auto border-x border-black/5 pointer-events-none z-[1]" />
+
       {/* Animated Clouds & Stars Background */}
       <div className="absolute inset-0 pointer-events-none z-0">
         
