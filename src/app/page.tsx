@@ -852,6 +852,9 @@ export default function Home() {
       
       <GiveawayWidget settings={settings} />
       <main className="relative min-h-screen w-full flex flex-col bg-gradient-to-b from-[#7ec5f2] via-[#b6dff6] to-[#f8f9fa]">
+        
+        {/* Soft white gradient overlay at the top to blend smoothly with the header */}
+        <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-white to-transparent pointer-events-none z-10"></div>
       
       {/* Animated Clouds & Stars Background */}
       <div className="absolute inset-0 pointer-events-none z-0">
