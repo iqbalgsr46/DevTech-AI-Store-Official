@@ -1587,7 +1587,7 @@ export default function Home() {
         <div className="absolute -bottom-40 -right-20 w-[800px] h-[800px] bg-gradient-to-tl from-blue-500/40 via-blue-400/20 to-transparent rounded-full blur-[100px] pointer-events-none z-0"></div>
         <div className="absolute top-20 -left-40 w-[500px] h-[500px] bg-cyan-300/20 rounded-full blur-[100px] pointer-events-none z-0"></div>
 
-        <div className="w-full max-w-[1200px] mx-auto relative z-10 flex flex-col pt-4">
+        <div className="w-full max-w-[1200px] mx-auto relative z-10 flex flex-col pt-4 px-6 md:px-10">
           <div className="flex flex-col md:flex-row justify-between w-full">
             
             {/* Left: Alamat & Socials */}
