@@ -176,7 +176,7 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
               </div>
             ) : (
               /* Unlocked State (Success) */
-              <div className="w-full bg-white text-slate-800 flex flex-col p-8 sm:p-10 relative overflow-hidden">
+              <div className="w-full bg-white text-slate-800 flex flex-col p-6 sm:p-10 relative overflow-hidden">
                 {/* Clean decorative background elements */}
                 <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-emerald-500/5 rounded-full blur-[80px] pointer-events-none"></div>
                 <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-blue-500/5 rounded-full blur-[60px] pointer-events-none"></div>
@@ -189,8 +189,8 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
                   <p className="text-slate-500 font-medium">Pesanan Anda sudah siap digunakan.</p>
                 </div>
 
-                <div className="bg-blue-50/80 border border-blue-100/80 rounded-xl p-6 mb-8 relative z-10 shadow-sm">
-                  <h4 className="font-bold text-blue-700 mb-3 flex items-center gap-2 text-[15px]">
+                <div className="bg-blue-50/80 border border-blue-100/80 rounded-xl p-5 sm:p-6 mb-6 sm:mb-8 relative z-10 shadow-sm">
+                  <h4 className="font-bold text-blue-700 mb-2 sm:mb-3 flex items-center gap-2 text-[15px]">
                     <AlertCircle size={18} className="text-blue-600" /> Panduan Aktivasi
                   </h4>
                   <div className="text-slate-700 text-sm leading-relaxed whitespace-pre-wrap font-medium">

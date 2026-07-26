@@ -1348,7 +1348,7 @@ export default function Home() {
         >
           
           {/* Card 1 */}
-          <div className="snap-center shrink-0 w-[300px] sm:w-[320px] p-3 sm:p-4 rounded-[32px] bg-gradient-to-b from-[#2A4B7C] to-[#545C66] shadow-xl relative h-auto flex flex-col">
+          <div className="snap-center shrink-0 w-[85vw] max-w-[300px] sm:max-w-none sm:w-[320px] p-3 sm:p-4 rounded-[32px] bg-gradient-to-b from-[#2A4B7C] to-[#545C66] shadow-xl relative h-auto flex flex-col">
             <div className="bg-white rounded-[24px] w-full h-full flex flex-col p-5">
               {/* Browser Dots */}
               <div className="flex gap-2 mb-4">
@@ -1399,7 +1399,7 @@ export default function Home() {
           </div>
           
           {/* Card 2 */}
-          <div className="snap-center shrink-0 w-[300px] sm:w-[320px] p-3 sm:p-4 rounded-[32px] bg-gradient-to-b from-[#475569] to-[#94A3B8] shadow-xl relative h-auto flex flex-col">
+          <div className="snap-center shrink-0 w-[85vw] max-w-[300px] sm:max-w-none sm:w-[320px] p-3 sm:p-4 rounded-[32px] bg-gradient-to-b from-[#475569] to-[#94A3B8] shadow-xl relative h-auto flex flex-col">
             <div className="bg-white rounded-[24px] w-full h-full flex flex-col p-5">
               <div className="flex gap-2 mb-4">
                 <div className="w-3 h-3 rounded-full bg-[#FF5F56]"></div>

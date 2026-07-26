@@ -147,7 +147,7 @@ export default function TutorialModal({
 
         {!isUnlocked ? (
           /* Locked State (Premium Clean White Theme) */
-          <div className="p-8 sm:p-10 relative overflow-hidden">
+          <div className="p-6 sm:p-10 relative overflow-hidden">
             {/* Background Glow */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[250px] h-[250px] bg-blue-500/10 rounded-full blur-[60px] pointer-events-none"></div>
             

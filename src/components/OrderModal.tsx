@@ -247,7 +247,7 @@ export default function OrderModal({ isOpen, onClose, paketType, basePrice }: Or
                           <button
                             key={bln}
                             onClick={() => setDurasi(bln)}
-                            className={`relative rounded-xl p-3 border-2 transition-all text-center ${
+                            className={`relative rounded-xl p-2 sm:p-3 border-2 transition-all text-center flex flex-col items-center justify-center min-h-[70px] ${
                               isSelected
                                 ? "border-[#1E3A8A] bg-blue-50 shadow-md"
                                 : "border-gray-150 bg-white hover:border-gray-300"
@@ -258,10 +258,10 @@ export default function OrderModal({ isOpen, onClose, paketType, basePrice }: Or
                                 <CheckCircle2 size={10} className="text-white" />
                               </div>
                             )}
-                            <span className={`block text-[15px] font-bold ${isSelected ? "text-[#1E3A8A]" : "text-gray-800"}`}>
+                            <span className={`block text-[14px] sm:text-[15px] font-bold ${isSelected ? "text-[#1E3A8A]" : "text-gray-800"}`}>
                               {bln} Bln
                             </span>
-                            <span className={`block text-[11px] font-semibold mt-0.5 ${isSelected ? "text-blue-600" : "text-gray-500"}`}>
+                            <span className={`block text-[10px] sm:text-[11px] font-semibold mt-0.5 ${isSelected ? "text-blue-600" : "text-gray-500"}`}>
                               {formatRupiah(hrg)}
                             </span>
                           </button>

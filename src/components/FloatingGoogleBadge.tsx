@@ -23,10 +23,10 @@ export const FloatingGoogleBadge: React.FC<FloatingGoogleBadgeProps> = ({
   iconSize = 24,
 }) => {
   const sizeClasses = {
-    sm: "w-10 h-10 p-2",
-    md: "w-14 h-14 p-3",
-    lg: "w-16 h-16 p-3.5",
-    xl: "w-20 h-20 p-4",
+    sm: "w-8 h-8 sm:w-10 sm:h-10 p-1.5 sm:p-2",
+    md: "w-10 h-10 sm:w-14 sm:h-14 p-2 sm:p-3",
+    lg: "w-12 h-12 sm:w-16 sm:h-16 p-2.5 sm:p-3.5",
+    xl: "w-16 h-16 sm:w-20 sm:h-20 p-3 sm:p-4",
   };
 
   return (
