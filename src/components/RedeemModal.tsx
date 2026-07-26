@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Lock, Link2, AlertCircle, Loader2, CheckCircle2 } from "lucide-react";
+import { X, Lock, Link2, AlertCircle, Loader2, CheckCircle2, KeyRound } from "lucide-react";
 import { ref, get } from "firebase/database";
 import { db } from "@/lib/firebase";
 import { RedeemLink } from "@/lib/database";
@@ -106,8 +106,9 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[250px] h-[250px] bg-blue-500/10 rounded-full blur-[60px] pointer-events-none"></div>
                 
                 <div className="text-center mb-8 relative z-10">
-                  <div className="w-24 h-24 bg-gradient-to-br from-slate-50 to-blue-50 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm border border-slate-100">
-                    <span className="text-5xl drop-shadow-[0_10px_15px_rgba(59,130,246,0.2)] leading-none -translate-y-1">🎁</span>
+                  <div className="w-24 h-24 bg-gradient-to-br from-amber-50 to-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm border border-amber-200 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-400/20 via-transparent to-transparent opacity-60 blur-md pointer-events-none"></div>
+                    <KeyRound size={44} className="text-amber-500 drop-shadow-sm relative z-10" strokeWidth={1.5} />
                   </div>
                   <h3 className="text-2xl font-bold text-slate-800 mb-2 tracking-tight">Klaim Pesanan</h3>
                   <p className="text-[15px] text-slate-500 leading-relaxed">
