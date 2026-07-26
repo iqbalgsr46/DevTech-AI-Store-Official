@@ -353,20 +353,30 @@ export default function OrderModal({ isOpen, onClose, paketType, basePrice }: Or
 
                       {/* Voucher */}
                       <div className="relative">
-                        {/* Floating Comment Badge */}
-                        <motion.div
-                          initial={{ opacity: 0, y: 5 }}
-                          animate={{ opacity: 1, y: [0, -3, 0] }}
-                          transition={{
-                            opacity: { duration: 0.3 },
-                            y: { repeat: Infinity, duration: 2.2, ease: "easeInOut" }
-                          }}
-                          className="mb-1.5 inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl text-[11px] font-semibold shadow-md shadow-blue-500/20 relative"
-                        >
-                          <Sparkles size={12} className="text-amber-300 shrink-0" />
-                          <span>Masukkan kode voucher referral jika ada</span>
-                          <div className="absolute -bottom-1 left-4 w-2 h-2 bg-indigo-600 rotate-45 rounded-[1px]"></div>
-                        </motion.div>
+                      {/* Floating Comment Badge */}
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.95, y: 5 }}
+                        animate={{ opacity: 1, scale: 1, y: [0, -5, 0] }}
+                        transition={{
+                          opacity: { duration: 0.3 },
+                          scale: { duration: 0.3 },
+                          y: {
+                            repeat: Infinity,
+                            duration: 3,
+                            ease: [0.45, 0, 0.55, 1],
+                          }
+                        }}
+                        style={{ willChange: "transform" }}
+                        className="mb-2 inline-flex items-center gap-2 px-3.5 py-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white rounded-full text-[11px] font-semibold shadow-[0_4px_16px_rgba(79,70,229,0.35)] border border-white/20 relative transform-gpu backdrop-blur-sm"
+                      >
+                        <div className="relative flex items-center justify-center w-2 h-2 shrink-0">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-amber-300"></span>
+                        </div>
+                        <Sparkles size={13} className="text-amber-300 shrink-0" />
+                        <span className="tracking-tight">Masukkan kode voucher referral jika ada</span>
+                        <div className="absolute -bottom-1 left-6 w-2.5 h-2.5 bg-violet-600 rotate-45 rounded-[1px]"></div>
+                      </motion.div>
 
                         <label className="block text-[12px] font-semibold text-gray-600 mb-1">
                           Kode Voucher / Referral <span className="text-gray-400 font-normal">(opsional)</span>
