@@ -1582,8 +1582,8 @@ export default function Home() {
                 </div>
                 
                 {/* Image Content */}
-                <div className="w-full md:w-[50%] flex justify-center md:justify-end items-end md:items-center mt-auto md:mt-0 overflow-visible relative">
-                   <img src="/digital_tree.png" alt="Digital Tech Tree" className="w-[120%] md:w-[150%] lg:w-[160%] max-w-[400px] md:max-w-none h-auto object-cover opacity-80 mix-blend-multiply translate-y-2 md:translate-y-4 md:translate-x-6 lg:translate-x-12 scale-110 md:scale-[1.1] origin-bottom md:origin-right" />
+                <div className="w-full md:w-[50%] flex justify-center md:justify-end items-end md:items-center mt-auto md:mt-0 relative px-4 md:pr-12 lg:pr-20">
+                   <img src="/digital_tree.png" alt="Digital Tech Tree" className="w-full max-w-[320px] md:max-w-[450px] lg:max-w-[550px] h-auto object-contain opacity-85 mix-blend-multiply translate-y-4 md:translate-y-0" />
                 </div>
               </div>
             </div>
