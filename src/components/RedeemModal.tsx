@@ -65,20 +65,19 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
   return (
     <AnimatePresence mode="wait">
       {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.25, ease: "easeInOut" }}
-          className="fixed inset-0 z-[100] flex items-center justify-center px-4"
-        >
+        <div className="fixed inset-0 z-[100] overflow-y-auto overflow-x-hidden">
           {/* Backdrop */}
-          <div
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm"
             onClick={onClose}
-          ></div>
+          />
 
-          {/* Modal Content */}
+          <div className="flex min-h-[100dvh] items-center justify-center p-4">
+            {/* Modal Content */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -101,12 +100,12 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
 
             {!redeemData ? (
               /* Locked State */
-              <div className="p-8 sm:p-10 relative overflow-hidden">
+              <div className="p-6 sm:p-10 relative overflow-hidden">
                 {/* Background Glow */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[250px] h-[250px] bg-blue-500/10 rounded-full blur-[60px] pointer-events-none"></div>
                 
-                <div className="text-center mb-8 relative z-10">
-                  <div style={{ perspective: "1000px" }} className="w-28 h-28 mx-auto mb-6 relative">
+                <div className="text-center mb-6 sm:mb-8 relative z-10">
+                  <div style={{ perspective: "1000px" }} className="w-20 h-20 sm:w-28 sm:h-28 mx-auto mb-4 sm:mb-6 relative">
                     {/* The circle background */}
                     <div className="absolute inset-0 bg-gradient-to-br from-amber-50 to-yellow-100/50 rounded-full shadow-sm border border-amber-200/50">
                       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-400/20 via-transparent to-transparent opacity-60 blur-md pointer-events-none rounded-full"></div>
@@ -123,29 +122,27 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
                       {[0, 1, 2, 3, 4].map((i) => (
                         <KeyRound 
                           key={i} 
-                          size={48} 
-                          className="absolute text-amber-600" 
+                          className="absolute text-amber-600 w-9 h-9 sm:w-12 sm:h-12" 
                           strokeWidth={2} 
                           style={{ transform: `translateZ(${i}px)` }} 
                         />
                       ))}
                       {/* Front golden face with glow */}
                       <KeyRound 
-                        size={48} 
-                        className="absolute text-yellow-400 drop-shadow-[0_0_12px_rgba(253,224,71,0.8)]" 
+                        className="absolute text-yellow-400 drop-shadow-[0_0_12px_rgba(253,224,71,0.8)] w-9 h-9 sm:w-12 sm:h-12" 
                         strokeWidth={2} 
                         style={{ transform: `translateZ(5px)` }} 
                       />
                     </motion.div>
                   </div>
-                  <h3 className="text-2xl font-bold text-slate-800 mb-2 tracking-tight">Klaim Pesanan</h3>
-                  <p className="text-[15px] text-slate-500 leading-relaxed">
-                    Masukkan KODE AKSES rahasia dari Admin<br/>
+                  <h3 className="text-xl sm:text-2xl font-bold text-slate-800 mb-1 sm:mb-2 tracking-tight">Klaim Pesanan</h3>
+                  <p className="text-[14px] sm:text-[15px] text-slate-500 leading-relaxed">
+                    Masukkan KODE AKSES rahasia dari Admin<br className="hidden sm:block"/>
                     untuk membuka pesanan Anda.
                   </p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
+                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 relative z-10">
                   <div>
                     <input
                       type="text"
@@ -212,8 +209,9 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
                 </a>
               </div>
             )}
-          </motion.div>
-        </motion.div>
+            </motion.div>
+          </div>
+        </div>
       )}
     </AnimatePresence>
   );
