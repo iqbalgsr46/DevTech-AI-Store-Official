@@ -1097,26 +1097,28 @@ function SettingsTabContent({
       <div className="bg-slate-50 border border-slate-200 rounded-xl p-5">
         <div className="flex items-center justify-between mb-4">
           <h4 className="text-slate-800 font-semibold">Paket 2 (Invitation / Family)</h4>
-          <label className="flex items-center gap-2 cursor-pointer">
-            <span className="text-sm font-medium text-slate-600">Status Paket Habis (Tutup)</span>
+          <div className="flex items-center gap-2">
+            <label htmlFor="toggle-paket2" className="text-sm font-medium text-slate-600 cursor-pointer">Status Paket Habis (Tutup)</label>
             <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
               <input
+                id="toggle-paket2"
                 type="checkbox"
                 checked={form.pricing.paket2.isClosed || false}
                 onChange={(e) => handlePaket2Change("isClosed", e.target.checked)}
-                className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer transition-transform duration-200 ease-in-out"
+                className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer transition-transform duration-200 ease-in-out z-10"
                 style={{
                   transform: form.pricing.paket2.isClosed ? "translateX(100%)" : "translateX(0)",
                   borderColor: form.pricing.paket2.isClosed ? "#EF4444" : "#CBD5E1",
                 }}
               />
               <label
+                htmlFor="toggle-paket2"
                 className={`toggle-label block overflow-hidden h-5 rounded-full cursor-pointer transition-colors duration-200 ease-in-out ${
                   form.pricing.paket2.isClosed ? "bg-red-500" : "bg-slate-300"
                 }`}
               ></label>
             </div>
-          </label>
+          </div>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
           {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => {
@@ -1140,26 +1142,28 @@ function SettingsTabContent({
       <div className="bg-slate-50 border border-slate-200 rounded-xl p-5">
         <div className="flex items-center justify-between mb-4">
           <h4 className="text-slate-800 font-semibold">Pengaturan Event Giveaway</h4>
-          <label className="flex items-center gap-2 cursor-pointer">
-            <span className="text-sm font-medium text-slate-600">Status Giveaway</span>
+          <div className="flex items-center gap-2">
+            <label htmlFor="toggle-giveaway" className="text-sm font-medium text-slate-600 cursor-pointer">Status Giveaway</label>
             <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
               <input
+                id="toggle-giveaway"
                 type="checkbox"
-                checked={form.giveaway?.isActive}
+                checked={form.giveaway?.isActive || false}
                 onChange={(e) => handleGiveawayChange("isActive", e.target.checked)}
-                className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer transition-transform duration-200 ease-in-out"
+                className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer transition-transform duration-200 ease-in-out z-10"
                 style={{
                   transform: form.giveaway?.isActive ? "translateX(100%)" : "translateX(0)",
                   borderColor: form.giveaway?.isActive ? "#10B981" : "#CBD5E1",
                 }}
               />
               <label
+                htmlFor="toggle-giveaway"
                 className={`toggle-label block overflow-hidden h-5 rounded-full cursor-pointer transition-colors duration-200 ease-in-out ${
                   form.giveaway?.isActive ? "bg-emerald-500" : "bg-slate-300"
                 }`}
               ></label>
             </div>
-          </label>
+          </div>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
