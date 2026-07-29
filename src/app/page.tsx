@@ -1409,7 +1409,16 @@ export default function Home() {
           
           {/* Card 2 */}
           <div className="snap-center shrink-0 w-[85vw] max-w-[300px] sm:max-w-none sm:w-[320px] p-3 sm:p-4 rounded-[32px] bg-gradient-to-b from-[#475569] to-[#94A3B8] shadow-xl relative h-auto flex flex-col">
-            <div className="bg-white rounded-[24px] w-full h-full flex flex-col p-5">
+            <div className="bg-white rounded-[24px] w-full h-full flex flex-col p-5 relative">
+              {/* Sold Out Overlay */}
+              {settings?.pricing?.paket2?.isClosed && (
+                <div className="absolute inset-0 z-30 flex items-center justify-center rounded-[24px] bg-white/30 backdrop-blur-[1px] pointer-events-none">
+                  <div className="border-4 border-red-500 text-red-500 font-black text-3xl sm:text-4xl tracking-widest px-4 py-2 sm:px-6 rounded-xl -rotate-12 uppercase drop-shadow-md shadow-red-500/20 shadow-[inset_0_0_10px_rgba(239,68,68,0.3)] bg-white/90 whitespace-nowrap">
+                    CLOSED
+                  </div>
+                </div>
+              )}
+              
               <div className="flex gap-2 mb-4">
                 <div className="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
                 <div className="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
