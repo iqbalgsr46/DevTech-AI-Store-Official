@@ -1572,7 +1572,7 @@ export default function Home() {
                   Cara Invite Keluarga (Family Sharing) via Akun Head
                 </h3>
                 <button onClick={() => handleOpenTutorial("family")} className="bg-white text-[#0f172a] rounded-[14px] py-3 px-5 flex items-center justify-center gap-2 font-semibold text-[15px] hover:bg-gray-100 transition-colors w-fit mt-auto shadow-sm">
-                  <Play size={18} strokeWidth={2.5} /> Minta Panduan
+                  <Play size={18} strokeWidth={2.5} /> Tonton Video
                 </button>
               </div>
             </div>

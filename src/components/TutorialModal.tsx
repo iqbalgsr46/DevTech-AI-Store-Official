@@ -18,14 +18,13 @@ export default function TutorialModal({
   passcode,
 }: TutorialModalProps) {
   const [inputCode, setInputCode] = useState("");
-  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [isUnlocked, setIsUnlocked] = useState(true);
   const [error, setError] = useState(false);
 
   // Reset state when modal opens/closes
   useEffect(() => {
     if (!isOpen) {
       setInputCode("");
-      setIsUnlocked(false);
       setError(false);
     }
   }, [isOpen]);
