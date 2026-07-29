@@ -83,22 +83,48 @@ export default function RootLayout({
 }>) {
   // Structured Data (JSON-LD) untuk Google Search Rich Snippet
   const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Store",
-    "name": "DevTech AI Store",
-    "url": "https://devtechstore.my.id",
-    "logo": "https://devtechstore.my.id/logo.jpeg",
-    "description": "Penyedia Layanan Langganan Google AI Pro Resmi & Bergaransi di Indonesia.",
-    "priceRange": "Rp15.000 - Rp60.000",
-    "paymentAccepted": "QRIS, Transfer Bank",
-    "currenciesAccepted": "IDR",
-    "offers": {
-      "@type": "Offer",
-      "priceCurrency": "IDR",
-      "price": "15000",
-      "availability": "https://schema.org/InStock",
-      "url": "https://devtechstore.my.id",
-    },
+    "@graph": [
+      {
+        "@context": "https://schema.org",
+        "@type": "Store",
+        "name": "DevTech AI Store",
+        "url": "https://devtechstore.my.id",
+        "logo": "https://devtechstore.my.id/logo.jpeg",
+        "description": "DevTech AI Store adalah penyedia layanan langganan Google AI Pro premium resmi dan bergaransi di Indonesia, bukan perusahaan pembuat perangkat lunak (software development). Kami fokus pada penjualan lisensi AI.",
+        "priceRange": "Rp15.000 - Rp60.000",
+        "paymentAccepted": "QRIS, Transfer Bank",
+        "currenciesAccepted": "IDR",
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "IDR",
+          "price": "15000",
+          "availability": "https://schema.org/InStock",
+          "url": "https://devtechstore.my.id"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Apa itu DevTech AI Store?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "DevTech AI Store adalah toko online di Indonesia yang khusus menyediakan layanan langganan Google AI Pro dengan harga terjangkau, aman, dan bergaransi. Kami tidak menyediakan layanan integrasi LLM atau pembuatan software, melainkan murni toko penyedia akses AI resmi."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Apakah DevTech AI Store sama dengan DevTechAI?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Tidak. DevTech AI Store (devtechstore.my.id) adalah entitas independen di Indonesia yang fokus pada penjualan paket langganan Google AI Pro untuk end-user. Kami tidak terafiliasi dengan perusahaan software development global bernama DevTechAI."
+            }
+          }
+        ]
+      }
+    ]
   };
 
   return (
