@@ -62,6 +62,7 @@ export interface WebsiteSettings {
       hargaPromo: string;
     };
     paket2: {
+      isClosed?: boolean;
       bulan1: string;
       bulan2: string;
       bulan3: string;

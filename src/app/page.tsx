@@ -1480,9 +1480,15 @@ export default function Home() {
                  <li className="flex gap-2 items-start"><CheckCircle2 size={13} className="text-indigo-500 shrink-0 mt-0.5" /> <span>Tidak perlu login, password, atau kartu kredit</span></li>
               </ul>
               
-              <button onClick={() => { setSelectedPaket("invitation"); setIsOrderModalOpen(true); }} className="border border-gray-200 rounded-xl py-2 px-6 flex items-center justify-center gap-2 mx-auto text-[14px] font-medium text-gray-800 hover:bg-gray-50 transition-colors w-fit shadow-sm cursor-pointer">
-                Pilih Paket <ArrowRight size={16} className="-rotate-45" />
-              </button>
+              {settings?.pricing?.paket2?.isClosed ? (
+                <button disabled className="bg-slate-100 border border-slate-200 rounded-xl py-2 px-6 flex items-center justify-center mx-auto text-[14px] font-medium text-slate-400 w-fit cursor-not-allowed">
+                  Paket Habis / Sold Out
+                </button>
+              ) : (
+                <button onClick={() => { setSelectedPaket("invitation"); setIsOrderModalOpen(true); }} className="border border-gray-200 rounded-xl py-2 px-6 flex items-center justify-center gap-2 mx-auto text-[14px] font-medium text-gray-800 hover:bg-gray-50 transition-colors w-fit shadow-sm cursor-pointer">
+                  Pilih Paket <ArrowRight size={16} className="-rotate-45" />
+                </button>
+              )}
             </div>
           </div>
           

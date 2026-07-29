@@ -1033,12 +1033,12 @@ function SettingsTabContent({
     }));
   };
 
-  const handlePaket2Change = (bulan: keyof WebsiteSettings["pricing"]["paket2"], value: string) => {
+  const handlePaket2Change = (key: keyof WebsiteSettings["pricing"]["paket2"], value: string | boolean) => {
     setForm((prev) => ({
       ...prev,
       pricing: {
         ...prev.pricing,
-        paket2: { ...prev.pricing.paket2, [bulan]: value },
+        paket2: { ...prev.pricing.paket2, [key]: value },
       },
     }));
   };
@@ -1095,7 +1095,29 @@ function SettingsTabContent({
       </div>
 
       <div className="bg-slate-50 border border-slate-200 rounded-xl p-5">
-        <h4 className="text-slate-800 font-semibold mb-4">Paket 2 (Invitation / Family)</h4>
+        <div className="flex items-center justify-between mb-4">
+          <h4 className="text-slate-800 font-semibold">Paket 2 (Invitation / Family)</h4>
+          <label className="flex items-center gap-2 cursor-pointer">
+            <span className="text-sm font-medium text-slate-600">Status Paket Habis (Tutup)</span>
+            <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+              <input
+                type="checkbox"
+                checked={form.pricing.paket2.isClosed || false}
+                onChange={(e) => handlePaket2Change("isClosed", e.target.checked)}
+                className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer transition-transform duration-200 ease-in-out"
+                style={{
+                  transform: form.pricing.paket2.isClosed ? "translateX(100%)" : "translateX(0)",
+                  borderColor: form.pricing.paket2.isClosed ? "#EF4444" : "#CBD5E1",
+                }}
+              />
+              <label
+                className={`toggle-label block overflow-hidden h-5 rounded-full cursor-pointer transition-colors duration-200 ease-in-out ${
+                  form.pricing.paket2.isClosed ? "bg-red-500" : "bg-slate-300"
+                }`}
+              ></label>
+            </div>
+          </label>
+        </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
           {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => {
             const key = `bulan${m}` as keyof WebsiteSettings["pricing"]["paket2"];
@@ -1104,7 +1126,7 @@ function SettingsTabContent({
                 <label className="block text-xs font-medium text-slate-500 mb-1.5">{m} Bulan</label>
                 <input
                   type="text"
-                  value={form.pricing.paket2[key]}
+                  value={(form.pricing.paket2[key] as string) || ""}
                   onChange={(e) => handlePaket2Change(key, e.target.value)}
                   className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-sm focus:outline-none focus:border-blue-500"
                   placeholder={`Harga ${m} bulan`}
