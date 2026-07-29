@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { ArrowRight, X, CheckCircle2, Zap, Sparkles, Users, ChevronLeft, ChevronRight, Play, Instagram, Facebook, Linkedin, Youtube, MessageCircle, Shield, Lock, Twitter } from "lucide-react";
+import { ArrowRight, X, CheckCircle2, Zap, Sparkles, Users, ChevronLeft, ChevronRight, Play, Instagram, Facebook, Linkedin, Youtube, MessageCircle, Shield, Lock, Twitter, FileText } from "lucide-react";
 import { Quicksand, Inter } from "next/font/google";
 import { motion, AnimatePresence } from "framer-motion";
 import OrderModal from "@/components/OrderModal";
@@ -1554,9 +1554,9 @@ export default function Home() {
                 <h3 className="text-white text-[19px] sm:text-[21px] font-bold leading-snug">
                   Panduan Aktivasi Paket 1 (Super Power)
                 </h3>
-                <button onClick={() => handleOpenTutorial("paket1")} className="bg-white text-[#0f172a] rounded-[14px] py-3 px-5 flex items-center justify-center gap-2 font-semibold text-[15px] hover:bg-gray-100 transition-colors w-fit mt-auto shadow-sm">
-                  <Play size={18} strokeWidth={2.5} /> Minta Panduan
-                </button>
+                <a href="/panduan-aktivasi-paket-1.pdf" target="_blank" rel="noopener noreferrer" className="bg-white text-[#0f172a] rounded-[14px] py-3 px-5 flex items-center justify-center gap-2 font-semibold text-[15px] hover:bg-gray-100 transition-colors w-fit mt-auto shadow-sm">
+                  <FileText size={18} strokeWidth={2.5} /> Buka Panduan
+                </a>
               </div>
             </div>
 
