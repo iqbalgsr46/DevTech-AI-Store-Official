@@ -16,6 +16,7 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [redeemData, setRedeemData] = useState<RedeemLink | null>(null);
+  const [hasReadGuide, setHasReadGuide] = useState(false);
 
   // Reset state
   useEffect(() => {
@@ -27,6 +28,7 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
       setPasscode("");
       setRedeemData(null);
       setError(false);
+      setHasReadGuide(false);
     }
   }, [isOpen, initialPasscode]);
 
@@ -189,18 +191,39 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
                   <p className="text-slate-500 font-medium">Pesanan Anda sudah siap digunakan.</p>
                 </div>
 
-                <div className="bg-blue-50/80 border border-blue-100/80 rounded-xl p-5 sm:p-6 mb-6 sm:mb-8 relative z-10 shadow-sm">
-                  <h4 className="font-bold text-blue-700 mb-2 sm:mb-3 flex items-center gap-2 text-[15px]">
-                    <AlertCircle size={18} className="text-blue-600" /> Panduan Aktivasi
+                <div className="bg-amber-50/90 border border-amber-200 rounded-xl p-5 sm:p-6 mb-6 sm:mb-8 relative z-10 shadow-sm">
+                  <h4 className="font-bold text-amber-700 mb-2 sm:mb-3 flex items-center gap-2 text-[15px]">
+                    <AlertCircle size={18} className="text-amber-600 animate-pulse" /> Wajib Baca: Panduan Aktivasi
                   </h4>
-                  <div className="text-slate-700 text-sm leading-relaxed whitespace-pre-wrap font-medium">
+                  <div className="text-amber-900/90 text-sm leading-relaxed whitespace-pre-wrap font-medium mb-4">
                     {redeemData.guideText}
+                  </div>
+                  
+                  <div className="pt-3 border-t border-amber-200/60 mt-2">
+                    <label className="flex items-start gap-3 cursor-pointer group">
+                      <div className="relative flex items-center mt-0.5">
+                        <input
+                          type="checkbox"
+                          className="peer w-5 h-5 appearance-none rounded-md border-2 border-amber-400 checked:bg-amber-500 checked:border-amber-500 transition-all cursor-pointer"
+                          checked={hasReadGuide}
+                          onChange={(e) => setHasReadGuide(e.target.checked)}
+                        />
+                        <CheckCircle2 size={14} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white opacity-0 peer-checked:opacity-100 transition-opacity pointer-events-none" />
+                      </div>
+                      <span className="text-sm font-bold text-amber-800 select-none group-hover:text-amber-900 transition-colors">
+                        Saya sudah membaca dan memahami panduan aktivasi di atas.
+                      </span>
+                    </label>
                   </div>
                 </div>
 
                 <a
-                  href={redeemData.url}
+                  href={hasReadGuide ? redeemData.url : "#"}
                   onClick={(e) => {
+                    if (!hasReadGuide) {
+                      e.preventDefault();
+                      return;
+                    }
                     if (!redeemData.isOpened) {
                       e.preventDefault();
                       const targetUrl = redeemData.url;
@@ -218,7 +241,11 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
                         });
                     }
                   }}
-                  className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(16,185,129,0.25)] hover:shadow-[0_0_25px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 active:translate-y-0 relative z-10"
+                  className={`w-full font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2 relative z-10 ${
+                    hasReadGuide
+                      ? "bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white shadow-[0_0_20px_rgba(16,185,129,0.25)] hover:shadow-[0_0_25px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+                      : "bg-slate-200 text-slate-400 cursor-not-allowed"
+                  }`}
                 >
                   <Link2 size={20} />
                   Buka Link Pesanan Sekarang
