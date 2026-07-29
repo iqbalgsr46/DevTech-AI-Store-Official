@@ -155,7 +155,7 @@ export default function OrderModal({ isOpen, onClose, paketType, basePrice }: Or
 
     const link = generateWhatsAppLink(orderData);
     setIsSubmitting(false);
-    window.open(link, "_blank");
+    window.location.href = link;
     handleClose();
   };
 
