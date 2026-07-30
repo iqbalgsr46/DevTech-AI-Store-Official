@@ -102,12 +102,12 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
 
             {!redeemData ? (
               /* Locked State */
-              <div className="p-6 sm:p-10 relative overflow-hidden">
+              <div className="p-4 sm:p-10 relative overflow-hidden">
                 {/* Background Glow */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[250px] h-[250px] bg-blue-500/10 rounded-full blur-[60px] pointer-events-none"></div>
                 
-                <div className="text-center mb-6 sm:mb-8 relative z-10">
-                  <div style={{ perspective: "1000px" }} className="w-20 h-20 sm:w-28 sm:h-28 mx-auto mb-4 sm:mb-6 relative">
+                <div className="text-center mb-4 sm:mb-8 relative z-10">
+                  <div style={{ perspective: "1000px" }} className="w-16 h-16 sm:w-28 sm:h-28 mx-auto mb-3 sm:mb-6 relative">
                     {/* The circle background */}
                     <div className="absolute inset-0 bg-gradient-to-br from-amber-50 to-yellow-100/50 rounded-full shadow-sm border border-amber-200/50">
                       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-400/20 via-transparent to-transparent opacity-60 blur-md pointer-events-none rounded-full"></div>
@@ -124,27 +124,27 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
                       {[0, 1, 2, 3, 4].map((i) => (
                         <KeyRound 
                           key={i} 
-                          className="absolute text-amber-600 w-9 h-9 sm:w-12 sm:h-12" 
+                          className="absolute text-amber-600 w-7 h-7 sm:w-12 sm:h-12" 
                           strokeWidth={2} 
                           style={{ transform: `translateZ(${i}px)` }} 
                         />
                       ))}
                       {/* Front golden face with glow */}
                       <KeyRound 
-                        className="absolute text-yellow-400 drop-shadow-[0_0_12px_rgba(253,224,71,0.8)] w-9 h-9 sm:w-12 sm:h-12" 
+                        className="absolute text-yellow-400 drop-shadow-[0_0_12px_rgba(253,224,71,0.8)] w-7 h-7 sm:w-12 sm:h-12" 
                         strokeWidth={2} 
                         style={{ transform: `translateZ(5px)` }} 
                       />
                     </motion.div>
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-slate-800 mb-1 sm:mb-2 tracking-tight">Klaim Pesanan</h3>
-                  <p className="text-[14px] sm:text-[15px] text-slate-500 leading-relaxed">
+                  <h3 className="text-lg sm:text-2xl font-bold text-slate-800 mb-0.5 sm:mb-2 tracking-tight">Klaim Pesanan</h3>
+                  <p className="text-[13px] sm:text-[15px] text-slate-500 leading-relaxed">
                     Masukkan KODE AKSES rahasia dari Admin<br className="hidden sm:block"/>
                     untuk membuka pesanan Anda.
                   </p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 relative z-10">
+                <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-5 relative z-10">
                   <div>
                     <input
                       type="text"
@@ -153,14 +153,14 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
                         setPasscode(e.target.value.toUpperCase());
                         setError(false);
                       }}
-                      className={`w-full bg-white border rounded-xl px-5 py-4 text-center text-xl tracking-[0.2em] font-bold focus:outline-none transition-all shadow-sm ${
+                      className={`w-full bg-white border rounded-xl px-4 py-3 sm:px-5 sm:py-4 text-center text-lg sm:text-xl tracking-[0.2em] font-bold focus:outline-none transition-all shadow-sm ${
                         error ? "border-red-400 text-red-500 focus:ring-4 focus:ring-red-500/10" : "border-slate-200 focus:border-blue-500 text-slate-800 placeholder-slate-300 focus:ring-4 focus:ring-blue-500/10"
                       }`}
                       placeholder="KODE KUNCI"
                       autoFocus
                     />
                     {error && (
-                      <p className="text-red-500 text-sm mt-3 flex items-center justify-center gap-1.5 font-medium animate-in slide-in-from-top-1">
+                      <p className="text-red-500 text-[12px] sm:text-sm mt-2 sm:mt-3 flex items-center justify-center gap-1.5 font-medium animate-in slide-in-from-top-1">
                         <AlertCircle size={16} /> Kode tidak valid, coba lagi.
                       </p>
                     )}
@@ -169,7 +169,7 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
                   <button
                     type="submit"
                     disabled={loading || !passcode.trim()}
-                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 disabled:opacity-50 border border-blue-400/20 text-white font-semibold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(37,99,235,0.25)] hover:shadow-[0_0_25px_rgba(37,99,235,0.4)] hover:-translate-y-0.5 active:translate-y-0"
+                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 disabled:opacity-50 border border-blue-400/20 text-white text-[13px] sm:text-base font-semibold py-3 sm:py-4 rounded-xl transition-all flex items-center justify-center gap-1.5 sm:gap-2 shadow-[0_0_20px_rgba(37,99,235,0.25)] hover:shadow-[0_0_25px_rgba(37,99,235,0.4)] hover:-translate-y-0.5 active:translate-y-0"
                   >
                     {loading ? <Loader2 size={18} className="animate-spin" /> : <Lock size={18} className="fill-white/20" />} 
                     Buka Akses Pesanan
