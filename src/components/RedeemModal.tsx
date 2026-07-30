@@ -17,6 +17,8 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
   const [error, setError] = useState(false);
   const [redeemData, setRedeemData] = useState<RedeemLink | null>(null);
   const [hasReadGuide, setHasReadGuide] = useState(false);
+  const [isTerminalMode, setIsTerminalMode] = useState(false);
+  const [terminalLines, setTerminalLines] = useState<string[]>([]);
 
   // Reset state
   useEffect(() => {
@@ -29,8 +31,46 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
       setRedeemData(null);
       setError(false);
       setHasReadGuide(false);
+      setIsTerminalMode(false);
+      setTerminalLines([]);
     }
   }, [isOpen, initialPasscode]);
+
+  // Terminal sequence effect
+  useEffect(() => {
+    if (isTerminalMode && redeemData) {
+      const sequence = [
+        { text: "user@jio-server:~$ ./unlock_order.sh", delay: 0 },
+        { text: "[+] Initializing secure connection to server...", delay: 800 },
+        { text: "[+] Verifying credentials... OK", delay: 1500 },
+        { text: "[+] Decrypting payload... [██████████] 100%", delay: 2400 },
+        { text: "[+] Bypassing security layers... SUCCESS", delay: 3500 },
+        { text: "[+] Order successfully unlocked.", delay: 4200 },
+        { text: "user@jio-server:~$ Redirecting to secure link...", delay: 5000 }
+      ];
+
+      sequence.forEach(({ text, delay }) => {
+        setTimeout(() => {
+          setTerminalLines((prev) => [...prev, text]);
+        }, delay);
+      });
+
+      const timer = setTimeout(() => {
+        const targetUrl = redeemData.url;
+        if (!redeemData.isOpened) {
+          updateRedeemLink(redeemData.id, { isOpened: true })
+            .catch(console.error)
+            .finally(() => {
+              window.location.href = targetUrl;
+            });
+        } else {
+          window.location.href = targetUrl;
+        }
+      }, 5500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isTerminalMode, redeemData]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -100,7 +140,24 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
               <X size={20} />
             </button>
 
-            {!redeemData ? (
+            {isTerminalMode ? (
+              <div className="w-full bg-[#0a0a0a] text-green-400 p-6 sm:p-8 font-mono text-xs sm:text-sm min-h-[350px] flex flex-col relative overflow-hidden rounded-[24px]">
+                <div className="absolute top-0 left-0 right-0 h-8 bg-[#1a1a1a] flex items-center px-4 gap-2 border-b border-white/10">
+                  <div className="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
+                  <div className="ml-2 text-[10px] text-slate-500 font-sans tracking-wider">TERMINAL - ROOT</div>
+                </div>
+                <div className="mt-6 flex flex-col gap-2">
+                  {terminalLines.map((line, i) => (
+                    <div key={i} className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+                      {line}
+                    </div>
+                  ))}
+                  <div className="w-2 h-4 bg-green-400 animate-pulse mt-1"></div>
+                </div>
+              </div>
+            ) : !redeemData ? (
               /* Locked State */
               <div className="p-4 sm:p-10 relative overflow-hidden">
                 {/* Background Glow */}
@@ -217,29 +274,12 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
                   </div>
                 </div>
 
-                <a
-                  href={hasReadGuide ? redeemData.url : "#"}
+                <button
+                  type="button"
                   onClick={(e) => {
-                    if (!hasReadGuide) {
-                      e.preventDefault();
-                      return;
-                    }
-                    if (!redeemData.isOpened) {
-                      e.preventDefault();
-                      const targetUrl = redeemData.url;
-                      // Buka tab kosong dulu secara sinkron agar tidak diblokir popup blocker
-                      const newWindow = window.open('', '_blank');
-                      
-                      updateRedeemLink(redeemData.id, { isOpened: true })
-                        .catch(console.error)
-                        .finally(() => {
-                          if (newWindow) {
-                            newWindow.location.href = targetUrl;
-                          } else {
-                            window.location.href = targetUrl;
-                          }
-                        });
-                    }
+                    e.preventDefault();
+                    if (!hasReadGuide) return;
+                    setIsTerminalMode(true);
                   }}
                   className={`w-full font-bold py-3 sm:py-4 text-[13px] sm:text-base rounded-xl transition-all flex items-center justify-center gap-1.5 relative z-10 ${
                     hasReadGuide
@@ -249,7 +289,7 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
                 >
                   <Link2 size={20} />
                   Buka Link Pesanan Sekarang
-                </a>
+                </button>
               </div>
             )}
             </motion.div>
