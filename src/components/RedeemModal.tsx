@@ -78,7 +78,7 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
             onClick={onClose}
           />
 
-          <div className="flex min-h-[100dvh] items-center justify-center p-4">
+          <div className="flex min-h-[100dvh] items-center justify-center px-8 py-4 sm:p-4">
             {/* Modal Content */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 30 }}
