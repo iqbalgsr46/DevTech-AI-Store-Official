@@ -86,7 +86,7 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
             exit={{ opacity: 0, scale: 0.92, y: 20 }}
             transition={{ type: "spring", stiffness: 380, damping: 28, mass: 0.9 }}
             style={{ willChange: "transform, opacity" }}
-            className={`relative w-[85%] max-w-[280px] sm:w-full sm:max-w-none overflow-hidden border transform-gpu ${
+            className={`relative w-[85%] max-w-[280px] sm:w-full overflow-hidden border transform-gpu ${
               redeemData 
                 ? "bg-white sm:max-w-2xl rounded-2xl border-slate-100 shadow-[0_20px_60px_rgba(0,0,0,0.15)]" 
                 : "bg-white sm:max-w-md rounded-[24px] border-slate-100 shadow-[0_20px_60px_rgba(0,0,0,0.15)]"
