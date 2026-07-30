@@ -78,7 +78,7 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
             onClick={onClose}
           />
 
-          <div className="flex min-h-[100dvh] items-center justify-center px-12 py-6 sm:p-4">
+          <div className="flex min-h-[100dvh] items-center justify-center px-16 py-8 sm:p-4">
             {/* Modal Content */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 30 }}
@@ -178,24 +178,24 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
               </div>
             ) : (
               /* Unlocked State (Success) */
-              <div className="w-full bg-white text-slate-800 flex flex-col p-4 sm:p-10 relative overflow-hidden">
+              <div className="w-full bg-white text-slate-800 flex flex-col p-3 sm:p-10 relative overflow-hidden">
                 {/* Clean decorative background elements */}
                 <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-emerald-500/5 rounded-full blur-[80px] pointer-events-none"></div>
                 <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-blue-500/5 rounded-full blur-[60px] pointer-events-none"></div>
 
-                <div className="relative z-10 text-center mb-5 sm:mb-8">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-5 border border-emerald-100 shadow-sm">
-                    <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 text-emerald-500" />
+                <div className="relative z-10 text-center mb-4 sm:mb-8">
+                  <div className="w-14 h-14 sm:w-20 sm:h-20 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-5 border border-emerald-100 shadow-sm">
+                    <CheckCircle2 className="w-7 h-7 sm:w-10 sm:h-10 text-emerald-500" />
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2 text-slate-900">Akses Berhasil Dibuka!</h3>
-                  <p className="text-sm sm:text-base text-slate-500 font-medium">Pesanan Anda sudah siap digunakan.</p>
+                  <h3 className="text-lg sm:text-2xl font-bold mb-1 sm:mb-2 text-slate-900 leading-tight">Akses Berhasil Dibuka!</h3>
+                  <p className="text-[13px] sm:text-base text-slate-500 font-medium leading-snug">Pesanan Anda sudah siap digunakan.</p>
                 </div>
 
-                <div className="bg-amber-50/90 border border-amber-200 rounded-xl p-4 sm:p-6 mb-5 sm:mb-8 relative z-10 shadow-sm">
-                  <h4 className="font-bold text-amber-700 mb-2 sm:mb-3 flex items-center gap-2 text-[14px] sm:text-[15px]">
-                    <AlertCircle className="w-[16px] h-[16px] sm:w-[18px] sm:h-[18px] text-amber-600 animate-pulse" /> Wajib Baca: Panduan Aktivasi
+                <div className="bg-amber-50/90 border border-amber-200 rounded-xl p-3 sm:p-6 mb-4 sm:mb-8 relative z-10 shadow-sm">
+                  <h4 className="font-bold text-amber-700 mb-2 sm:mb-3 flex items-center gap-1.5 text-[13px] sm:text-[15px]">
+                    <AlertCircle className="w-[14px] h-[14px] sm:w-[18px] sm:h-[18px] text-amber-600 animate-pulse" /> Wajib Baca: Panduan Aktivasi
                   </h4>
-                  <div className="text-amber-900/90 text-[13px] sm:text-sm leading-relaxed whitespace-pre-wrap font-medium mb-3 sm:mb-4">
+                  <div className="text-amber-900/90 text-[12px] sm:text-sm leading-relaxed whitespace-pre-wrap font-medium mb-3 sm:mb-4">
                     {redeemData.guideText}
                   </div>
                   
@@ -210,7 +210,7 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
                         />
                         <CheckCircle2 size={14} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white opacity-0 peer-checked:opacity-100 transition-opacity pointer-events-none" />
                       </div>
-                      <span className="text-[13px] sm:text-sm font-bold text-amber-800 select-none group-hover:text-amber-900 transition-colors">
+                      <span className="text-[12px] sm:text-sm font-bold text-amber-800 select-none group-hover:text-amber-900 transition-colors leading-snug">
                         Saya sudah membaca dan memahami panduan aktivasi di atas.
                       </span>
                     </label>
@@ -241,7 +241,7 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
                         });
                     }
                   }}
-                  className={`w-full font-bold py-3.5 sm:py-4 text-[14px] sm:text-base rounded-xl transition-all flex items-center justify-center gap-2 relative z-10 ${
+                  className={`w-full font-bold py-3 sm:py-4 text-[13px] sm:text-base rounded-xl transition-all flex items-center justify-center gap-1.5 relative z-10 ${
                     hasReadGuide
                       ? "bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white shadow-[0_0_20px_rgba(16,185,129,0.25)] hover:shadow-[0_0_25px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
                       : "bg-slate-200 text-slate-400 cursor-not-allowed"
