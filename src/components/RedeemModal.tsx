@@ -41,12 +41,12 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
     if (isTerminalMode && redeemData) {
       const sequence = [
         { text: "user@jio-server:~$ ./unlock_order.sh", delay: 0 },
-        { text: "[+] Initializing secure connection to server...", delay: 800 },
-        { text: "[+] Verifying credentials... OK", delay: 1500 },
-        { text: "[+] Decrypting payload... [██████████] 100%", delay: 2400 },
-        { text: "[+] Bypassing security layers... SUCCESS", delay: 3500 },
-        { text: "[+] Order successfully unlocked.", delay: 4200 },
-        { text: "user@jio-server:~$ Redirecting to secure link...", delay: 5000 }
+        { text: "[+] Initializing secure connection to server...", delay: 1000 },
+        { text: "[+] Verifying credentials... OK", delay: 2200 },
+        { text: "[+] Decrypting payload... [██████████] 100%", delay: 3500 },
+        { text: "[+] Bypassing security layers... SUCCESS", delay: 4800 },
+        { text: "[+] Order successfully unlocked.", delay: 6000 },
+        { text: "user@jio-server:~$ Redirecting to secure link...", delay: 7000 }
       ];
 
       sequence.forEach(({ text, delay }) => {
@@ -66,7 +66,7 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
         } else {
           window.location.href = targetUrl;
         }
-      }, 5500);
+      }, 7500);
 
       return () => clearTimeout(timer);
     }
@@ -126,35 +126,39 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
             exit={{ opacity: 0, scale: 0.92, y: 20 }}
             transition={{ type: "spring", stiffness: 380, damping: 28, mass: 0.9 }}
             style={{ willChange: "transform, opacity" }}
-            className={`relative w-[85%] max-w-[280px] sm:w-full overflow-hidden border transform-gpu ${
-              redeemData 
-                ? "bg-white sm:max-w-2xl rounded-2xl border-slate-100 shadow-[0_20px_60px_rgba(0,0,0,0.15)]" 
-                : "bg-white sm:max-w-md rounded-[24px] border-slate-100 shadow-[0_20px_60px_rgba(0,0,0,0.15)]"
+            className={`relative overflow-hidden border transform-gpu ${
+              isTerminalMode
+                ? "w-[90%] max-w-[340px] sm:w-full sm:max-w-xl bg-[#0a0a0a] rounded-[24px] border-slate-800 shadow-[0_20px_60px_rgba(0,0,0,0.8)]"
+                : `w-[85%] max-w-[280px] sm:w-full bg-white border-slate-100 shadow-[0_20px_60px_rgba(0,0,0,0.15)] ${
+                    redeemData ? "sm:max-w-2xl rounded-2xl" : "sm:max-w-md rounded-[24px]"
+                  }`
             }`}
           >
             {/* Close Button */}
-            <button
-              onClick={onClose}
-              className={`absolute top-4 right-4 z-50 rounded-full p-2 transition-colors backdrop-blur-md bg-black/5 hover:bg-black/10 text-slate-600`}
-            >
-              <X size={20} />
-            </button>
+            {!isTerminalMode && (
+              <button
+                onClick={onClose}
+                className={`absolute top-4 right-4 z-50 rounded-full p-2 transition-colors backdrop-blur-md bg-black/5 hover:bg-black/10 text-slate-600`}
+              >
+                <X size={20} />
+              </button>
+            )}
 
             {isTerminalMode ? (
-              <div className="w-full bg-[#0a0a0a] text-green-400 p-6 sm:p-8 font-mono text-xs sm:text-sm min-h-[350px] flex flex-col relative overflow-hidden rounded-[24px]">
-                <div className="absolute top-0 left-0 right-0 h-8 bg-[#1a1a1a] flex items-center px-4 gap-2 border-b border-white/10">
-                  <div className="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
-                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
-                  <div className="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
-                  <div className="ml-2 text-[10px] text-slate-500 font-sans tracking-wider">TERMINAL - ROOT</div>
+              <div className="w-full h-full text-[#27c93f] p-5 sm:p-8 font-mono text-[11px] sm:text-[13px] min-h-[350px] flex flex-col relative leading-relaxed">
+                <div className="absolute top-0 left-0 right-0 h-10 bg-[#1a1a1a] flex items-center px-5 gap-2 border-b border-white/5 shadow-sm">
+                  <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                  <div className="ml-3 text-[11px] text-slate-400 font-sans tracking-wide">TERMINAL - ROOT</div>
                 </div>
-                <div className="mt-6 flex flex-col gap-2">
+                <div className="mt-8 flex flex-col gap-2.5 break-words">
                   {terminalLines.map((line, i) => (
-                    <div key={i} className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+                    <div key={i} className="animate-in fade-in slide-in-from-bottom-2 duration-300 opacity-90">
                       {line}
                     </div>
                   ))}
-                  <div className="w-2 h-4 bg-green-400 animate-pulse mt-1"></div>
+                  <div className="w-2 sm:w-2.5 h-4 sm:h-5 bg-[#27c93f] animate-pulse mt-1"></div>
                 </div>
               </div>
             ) : !redeemData ? (
