@@ -95,7 +95,7 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
             {/* Close Button */}
             <button
               onClick={onClose}
-              className={`absolute top-4 right-4 z-10 rounded-full p-2 transition-colors backdrop-blur-md bg-black/5 hover:bg-black/10 text-slate-600`}
+              className={`absolute top-4 right-4 z-50 rounded-full p-2 transition-colors backdrop-blur-md bg-black/5 hover:bg-black/10 text-slate-600`}
             >
               <X size={20} />
             </button>
