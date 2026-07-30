@@ -78,7 +78,7 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
             onClick={onClose}
           />
 
-          <div className="flex min-h-[100dvh] items-center justify-center px-8 py-4 sm:p-4">
+          <div className="flex min-h-[100dvh] items-center justify-center px-12 py-6 sm:p-4">
             {/* Modal Content */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 30 }}
@@ -178,7 +178,7 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
               </div>
             ) : (
               /* Unlocked State (Success) */
-              <div className="w-full bg-white text-slate-800 flex flex-col p-5 sm:p-10 relative overflow-hidden">
+              <div className="w-full bg-white text-slate-800 flex flex-col p-4 sm:p-10 relative overflow-hidden">
                 {/* Clean decorative background elements */}
                 <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-emerald-500/5 rounded-full blur-[80px] pointer-events-none"></div>
                 <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-blue-500/5 rounded-full blur-[60px] pointer-events-none"></div>
