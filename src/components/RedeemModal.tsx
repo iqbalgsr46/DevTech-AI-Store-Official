@@ -11,6 +11,45 @@ interface RedeemModalProps {
   initialPasscode?: string;
 }
 
+const TypewriterLine = ({ text, startDelay }: { text: string; startDelay: number }) => {
+  const [displayedText, setDisplayedText] = useState("");
+  const [hasStarted, setHasStarted] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    const initialDelay = setTimeout(() => {
+      setHasStarted(true);
+      setIsTyping(true);
+      let i = 0;
+      const type = () => {
+        if (i < text.length) {
+          setDisplayedText(text.substring(0, i + 1));
+          i++;
+          timeout = setTimeout(type, 15 + Math.random() * 25);
+        } else {
+          setIsTyping(false);
+        }
+      };
+      type();
+    }, startDelay);
+
+    return () => {
+      clearTimeout(initialDelay);
+      clearTimeout(timeout);
+    };
+  }, [text, startDelay]);
+
+  if (!hasStarted) return null;
+
+  return (
+    <div className="opacity-90">
+      {displayedText}
+      {isTyping && <span className="inline-block w-1.5 h-3 bg-[#27c93f] ml-1 align-middle animate-pulse" />}
+    </div>
+  );
+};
+
 export default function RedeemModal({ isOpen, onClose, initialPasscode }: RedeemModalProps) {
   const [passcode, setPasscode] = useState("");
   const [loading, setLoading] = useState(false);
@@ -18,7 +57,6 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
   const [redeemData, setRedeemData] = useState<RedeemLink | null>(null);
   const [hasReadGuide, setHasReadGuide] = useState(false);
   const [isTerminalMode, setIsTerminalMode] = useState(false);
-  const [terminalLines, setTerminalLines] = useState<string[]>([]);
 
   // Reset state
   useEffect(() => {
@@ -32,28 +70,22 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
       setError(false);
       setHasReadGuide(false);
       setIsTerminalMode(false);
-      setTerminalLines([]);
     }
   }, [isOpen, initialPasscode]);
 
-  // Terminal sequence effect
+  const terminalSequence = [
+    { text: "user@jio-server:~$ ./unlock_order.sh", delay: 0 },
+    { text: "[+] Initializing secure connection to server...", delay: 1000 },
+    { text: "[+] Verifying credentials... OK", delay: 2200 },
+    { text: "[+] Decrypting payload... [██████████] 100%", delay: 3500 },
+    { text: "[+] Bypassing security layers... SUCCESS", delay: 4800 },
+    { text: "[+] Order successfully unlocked.", delay: 6000 },
+    { text: "user@jio-server:~$ Redirecting to secure link...", delay: 7000 }
+  ];
+
+  // Terminal redirect effect
   useEffect(() => {
     if (isTerminalMode && redeemData) {
-      const sequence = [
-        { text: "user@jio-server:~$ ./unlock_order.sh", delay: 0 },
-        { text: "[+] Initializing secure connection to server...", delay: 1000 },
-        { text: "[+] Verifying credentials... OK", delay: 2200 },
-        { text: "[+] Decrypting payload... [██████████] 100%", delay: 3500 },
-        { text: "[+] Bypassing security layers... SUCCESS", delay: 4800 },
-        { text: "[+] Order successfully unlocked.", delay: 6000 },
-        { text: "user@jio-server:~$ Redirecting to secure link...", delay: 7000 }
-      ];
-
-      sequence.forEach(({ text, delay }) => {
-        setTimeout(() => {
-          setTerminalLines((prev) => [...prev, text]);
-        }, delay);
-      });
 
       const timer = setTimeout(() => {
         const targetUrl = redeemData.url;
@@ -153,12 +185,12 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
                   <div className="ml-3 text-[11px] text-slate-400 font-sans tracking-wide">TERMINAL - ROOT</div>
                 </div>
                 <div className="mt-8 flex flex-col gap-2.5 break-words">
-                  {terminalLines.map((line, i) => (
-                    <div key={i} className="animate-in fade-in slide-in-from-bottom-2 duration-300 opacity-90">
-                      {line}
-                    </div>
+                  {terminalSequence.map((item, i) => (
+                    <TypewriterLine key={i} text={item.text} startDelay={item.delay} />
                   ))}
-                  <div className="w-2 sm:w-2.5 h-4 sm:h-5 bg-[#27c93f] animate-pulse mt-1"></div>
+                  {!terminalSequence.find(item => item.delay > 7000) && (
+                    <div className="w-2 sm:w-2.5 h-4 sm:h-5 bg-[#27c93f] animate-pulse mt-1"></div>
+                  )}
                 </div>
               </div>
             ) : !redeemData ? (
