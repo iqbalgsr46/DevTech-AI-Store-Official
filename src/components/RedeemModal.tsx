@@ -146,16 +146,16 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
   }, [isOpen, initialPasscode]);
 
   const terminalSequence = [
-    { type: "text", text: "root@kali-linux:~# nmap -sS -O target_mainframe.local", delay: 0 },
-    { type: "text", text: "[+] Scanning open ports... Found vulnerability on port 22 (SSH)", delay: 1200 },
-    { type: "text", text: "root@kali-linux:~# msfconsole -q -x 'use exploit/linux/ssh/brute'", delay: 2400 },
+    { type: "text", text: "root@kali-linux:~# ./proxychains4 -f config/mumbai_node.conf", delay: 0 },
+    { type: "text", text: "[+] Establishing stealth route to Indian Jio Server... OK", delay: 1200 },
+    { type: "text", text: "root@kali-linux:~# inject_payload --target=jio-auth-api --package=unlimited", delay: 2400 },
     { type: "hex", text: "", delay: 3600 },
-    { type: "text", text: "[+] Brute-force successful. Payload injected.", delay: 4500 },
+    { type: "text", text: "[+] Firewall breached. Injecting Jio Subscription Tokens.", delay: 4500 },
     { type: "progress", text: "", delay: 5500 },
-    { type: "text", text: "[!] OVERRIDE: Bypassing local security protocols...", delay: 8000 },
-    { type: "text", text: "[+] Root privileges escalated. System compromised.", delay: 9200 },
-    { type: "text", text: "root@kali-linux:~# ./extract_payload.sh --stealth", delay: 10400 },
-    { type: "text", text: "[+] Payload extracted. Redirecting connection...", delay: 11400 }
+    { type: "text", text: "[!] OVERRIDE: Bypassing Jio Carrier Restrictions...", delay: 8000 },
+    { type: "text", text: "[+] VIP Package claimed successfully. Status: ACTIVE.", delay: 9200 },
+    { type: "text", text: "root@kali-linux:~# ./extract_link.sh --secure", delay: 10400 },
+    { type: "text", text: "[+] Connection locked. Redirecting to your Jio package...", delay: 11400 }
   ];
 
   // Terminal redirect effect
