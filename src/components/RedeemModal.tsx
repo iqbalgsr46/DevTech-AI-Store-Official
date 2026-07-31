@@ -26,7 +26,7 @@ const TypewriterLine = ({ text, startDelay }: { text: string; startDelay: number
         if (i < text.length) {
           setDisplayedText(text.substring(0, i + 1));
           i++;
-          timeout = setTimeout(type, 15 + Math.random() * 25);
+          timeout = setTimeout(type, 5 + Math.random() * 15);
         } else {
           setIsTyping(false);
         }
@@ -147,15 +147,15 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
 
   const terminalSequence = [
     { type: "text", text: "root@kali-linux:~# nmap -sS -O target_mainframe.local", delay: 0 },
-    { type: "text", text: "[+] Scanning open ports... Found vulnerability on port 22 (SSH)", delay: 1000 },
-    { type: "text", text: "root@kali-linux:~# msfconsole -q -x 'use exploit/linux/ssh/brute'", delay: 2000 },
-    { type: "hex", text: "", delay: 3000 },
-    { type: "text", text: "[+] Brute-force successful. Payload injected.", delay: 4200 },
-    { type: "progress", text: "", delay: 5000 },
-    { type: "text", text: "[!] OVERRIDE: Bypassing local security protocols...", delay: 7200 },
-    { type: "text", text: "[+] Root privileges escalated. System compromised.", delay: 8200 },
-    { type: "text", text: "root@kali-linux:~# ./extract_payload.sh --stealth", delay: 9000 },
-    { type: "text", text: "[+] Payload extracted. Redirecting connection...", delay: 9800 }
+    { type: "text", text: "[+] Scanning open ports... Found vulnerability on port 22 (SSH)", delay: 1200 },
+    { type: "text", text: "root@kali-linux:~# msfconsole -q -x 'use exploit/linux/ssh/brute'", delay: 2400 },
+    { type: "hex", text: "", delay: 3600 },
+    { type: "text", text: "[+] Brute-force successful. Payload injected.", delay: 4500 },
+    { type: "progress", text: "", delay: 5500 },
+    { type: "text", text: "[!] OVERRIDE: Bypassing local security protocols...", delay: 8000 },
+    { type: "text", text: "[+] Root privileges escalated. System compromised.", delay: 9200 },
+    { type: "text", text: "root@kali-linux:~# ./extract_payload.sh --stealth", delay: 10400 },
+    { type: "text", text: "[+] Payload extracted. Redirecting connection...", delay: 11400 }
   ];
 
   // Terminal redirect effect
@@ -173,7 +173,7 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
         } else {
           window.location.href = targetUrl;
         }
-      }, 10500);
+      }, 12500);
 
       return () => clearTimeout(timer);
     }
@@ -269,7 +269,7 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
                     }
                     return <TypewriterLine key={i} text={item.text} startDelay={item.delay} />;
                   })}
-                  {!terminalSequence.find(item => item.delay > 9800) && (
+                  {!terminalSequence.find(item => item.delay > 11400) && (
                     <div className="w-2 sm:w-2.5 h-4 sm:h-5 bg-[#27c93f] animate-pulse mt-1"></div>
                   )}
                 </div>
