@@ -50,6 +50,78 @@ const TypewriterLine = ({ text, startDelay }: { text: string; startDelay: number
   );
 };
 
+const ProgressBarLine = ({ startDelay }: { startDelay: number }) => {
+  const [progress, setProgress] = useState(0);
+  const [hasStarted, setHasStarted] = useState(false);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    const initialDelay = setTimeout(() => {
+      setHasStarted(true);
+      interval = setInterval(() => {
+        setProgress(p => {
+          if (p >= 100) {
+            clearInterval(interval);
+            return 100;
+          }
+          return p + Math.floor(Math.random() * 15) + 5;
+        });
+      }, 150);
+    }, startDelay);
+
+    return () => {
+      clearTimeout(initialDelay);
+      clearInterval(interval);
+    };
+  }, [startDelay]);
+
+  if (!hasStarted) return null;
+
+  const filled = Math.min(100, progress);
+  const bar = "█".repeat(Math.floor(filled / 5)) + "-".repeat(20 - Math.floor(filled / 5));
+  
+  return (
+    <div className="opacity-90 text-[#ffbd2e]">
+      [+] Decrypting RSA-2048 keys... [{bar}] {filled}%
+    </div>
+  );
+};
+
+const HexDumpLine = ({ startDelay }: { startDelay: number }) => {
+  const [lines, setLines] = useState<string[]>([]);
+  const [hasStarted, setHasStarted] = useState(false);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    const initialDelay = setTimeout(() => {
+      setHasStarted(true);
+      let count = 0;
+      interval = setInterval(() => {
+        if (count > 4) {
+          clearInterval(interval);
+          return;
+        }
+        const hex = Array.from({length: 6}, () => Math.floor(Math.random()*256).toString(16).padStart(2, '0')).join(' ');
+        setLines(l => [...l, `0x${Math.floor(Math.random()*10000).toString(16).padStart(4, '0')}: ${hex}`]);
+        count++;
+      }, 100);
+    }, startDelay);
+    
+    return () => {
+      clearTimeout(initialDelay);
+      clearInterval(interval);
+    }
+  }, [startDelay]);
+
+  if (!hasStarted) return null;
+
+  return (
+    <div className="opacity-60 text-[10px] leading-tight my-1.5 font-mono text-slate-400">
+      {lines.map((l, i) => <div key={i}>{l}</div>)}
+    </div>
+  );
+};
+
 export default function RedeemModal({ isOpen, onClose, initialPasscode }: RedeemModalProps) {
   const [passcode, setPasscode] = useState("");
   const [loading, setLoading] = useState(false);
@@ -74,13 +146,15 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
   }, [isOpen, initialPasscode]);
 
   const terminalSequence = [
-    { text: "user@jio-server:~$ ./unlock_order.sh", delay: 0 },
-    { text: "[+] Initializing secure connection to server...", delay: 1000 },
-    { text: "[+] Verifying credentials... OK", delay: 2200 },
-    { text: "[+] Decrypting payload... [██████████] 100%", delay: 3500 },
-    { text: "[+] Bypassing security layers... SUCCESS", delay: 4800 },
-    { text: "[+] Order successfully unlocked.", delay: 6000 },
-    { text: "user@jio-server:~$ Redirecting to secure link...", delay: 7000 }
+    { type: "text", text: "user@system:~$ ./inject_exploit --target=secure_vault", delay: 0 },
+    { type: "text", text: "[+] Establishing connection to mainframe... SUCCESS", delay: 1000 },
+    { type: "text", text: "[+] Bypassing firewall algorithms (Port 443)... OK", delay: 2000 },
+    { type: "hex", text: "", delay: 2800 },
+    { type: "progress", text: "", delay: 3500 },
+    { type: "text", text: "[!] WARNING: Intrusion detected. Deploying countermeasures...", delay: 5500 },
+    { type: "text", text: "[+] Countermeasures neutralized. Root access granted.", delay: 6800 },
+    { type: "text", text: "user@system:~$ Extracting order package... DONE", delay: 7800 },
+    { type: "text", text: "user@system:~$ Redirecting to secure channel...", delay: 8500 }
   ];
 
   // Terminal redirect effect
@@ -98,7 +172,7 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
         } else {
           window.location.href = targetUrl;
         }
-      }, 7500);
+      }, 9000);
 
       return () => clearTimeout(timer);
     }
@@ -185,10 +259,16 @@ export default function RedeemModal({ isOpen, onClose, initialPasscode }: Redeem
                   <div className="ml-3 text-[11px] text-slate-400 font-sans tracking-wide">TERMINAL - ROOT</div>
                 </div>
                 <div className="mt-8 flex flex-col gap-2.5 break-words">
-                  {terminalSequence.map((item, i) => (
-                    <TypewriterLine key={i} text={item.text} startDelay={item.delay} />
-                  ))}
-                  {!terminalSequence.find(item => item.delay > 7000) && (
+                  {terminalSequence.map((item, i) => {
+                    if (item.type === "progress") {
+                      return <ProgressBarLine key={i} startDelay={item.delay} />;
+                    }
+                    if (item.type === "hex") {
+                      return <HexDumpLine key={i} startDelay={item.delay} />;
+                    }
+                    return <TypewriterLine key={i} text={item.text} startDelay={item.delay} />;
+                  })}
+                  {!terminalSequence.find(item => item.delay > 8500) && (
                     <div className="w-2 sm:w-2.5 h-4 sm:h-5 bg-[#27c93f] animate-pulse mt-1"></div>
                   )}
                 </div>
